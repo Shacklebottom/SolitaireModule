@@ -4,9 +4,9 @@ namespace SolitaireDomain
 {
     public class Card
     {
-        Rank Rank { get; set; }
+        public Rank Rank { get; set; }
 
-        Suit Suit { get; set; }
+        public Suit Suit { get; set; }
 
 
         public Card(Rank rank, Suit suit)
@@ -14,6 +14,11 @@ namespace SolitaireDomain
             Rank = rank;
 
             Suit = suit;
+        }
+
+        public override string ToString()
+        {
+            return $"{Rank} of {Suit}";
         }
     }
 }

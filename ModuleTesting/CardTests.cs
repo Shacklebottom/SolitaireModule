@@ -4,7 +4,7 @@ using SolitaireDomain;
 namespace ModuleTesting
 {
     [TestClass]
-    public class UnitTest1
+    public class CardTests
     {
         [TestMethod]
 

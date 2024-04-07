@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomLogging", "CustomLogg
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolitaireDomain", "SolitaireDomain\SolitaireDomain.csproj", "{B6570A58-8541-4F72-9F09-157D294F56DE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModuleTesting", "ModuleTesting\ModuleTesting.csproj", "{C28BF158-C108-4436-A53A-F76BD34AC935}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModuleTesting", "ModuleTesting\ModuleTesting.csproj", "{BD2FB388-3346-442F-8BB0-885AC834BFE0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,10 @@ Global
 		{B6570A58-8541-4F72-9F09-157D294F56DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B6570A58-8541-4F72-9F09-157D294F56DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B6570A58-8541-4F72-9F09-157D294F56DE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C28BF158-C108-4436-A53A-F76BD34AC935}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C28BF158-C108-4436-A53A-F76BD34AC935}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C28BF158-C108-4436-A53A-F76BD34AC935}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C28BF158-C108-4436-A53A-F76BD34AC935}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD2FB388-3346-442F-8BB0-885AC834BFE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD2FB388-3346-442F-8BB0-885AC834BFE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD2FB388-3346-442F-8BB0-885AC834BFE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD2FB388-3346-442F-8BB0-885AC834BFE0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

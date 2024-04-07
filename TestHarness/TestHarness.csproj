@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CustomLogging\CustomLogging.csproj" />
+    <ProjectReference Include="..\SolitaireDomain\SolitaireDomain.csproj" />
   </ItemGroup>
 
 </Project>
