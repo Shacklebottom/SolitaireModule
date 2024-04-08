@@ -7,7 +7,7 @@ namespace ModuleTesting
     public class DeckTests
     {
         [TestMethod]
-        public void NumberOfCardsInDeck()
+        public void CardsNumberToFiftyTwo()
         {
             //Arrange
             var deck = new Deck();
@@ -19,7 +19,7 @@ namespace ModuleTesting
         }
 
         [TestMethod]
-        public void AreAllCardsUnique()
+        public void CardsAreAllUnique()
         {
             //Arrange
             var deck = new Deck();
@@ -32,7 +32,7 @@ namespace ModuleTesting
         }
 
         [TestMethod]
-        public void WasDeckShuffled()
+        public void DeckWasShuffled()
         {
             //Arrange
             var deck = new Deck();
@@ -48,7 +48,7 @@ namespace ModuleTesting
         }
 
         [TestMethod]
-        public void CanDeckDraw()
+        public void DeckCanDraw()
         {
             //Arrange
             var deck = new Deck();

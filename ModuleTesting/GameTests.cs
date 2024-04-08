@@ -9,7 +9,7 @@ namespace ModuleTesting
     public class GameTests
     {
         [TestMethod]
-        public void PlayerHasAName()
+        public void PlayerHasName()
         {
             //We're preserving the Player obj being passed in to the Game constructor :)
             //Arrange
@@ -47,13 +47,13 @@ namespace ModuleTesting
         }
 
         [TestMethod]
-        public void EachPileHasTheCorrectNumberOfCards()
+        public void PilesHaveTheCorrectCount()
         {
-            //Act
+            //Arrange
             var game = new Game(new Player("Player 1"));
             List<bool> correctCount = [];
 
-            //Arrange
+            //Act
             for (var i = 7; i > 0; i--)
             {
                 if (game.Piles[i - 1].Count == i)
@@ -72,7 +72,7 @@ namespace ModuleTesting
         }
 
         [TestMethod]
-        public void ThePilesHaveTwentyEightCards()
+        public void PilesHaveTwentyEightCardsTotal()
         {
             //Arrange
             var game = new Game(new Player("Player 1"));
@@ -85,6 +85,31 @@ namespace ModuleTesting
             Assert.AreEqual(28, pileCardsSum);
             //2. The deck has 24 of its 52 cards remaining.
             Assert.AreEqual(24, game.Deck.Cards.Count);
+        }
+
+        [TestMethod]
+        public void TheLastCardInEachPileIsFaceUp()
+        {
+            //Arrange
+            var game = new Game(new Player(""));
+
+            List<bool> faceUpCount = [];
+
+            //Act
+            for (var i = 7; i > 0; i--)
+            {
+                if (game.Piles[i - 1].Last().FaceUp == true)
+                {
+                    faceUpCount.Add(true);
+                }
+                else
+                {
+                    faceUpCount.Add(false);
+                }
+            }
+
+            //Assert
+            Assert.IsTrue(faceUpCount.TrueForAll(b => b == true));
         }
     }
 }

@@ -11,18 +11,25 @@ namespace SolitaireDomain
 
         public List<Card>[] Piles { get; set; } = [ [], [], [], [], [], [], [] ];
 
+        //Constructor
         public Game(Player player)
         {
-            Player = player;
+            InitializeGame(player);
+        }
 
-            for (int i = 7; i > 0; i--)
+        private void InitializeGame(Player player)
+        {
+            Player = player;
+            SetupPiles();
+
+            void SetupPiles()
             {
-                Piles[i - 1].AddRange(Deck.Draw(i));
+                for (int i = 7; i > 0; i--)
+                {
+                    Piles[i - 1].AddRange(Deck.Draw(i));
+                    Piles[i - 1].Last().FaceUp = true;
+                }
             }
-            //for (int i = 7; i > 0; i--)
-            //{
-            //    Piles[i - 1].Add(new Card(CardEnum.Rank.Ace, CardEnum.Suit.Diamonds)); 
-            //}
         }
     }
 }

@@ -8,6 +8,7 @@ namespace SolitaireDomain
 
         public Suit Suit { get; set; }
 
+        public bool FaceUp { get; set; } = false;
 
         public Card(Rank rank, Suit suit)
         {
