@@ -6,11 +6,20 @@ namespace ModuleTesting
     [TestClass]
     public class DeckTests
     {
+        //Global Test Variables
+        Deck deck = new();
+
+        [TestInitialize]
+        public void DeckTestsInitialize()
+        {
+            deck = new Deck();
+        }
+
         [TestMethod]
         public void CardsNumberToFiftyTwo()
         {
             //Arrange
-            var deck = new Deck();
+            //1. Global Initalizer
 
             //Act
 
@@ -22,10 +31,10 @@ namespace ModuleTesting
         public void CardsAreAllUnique()
         {
             //Arrange
-            var deck = new Deck();
+            //1. Global Initalizer
 
             //Act
-            int uniqueCardCount = deck.Cards.GroupBy(c => new { c.Rank, c.Suit }).Count();
+            int? uniqueCardCount = deck.Cards.GroupBy(c => new { c.Rank, c.Suit }).Count();
 
             //Assert
             Assert.AreEqual(52, uniqueCardCount);
@@ -35,15 +44,15 @@ namespace ModuleTesting
         public void DeckWasShuffled()
         {
             //Arrange
-            var deck = new Deck();
+            //1. Global Initalizer
 
             //Act
             deck.Shuffle();
 
             //Assert
             var firstFiveCards = deck.Cards.Take(5);
-            var areAllHearts = firstFiveCards.All(c => c.Suit == Suit.Hearts);
-            var sumFirstFive = firstFiveCards.Sum(c => (int)c.Rank);
+            bool areAllHearts = firstFiveCards.All(c => c.Suit == Suit.Hearts);
+            int sumFirstFive = firstFiveCards.Sum(c => (int)c.Rank);
             Assert.IsFalse(areAllHearts && sumFirstFive == 15, "First five cards were Ace - Five of Hearts");
         }
 
@@ -51,7 +60,7 @@ namespace ModuleTesting
         public void DeckCanDraw()
         {
             //Arrange
-            var deck = new Deck();
+            //1. Global Initalizer
             List<Card> firstThreeCards = deck.Cards.Take(3).ToList();
 
             //Act
