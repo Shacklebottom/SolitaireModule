@@ -1,7 +1,7 @@
 ﻿using SolitaireDomain;
 using static SolitaireDomain.CardEnum;
 
-namespace ModuleTesting
+namespace ModuleTesting.DomainObjTests
 {
     [TestClass]
     public class DeckTests

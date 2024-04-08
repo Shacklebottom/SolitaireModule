@@ -36,7 +36,5 @@ namespace SolitaireDomain
         {
             return Piles[pileIndex].Where(fu => fu.FaceUp == true).ToList();
         }
-
-
     }
 }
