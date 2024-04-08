@@ -48,11 +48,12 @@ namespace ModuleTesting
 
             //Act
             deck.Shuffle();
-
-            //Assert
             var firstFiveCards = deck.Cards.Take(5);
             bool areAllHearts = firstFiveCards.All(c => c.Suit == Suit.Hearts);
             int sumFirstFive = firstFiveCards.Sum(c => (int)c.Rank);
+
+            //Assert
+            //1. If the first five cards are NOT Hearts _and_ the first five cards DON'T sum to 15. If both are true, the deck hasn't been shuffled.
             Assert.IsFalse(areAllHearts && sumFirstFive == 15, "First five cards were Ace - Five of Hearts");
         }
 
