@@ -1,15 +1,11 @@
 ﻿using SolitaireDomain;
 using static SolitaireDomain.CardEnum;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
 
 namespace ModuleTesting
 {
     [TestClass]
     public class DeckTests
     {
-
-
         [TestMethod]
         public void NumberOfCardsInDeck()
         {
