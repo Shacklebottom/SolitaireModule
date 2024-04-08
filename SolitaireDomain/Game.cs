@@ -7,9 +7,9 @@ namespace SolitaireDomain
 
         public Player Player { get; set; } = new("");
 
-        public List<Card>[] Foundations { get; set; } = new List<Card>[4];
+        public List<Card>[] Foundations { get; set; } = [[], [], [], []];
 
-        public List<Card>[] Piles { get; set; } = [ [], [], [], [], [], [], [] ];
+        public List<Card>[] Piles { get; set; } = [[], [], [], [], [], [], []];
 
         //Constructor
         public Game(Player player)

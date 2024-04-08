@@ -1,7 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SolitaireDomain;
-using System.Numerics;
-using static SolitaireDomain.CardEnum;
+﻿using SolitaireDomain;
 
 namespace ModuleTesting
 {
@@ -92,7 +89,6 @@ namespace ModuleTesting
         {
             //Arrange
             var game = new Game(new Player(""));
-
             List<bool> faceUpCount = [];
 
             //Act
