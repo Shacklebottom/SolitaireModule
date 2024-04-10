@@ -11,6 +11,8 @@ namespace SolitaireDomain
 
         public List<Card>[] Piles { get; set; } = [[], [], [], [], [], [], []];
 
+        public List<Card> RevealedCards { get; set; } = [];
+
         //Constructor
         public Game(Player? player = null)
         {
@@ -44,9 +46,14 @@ namespace SolitaireDomain
             Piles[pileIndex].Last().FaceUp = true;
         }
 
-        //public List<Card> GetPile(int pileIndex)
-        //{
-        //    return Piles[pileIndex].Where(p => p.FaceUp == true).ToList();
-        //}
+        public List<Card> GetPile(int pileIndex)
+        {
+            return Piles[pileIndex].Where(p => p.FaceUp == true).ToList();
+        }
+
+        public void RevealFromDeck(int drawCount)
+        {
+            RevealedCards = Deck.Draw(drawCount);
+        }
     }
 }

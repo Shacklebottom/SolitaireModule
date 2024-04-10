@@ -111,17 +111,32 @@ namespace ModuleTesting
             Assert.AreEqual(true, game.Piles[pileIndex].Last().FaceUp);
         }
 
-        //[TestMethod]
-        //public void GetPileOnlyGetsFaceUpCards()
-        //{
-        //    //Arrange
-        //    //1. Global Initalizer
+        [TestMethod]
+        public void GetPileOnlyGetsFaceUpCards()
+        {
+            //Arrange
+            //1. Global Initalizer
 
-        //    //Act
-        //    var faceUpCards = game?.GetPile(0);
+            //Act
+            var faceUpCards = game.GetPile(0);
 
-        //    //Assert
-        //    Assert.AreEqual(true, faceUpCards?.TrueForAll(c => c.FaceUp == true));
-        //}
+            //Assert
+            Assert.AreEqual(true, faceUpCards.TrueForAll(c => c.FaceUp == true));
+        }
+
+        [TestMethod]
+        public void ANumberOfCardsWereRevealed()
+        {
+            //Arrange
+            //1. Global Initalizer
+            var drawCount = 3;
+
+            //Act
+            game.RevealFromDeck(drawCount);
+
+            //Assert
+
+            Assert.AreEqual(drawCount, game.RevealedCards.Count);
+        }
     }
 }
