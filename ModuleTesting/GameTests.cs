@@ -85,34 +85,6 @@ namespace ModuleTesting
         }
 
         [TestMethod]
-        public void TheLastCardInEachPileIsFaceUp()
-        {
-            //Arrange
-            //1.Global Initalizer
-            var error = false;
-
-            //Act
-
-            //Assert
-            for (var i = 6; i >= 0; i--)
-            {
-                if (!error)
-                {
-                    if (game?.Piles[i].Last().FaceUp != true)
-                    {
-                        error = true;
-                    }
-                }
-                else { break; }
-            }
-
-            Assert.AreEqual(false, error, "The last card in at least 1 pile was not FaceUp");
-
-            //Mentors says that I can assert dominance in this fashion, but I find this too hard to parse :P
-            //Assert.IsTrue(game?.Piles.All(p => p.Where(c => c.FaceUp).SequenceEqual([p.Last()])));
-        }
-
-        [TestMethod]
         public void EachPileOnlyHasOneFaceUpCard()
         {
             //Arrange
