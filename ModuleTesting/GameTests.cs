@@ -9,7 +9,7 @@ namespace ModuleTesting
     {
         //Global Test Variables
         Player? player;
-        Game? game;
+        Game game = new();
 
         [TestInitialize]
         public void GameTestsInitialize()
@@ -29,7 +29,7 @@ namespace ModuleTesting
             //Act
 
             //Assert
-            Assert.AreEqual("Player 1", game?.Player.Name);
+            Assert.AreEqual("Player 1", game.Player?.Name);
         }
 
         [TestMethod]
@@ -41,7 +41,7 @@ namespace ModuleTesting
             //Act
 
             //Assert
-            Assert.IsTrue(game?.Foundations.Length == 4);
+            Assert.IsTrue(game.Foundations.Length == 4);
         }
 
         [TestMethod]
@@ -53,7 +53,7 @@ namespace ModuleTesting
             //Act
 
             //Assert
-            Assert.IsTrue(game?.Piles.Length == 7);
+            Assert.IsTrue(game.Piles.Length == 7);
         }
 
         [TestMethod]
@@ -70,7 +70,7 @@ namespace ModuleTesting
             {
                 if (!error)
                 {
-                    if (game?.Piles[i].Count != i + 1)
+                    if (game.Piles[i].Count != i + 1)
                     {
                         error = true;
                     }
@@ -93,14 +93,22 @@ namespace ModuleTesting
             //Act
 
             //Assert
-
-            Assert.IsTrue(game?.Piles.Select(p => p.Where(c => c.FaceUp)).Count() == expectedCount);
+            Assert.IsTrue(game.Piles.Select(p => p.Where(c => c.FaceUp)).Count() == expectedCount);
         }
 
         [TestMethod]
         public void PlayerCanFlipACardFaceUp()
         {
+            //Arrange
+            //1.Global Initalizer
+            var pileIndex = 0;
+            game.Piles[pileIndex].Last().FaceUp = false;
 
+            //Act
+            game.FlipPileCard(pileIndex);
+
+            //Assert
+            Assert.AreEqual(true, game.Piles[pileIndex].Last().FaceUp);
         }
 
         //[TestMethod]

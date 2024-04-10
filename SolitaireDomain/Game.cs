@@ -5,21 +5,28 @@ namespace SolitaireDomain
     {
         public Deck Deck { get; set; } = new();
 
-        public Player Player { get; set; } = new("");
+        public Player? Player { get; set; }
 
         public List<Card>[] Foundations { get; set; } = [[], [], [], []];
 
         public List<Card>[] Piles { get; set; } = [[], [], [], [], [], [], []];
 
         //Constructor
-        public Game(Player player)
+        public Game(Player? player = null)
         {
             InitializeGame(player);
         }
 
-        private void InitializeGame(Player player)
+        private void InitializeGame(Player? player)
         {
-            Player = player;
+            if (player != null)
+            {
+                Player = player;
+            }
+            else
+            {
+                Player = new("");
+            }
             SetupPiles();
 
             void SetupPiles()
@@ -30,6 +37,11 @@ namespace SolitaireDomain
                     Piles[i].Last().FaceUp = true;
                 }
             }
+        }
+
+        public void FlipPileCard(int pileIndex)
+        {
+            Piles[pileIndex].Last().FaceUp = true;
         }
 
         //public List<Card> GetPile(int pileIndex)
