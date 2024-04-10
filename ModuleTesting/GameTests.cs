@@ -1,6 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿
 using SolitaireDomain;
-using System.Xml.Linq;
 
 namespace ModuleTesting
 {
@@ -8,14 +7,14 @@ namespace ModuleTesting
     public class GameTests
     {
         //Global Test Variables
-        Player player = new();
-        Game game = new();
+        private Player _player = new();
+        private Game _game = new();
 
         [TestInitialize]
         public void GameTestsInitialize()
         {
-            player = new Player("Player 1");
-            game = new Game(player);
+            _player = new Player("Player 1");
+            _game = new Game(_player);
         }
 
         [TestMethod]
@@ -29,7 +28,7 @@ namespace ModuleTesting
             //Act
 
             //Assert
-            Assert.AreEqual("Player 1", game.Player.Name);
+            Assert.AreEqual("Player 1", _game.Player.Name);
         }
 
         [TestMethod]
@@ -41,7 +40,7 @@ namespace ModuleTesting
             //Act
 
             //Assert
-            Assert.IsTrue(game.Foundations.Length == 4);
+            Assert.IsTrue(_game.Foundations.Length == 4);
         }
 
         [TestMethod]
@@ -53,7 +52,7 @@ namespace ModuleTesting
             //Act
 
             //Assert
-            Assert.IsTrue(game.Piles.Length == 7);
+            Assert.IsTrue(_game.Piles.Length == 7);
         }
 
         [TestMethod]
@@ -70,7 +69,7 @@ namespace ModuleTesting
             {
                 if (!error)
                 {
-                    if (game.Piles[i].Count != i + 1)
+                    if (_game.Piles[i].Count != i + 1)
                     {
                         error = true;
                     }
@@ -93,7 +92,7 @@ namespace ModuleTesting
             //Act
 
             //Assert
-            Assert.IsTrue(game.Piles.Select(p => p.Where(c => c.FaceUp)).Count() == expectedCount);
+            Assert.IsTrue(_game.Piles.Select(p => p.Where(c => c.FaceUp)).Count() == expectedCount);
         }
 
         [TestMethod]
@@ -102,13 +101,13 @@ namespace ModuleTesting
             //Arrange
             //1.Global Initalizer
             var pileIndex = 0;
-            game.Piles[pileIndex].Last().FaceUp = false;
+            _game.Piles[pileIndex].Last().FaceUp = false;
 
             //Act
-            game.FlipPileCard(pileIndex);
+            _game.FlipPileCard(pileIndex);
 
             //Assert
-            Assert.AreEqual(true, game.Piles[pileIndex].Last().FaceUp);
+            Assert.AreEqual(true, _game.Piles[pileIndex].Last().FaceUp);
         }
 
         [TestMethod]
@@ -118,7 +117,7 @@ namespace ModuleTesting
             //1. Global Initalizer
 
             //Act
-            var faceUpCards = game.GetPile(0);
+            var faceUpCards = _game.GetPile(0);
 
             //Assert
             Assert.AreEqual(true, faceUpCards.TrueForAll(c => c.FaceUp == true));
@@ -132,11 +131,10 @@ namespace ModuleTesting
             var drawCount = 3;
 
             //Act
-            game.RevealFromDeck(drawCount);
+            _game.RevealFromDeck(drawCount);
 
             //Assert
-
-            Assert.AreEqual(drawCount, game.RevealedCards.Count);
+            Assert.AreEqual(drawCount, _game.RevealedCards.Count);
         }
     }
 }

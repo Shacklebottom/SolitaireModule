@@ -28,7 +28,7 @@ namespace SolitaireDomain
             SetupPiles();
         }
 
-        public void SetupPiles()
+        private void SetupPiles()
         {
             for (int i = 6; i >= 0; i--)
             {
