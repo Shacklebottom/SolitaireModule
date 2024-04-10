@@ -1,4 +1,6 @@
-﻿using SolitaireDomain;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SolitaireDomain;
+using System.Xml.Linq;
 
 namespace ModuleTesting
 {
@@ -59,24 +61,24 @@ namespace ModuleTesting
         {
             //Arrange
             //1. Global Initalizer
-            List<bool> correctCount = [];
+            var error = false;
 
             //Act
 
             //Assert.Dominance
-            for (var i = 7; i > 0; i--)
+            for (var i = 6; i >= 0; i--)
             {
-                if (game?.Piles[i - 1].Count == i)
+                if (!error)
                 {
-                    correctCount.Add(true);
+                    if (game?.Piles[i].Count != i + 1)
+                    {
+                        error = true;
+                    }
                 }
-                else
-                {
-                    correctCount.Add(false);
-                }
+                else { break; }
             }
-            //1. Each pile, starting at the last and moving to the first, has 7 cards, then 6, then 5, [...], then 1.
-            Assert.IsTrue(correctCount.TrueForAll(b => b == true));
+            //We are testing for (Index + 1) number of cards in each pile.
+            Assert.AreEqual(false, error, "At least 1 pile doesn't have the correct number of cards");
 
             //Mentors says that I can assert dominance in this fashion, but I find this too hard to parse :P
             //Assert.IsTrue(game.Piles.Select((item, index) => new { item, index }).All(x => x.item.Count == x.index + 1));
@@ -85,31 +87,48 @@ namespace ModuleTesting
         [TestMethod]
         public void TheLastCardInEachPileIsFaceUp()
         {
-            //Refactor note: add a new test for the FaceDown cards OR handle FaceDown cards here.
-            //Refactor to check for the first Fail Condition instead of checking for every True Condition.
-
             //Arrange
             //1.Global Initalizer
-            List<bool> faceUpCount = [];
+            var error = false;
 
             //Act
 
             //Assert
-            for (var i = 7; i > 0; i--)
+            for (var i = 6; i >= 0; i--)
             {
-                if (game?.Piles[i - 1].Last().FaceUp == true)
+                if (!error)
                 {
-                    faceUpCount.Add(true);
+                    if (game?.Piles[i].Last().FaceUp != true)
+                    {
+                        error = true;
+                    }
                 }
-                else
-                {
-                    faceUpCount.Add(false);
-                }
+                else { break; }
             }
-            Assert.IsTrue(faceUpCount.TrueForAll(b => b == true));
+
+            Assert.AreEqual(false, error, "The last card in at least 1 pile was not FaceUp");
 
             //Mentors says that I can assert dominance in this fashion, but I find this too hard to parse :P
             //Assert.IsTrue(game?.Piles.All(p => p.Where(c => c.FaceUp).SequenceEqual([p.Last()])));
+        }
+
+        [TestMethod]
+        public void EachPileOnlyHasOneFaceUpCard()
+        {
+            //Arrange
+            //1.Global Initalizer
+            var expectedCount = 7;
+            //Act
+
+            //Assert
+
+            Assert.IsTrue(game?.Piles.Select(p => p.Where(c => c.FaceUp)).Count() == expectedCount);
+        }
+
+        [TestMethod]
+        public void PlayerCanFlipACardFaceUp()
+        {
+
         }
 
         //[TestMethod]

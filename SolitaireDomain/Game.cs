@@ -24,17 +24,17 @@ namespace SolitaireDomain
 
             void SetupPiles()
             {
-                for (int i = 7; i > 0; i--)
+                for (int i = 6; i >= 0; i--)
                 {
-                    Piles[i - 1].AddRange(Deck.Draw(i));
-                    Piles[i - 1].Last().FaceUp = true;
+                    Piles[i].AddRange(Deck.Draw(i + 1));
+                    Piles[i].Last().FaceUp = true;
                 }
             }
         }
 
         //public List<Card> GetPile(int pileIndex)
         //{
-        //    return Piles[pileIndex].Where(fu => fu.FaceUp == true).ToList();
+        //    return Piles[pileIndex].Where(p => p.FaceUp == true).ToList();
         //}
     }
 }
