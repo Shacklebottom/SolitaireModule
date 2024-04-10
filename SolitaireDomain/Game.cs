@@ -5,7 +5,7 @@ namespace SolitaireDomain
     {
         public Deck Deck { get; set; } = new();
 
-        public Player? Player { get; set; }
+        public Player Player { get; set; }
 
         public List<Card>[] Foundations { get; set; } = [[], [], [], []];
 
@@ -16,11 +16,6 @@ namespace SolitaireDomain
         //Constructor
         public Game(Player? player = null)
         {
-            InitializeGame(player);
-        }
-
-        private void InitializeGame(Player? player)
-        {
             if (player != null)
             {
                 Player = player;
@@ -29,15 +24,16 @@ namespace SolitaireDomain
             {
                 Player = new("");
             }
-            SetupPiles();
 
-            void SetupPiles()
+            SetupPiles();
+        }
+
+        public void SetupPiles()
+        {
+            for (int i = 6; i >= 0; i--)
             {
-                for (int i = 6; i >= 0; i--)
-                {
-                    Piles[i].AddRange(Deck.Draw(i + 1));
-                    Piles[i].Last().FaceUp = true;
-                }
+                Piles[i].AddRange(Deck.Draw(i + 1));
+                Piles[i].Last().FaceUp = true;
             }
         }
 

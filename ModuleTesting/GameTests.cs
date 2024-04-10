@@ -8,7 +8,7 @@ namespace ModuleTesting
     public class GameTests
     {
         //Global Test Variables
-        Player? player;
+        Player player = new();
         Game game = new();
 
         [TestInitialize]
@@ -29,7 +29,7 @@ namespace ModuleTesting
             //Act
 
             //Assert
-            Assert.AreEqual("Player 1", game.Player?.Name);
+            Assert.AreEqual("Player 1", game.Player.Name);
         }
 
         [TestMethod]
