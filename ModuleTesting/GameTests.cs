@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SolitaireDomain;
 
 namespace ModuleTesting
@@ -89,6 +90,7 @@ namespace ModuleTesting
             //Arrange
             //1.Global Initalizer
             var expectedCount = 7;
+
             //Act
 
             //Assert
@@ -120,7 +122,7 @@ namespace ModuleTesting
             var faceUpCards = _game.GetPile(0);
 
             //Assert
-            Assert.AreEqual(true, faceUpCards.TrueForAll(c => c.FaceUp == true));
+            Assert.IsTrue(_game.RevealedCards.TrueForAll(c => c.FaceUp == true));
         }
 
         [TestMethod]
@@ -134,7 +136,23 @@ namespace ModuleTesting
             _game.RevealFromDeck(drawCount);
 
             //Assert
+            //1. The correct number of cards are present.
             Assert.AreEqual(drawCount, _game.RevealedCards.Count);
+            //2. and, each card revealed is FaceUp.
+            Assert.IsTrue(_game.RevealedCards.TrueForAll(c => c.FaceUp == true));
+        }
+
+        [TestMethod]
+        public void ThePlayerPickedUpCardsFromACollection()
+        {
+            //Arrange
+            //1. Global Initializer
+            
+
+            //Act
+
+            //Assert
+
         }
     }
 }

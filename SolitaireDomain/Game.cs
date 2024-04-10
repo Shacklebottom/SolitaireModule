@@ -50,6 +50,8 @@ namespace SolitaireDomain
         public void RevealFromDeck(int drawCount)
         {
             RevealedCards = Deck.Draw(drawCount);
+
+            RevealedCards.ForEach(c => c.FaceUp = true);
         }
     }
 }
