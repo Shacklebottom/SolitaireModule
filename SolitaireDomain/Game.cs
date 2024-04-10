@@ -32,9 +32,9 @@ namespace SolitaireDomain
             }
         }
 
-        public List<Card> GetPile(int pileIndex)
-        {
-            return Piles[pileIndex].Where(fu => fu.FaceUp == true).ToList();
-        }
+        //public List<Card> GetPile(int pileIndex)
+        //{
+        //    return Piles[pileIndex].Where(fu => fu.FaceUp == true).ToList();
+        //}
     }
 }

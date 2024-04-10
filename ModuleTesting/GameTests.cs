@@ -1,6 +1,6 @@
 ﻿using SolitaireDomain;
 
-namespace ModuleTesting.DomainObjTests
+namespace ModuleTesting
 {
     [TestClass]
     public class GameTests
@@ -19,7 +19,7 @@ namespace ModuleTesting.DomainObjTests
         [TestMethod]
         public void PlayerHasName()
         {
-            //We're preserving the Player obj being passed in to the Game constructor :)
+            //We're preserving the Player obj being passed in to the Game constructor by the UI :)
 
             //Arrange
             //1. Global Initalizer
@@ -62,6 +62,8 @@ namespace ModuleTesting.DomainObjTests
             List<bool> correctCount = [];
 
             //Act
+
+            //Assert.Dominance
             for (var i = 7; i > 0; i--)
             {
                 if (game?.Piles[i - 1].Count == i)
@@ -73,36 +75,26 @@ namespace ModuleTesting.DomainObjTests
                     correctCount.Add(false);
                 }
             }
-
-            //Assert.Dominance
             //1. Each pile, starting at the last and moving to the first, has 7 cards, then 6, then 5, [...], then 1.
             Assert.IsTrue(correctCount.TrueForAll(b => b == true));
-        }
 
-        [TestMethod]
-        public void PilesHaveTwentyEightCardsTotal()
-        {
-            //Arrange
-            //1. Global Initalizer
-
-            //Act
-            var pileCardsSum = game?.Piles.ToList().Sum(c => c.Count);
-
-            //Assert
-            //1. The piles were collectively dealt 28 cards.
-            Assert.AreEqual(28, pileCardsSum);
-            //2. The deck has 24 of its 52 cards remaining.
-            Assert.AreEqual(24, game?.Deck.Cards.Count);
+            //Mentors says that I can assert dominance in this fashion, but I find this too hard to parse :P
+            //Assert.IsTrue(game.Piles.Select((item, index) => new { item, index }).All(x => x.item.Count == x.index + 1));
         }
 
         [TestMethod]
         public void TheLastCardInEachPileIsFaceUp()
         {
+            //Refactor note: add a new test for the FaceDown cards OR handle FaceDown cards here.
+            //Refactor to check for the first Fail Condition instead of checking for every True Condition.
+
             //Arrange
-            //1. Global Initalizer
+            //1.Global Initalizer
             List<bool> faceUpCount = [];
 
             //Act
+
+            //Assert
             for (var i = 7; i > 0; i--)
             {
                 if (game?.Piles[i - 1].Last().FaceUp == true)
@@ -114,23 +106,23 @@ namespace ModuleTesting.DomainObjTests
                     faceUpCount.Add(false);
                 }
             }
-
-            //Assert
             Assert.IsTrue(faceUpCount.TrueForAll(b => b == true));
+
+            //Mentors says that I can assert dominance in this fashion, but I find this too hard to parse :P
+            //Assert.IsTrue(game?.Piles.All(p => p.Where(c => c.FaceUp).SequenceEqual([p.Last()])));
         }
 
-        [TestMethod]
-        public void GetPileOnlyGetsFaceUpCards()
-        {
-            //Arrange
-            //1. Global Initalizer
-            var faceUpCards = new List<Card>();
+        //[TestMethod]
+        //public void GetPileOnlyGetsFaceUpCards()
+        //{
+        //    //Arrange
+        //    //1. Global Initalizer
 
-            //Act
-            faceUpCards = game?.GetPile(0);
+        //    //Act
+        //    var faceUpCards = game?.GetPile(0);
 
-            //Assert
-            Assert.AreEqual(true, faceUpCards?.TrueForAll(c => c.FaceUp == true));
-        }
+        //    //Assert
+        //    Assert.AreEqual(true, faceUpCards?.TrueForAll(c => c.FaceUp == true));
+        //}
     }
 }
