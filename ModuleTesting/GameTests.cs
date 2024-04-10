@@ -61,27 +61,13 @@ namespace ModuleTesting
         {
             //Arrange
             //1. Global Initalizer
-            var error = false;
 
             //Act
 
             //Assert.Dominance
-            for (var i = 6; i >= 0; i--)
-            {
-                if (!error)
-                {
-                    if (_game.Piles[i].Count != i + 1)
-                    {
-                        error = true;
-                    }
-                }
-                else { break; }
-            }
-            //We are testing for (Index + 1) number of cards in each pile.
-            Assert.AreEqual(false, error, "At least 1 pile doesn't have the correct number of cards");
-
-            //Mentors says that I can assert dominance in this fashion, but I find this too hard to parse :P
-            //Assert.IsTrue(game.Piles.Select((item, index) => new { item, index }).All(x => x.item.Count == x.index + 1));
+            //1. We are testing for Piles[index].Count == index + 1;
+            Assert.IsTrue(_game.Piles.Select((item, index) => new { item, index }).All(x => x.item.Count == x.index + 1),
+                "At least 1 pile doesn't have the correct number of cards");
         }
 
         [TestMethod]
@@ -89,12 +75,11 @@ namespace ModuleTesting
         {
             //Arrange
             //1.Global Initalizer
-            var expectedCount = 7;
 
             //Act
 
-            //Assert
-            Assert.IsTrue(_game.Piles.Select(p => p.Where(c => c.FaceUp)).Count() == expectedCount);
+            //Assert.Dominance
+            Assert.IsTrue(_game.Piles.All(p => p.Count(c => c.FaceUp) == 1));
         }
 
         [TestMethod]
@@ -122,7 +107,7 @@ namespace ModuleTesting
             var faceUpCards = _game.GetPile(0);
 
             //Assert
-            Assert.IsTrue(_game.RevealedCards.TrueForAll(c => c.FaceUp == true));
+            Assert.IsTrue(faceUpCards.TrueForAll(c => c.FaceUp == true));
         }
 
         [TestMethod]
