@@ -13,7 +13,7 @@ namespace SolitaireDomain
 
         public List<Card>[] Piles { get; set; } = [[], [], [], [], [], [], []];
 
-        public List<Card> RevealedCards { get; set; } = [];
+        public List<Card> FlippedCards { get; set; } = [];
 
         //Constructor
         public Game(Player? player = null)
@@ -49,11 +49,11 @@ namespace SolitaireDomain
             return Piles[pileIndex].Where(p => p.FaceUp == true).ToList();
         }
 
-        public void RevealFromDeck(int drawCount)
+        public void FlipFromDeck(int drawCount)
         {
-            RevealedCards = Deck.Draw(drawCount);
+            FlippedCards = Deck.Draw(drawCount);
 
-            RevealedCards.ForEach(c => c.FaceUp = true);
+            FlippedCards.ForEach(c => c.FaceUp = true);
         }
 
         public List<Card> PickUpCards(IEnumerable<Card> collection)
@@ -63,16 +63,19 @@ namespace SolitaireDomain
 
         public List<Card> PutDownCards(IEnumerable<Card> collection)
         {
+            var faceDownCards = collection.Where(c => c.FaceUp == false).ToList();
+            var faceUpCards = collection.Where(c => c.FaceUp == true).ToList();
+
             if (Player.Holding.First().Rank != collection.Last().Rank - 1)
             {
                 return collection.ToList();
             }
             else
             {
-                List<Card> cards = collection.ToList();
-                cards.AddRange(Player.Holding);
-
-                return cards;
+                faceUpCards.AddRange(Player.Holding);
+                var fullCollection = faceDownCards;
+                fullCollection.AddRange(faceUpCards);
+                return fullCollection;
             }
         }
     }
