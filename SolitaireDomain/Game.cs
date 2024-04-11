@@ -13,7 +13,7 @@ namespace SolitaireDomain
 
         public List<Card>[] Piles { get; set; } = [[], [], [], [], [], [], []];
 
-        public List<Card> FlippedCards { get; set; } = [];
+        public Stack<Card> FlippedCards { get; set; } = [];
 
         //Constructor
         public Game(Player? player = null)
@@ -44,16 +44,14 @@ namespace SolitaireDomain
             Piles[pileIndex].Last().FaceUp = true;
         }
 
+        public void FlipFromDeck(int drawCount)
+        {
+            Deck.Draw(drawCount).ForEach(c => { c.FaceUp = true; FlippedCards.Push(c); });
+        }
+
         public List<Card> GetPile(int pileIndex)
         {
             return Piles[pileIndex].Where(p => p.FaceUp == true).ToList();
-        }
-
-        public void FlipFromDeck(int drawCount)
-        {
-            FlippedCards = Deck.Draw(drawCount);
-
-            FlippedCards.ForEach(c => c.FaceUp = true);
         }
     }
 }
