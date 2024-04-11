@@ -1,4 +1,6 @@
 ﻿
+using System.Linq;
+
 namespace SolitaireDomain
 {
     public class Game
@@ -52,6 +54,26 @@ namespace SolitaireDomain
             RevealedCards = Deck.Draw(drawCount);
 
             RevealedCards.ForEach(c => c.FaceUp = true);
+        }
+
+        public List<Card> PickUpCards(IEnumerable<Card> collection)
+        {
+            return collection.Where(c => c.FaceUp == true).ToList();
+        }
+
+        public List<Card> PutDownCards(IEnumerable<Card> collection)
+        {
+            //if (Player.Holding.First().Rank != collection.Last().Rank - 1)
+            //{
+            //    return collection.ToList();
+            //}
+            //else
+            //{
+            List<Card> cards = collection.ToList();
+            cards.AddRange(Player.Holding);
+
+            return cards;
+            //}
         }
     }
 }
