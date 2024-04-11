@@ -63,17 +63,17 @@ namespace SolitaireDomain
 
         public List<Card> PutDownCards(IEnumerable<Card> collection)
         {
-            //if (Player.Holding.First().Rank != collection.Last().Rank - 1)
-            //{
-            //    return collection.ToList();
-            //}
-            //else
-            //{
-            List<Card> cards = collection.ToList();
-            cards.AddRange(Player.Holding);
+            if (Player.Holding.First().Rank != collection.Last().Rank - 1)
+            {
+                return collection.ToList();
+            }
+            else
+            {
+                List<Card> cards = collection.ToList();
+                cards.AddRange(Player.Holding);
 
-            return cards;
-            //}
+                return cards;
+            }
         }
     }
 }

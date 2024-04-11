@@ -10,16 +10,16 @@ namespace ModuleTesting
     public class GameTests
     {
         //Global Test Variables
-        private Player _mockPlayer = new();
-        private Game _mockGame = new();
-        private List<Card> _mockCollection = [];
+        private Player _testPlayer { get; set; } = new();
+        private Game _testGame { get; set; } = new();
+        private List<Card> _testCollection { get; set; } = [];
 
         [TestInitialize]
         public void GameTestsInitialize()
         {
-            _mockPlayer = new Player("Player 1");
-            _mockGame = new Game(_mockPlayer);
-            _mockCollection = new List<Card>()
+            _testPlayer = new Player("Player 1");
+            _testGame = new Game(_testPlayer);
+            _testCollection = new List<Card>()
             {
                 new (Rank.Five, Suit.Diamonds),
                 new (Rank.Four, Suit.Hearts),
@@ -39,7 +39,7 @@ namespace ModuleTesting
             //Act
 
             //Assert
-            Assert.AreEqual("Player 1", _mockGame.Player.Name);
+            Assert.AreEqual("Player 1", _testGame.Player.Name);
         }
 
         [TestMethod]
@@ -51,7 +51,7 @@ namespace ModuleTesting
             //Act
 
             //Assert
-            Assert.IsTrue(_mockGame.Foundations.Length == 4);
+            Assert.IsTrue(_testGame.Foundations.Length == 4);
         }
 
         [TestMethod]
@@ -63,7 +63,7 @@ namespace ModuleTesting
             //Act
 
             //Assert
-            Assert.IsTrue(_mockGame.Piles.Length == 7);
+            Assert.IsTrue(_testGame.Piles.Length == 7);
         }
 
         [TestMethod]
@@ -76,7 +76,7 @@ namespace ModuleTesting
 
             //Assert.Dominance
             //1. We are testing for Piles[index].Count == index + 1;
-            Assert.IsTrue(_mockGame.Piles.Select((item, index) => new { item, index }).All(x => x.item.Count == x.index + 1),
+            Assert.IsTrue(_testGame.Piles.Select((item, index) => new { item, index }).All(x => x.item.Count == x.index + 1),
                 "At least 1 pile doesn't have the correct number of cards");
         }
 
@@ -89,7 +89,7 @@ namespace ModuleTesting
             //Act
 
             //Assert.Dominance
-            Assert.IsTrue(_mockGame.Piles.All(p => p.Count(c => c.FaceUp) == 1));
+            Assert.IsTrue(_testGame.Piles.All(p => p.Count(c => c.FaceUp) == 1));
         }
 
         [TestMethod]
@@ -98,13 +98,13 @@ namespace ModuleTesting
             //Arrange
             //1. using _mockGame
             var pileIndex = 0;
-            _mockGame.Piles[pileIndex].Last().FaceUp = false;
+            _testGame.Piles[pileIndex].Last().FaceUp = false;
 
             //Act
-            _mockGame.FlipPileCard(pileIndex);
+            _testGame.FlipPileCard(pileIndex);
 
             //Assert
-            Assert.AreEqual(true, _mockGame.Piles[pileIndex].Last().FaceUp);
+            Assert.AreEqual(true, _testGame.Piles[pileIndex].Last().FaceUp);
         }
 
         [TestMethod]
@@ -114,7 +114,7 @@ namespace ModuleTesting
             //1. using _mockGame
 
             //Act
-            var faceUpCards = _mockGame.GetPile(0);
+            var faceUpCards = _testGame.GetPile(0);
 
             //Assert
             Assert.IsTrue(faceUpCards.TrueForAll(c => c.FaceUp == true));
@@ -128,13 +128,13 @@ namespace ModuleTesting
             var drawCount = 3;
 
             //Act
-            _mockGame.RevealFromDeck(drawCount);
+            _testGame.RevealFromDeck(drawCount);
 
             //Assert
             //1. The correct number of cards are present.
-            Assert.AreEqual(drawCount, _mockGame.RevealedCards.Count);
+            Assert.AreEqual(drawCount, _testGame.RevealedCards.Count);
             //2. and, each card revealed is FaceUp.
-            Assert.IsTrue(_mockGame.RevealedCards.TrueForAll(c => c.FaceUp == true));
+            Assert.IsTrue(_testGame.RevealedCards.TrueForAll(c => c.FaceUp == true));
         }
 
         [TestMethod]
@@ -146,27 +146,45 @@ namespace ModuleTesting
             //3. using _mockCollection
 
             //Act
-            _mockPlayer.Holding = _mockGame.PickUpCards(_mockCollection);
+            _testPlayer.Holding = _testGame.PickUpCards(_testCollection);
 
             //Assert
-            Assert.IsTrue(_mockPlayer.Holding.All(c => c.FaceUp == true));
+            Assert.IsTrue(_testPlayer.Holding.All(c => c.FaceUp == true));
+        }
+
+        [TestMethod]
+        public void PutDownCardsOnlyChecksForFaceUpCards()
+        {
+            //Arrange
+            var playerHoldering = new List<Card>()
+            {
+                new Card(Rank.Ace, Suit.Diamonds) { FaceUp = true },
+            };
+            _testPlayer.Holding = playerHoldering;
+
+            //Act
+            var onlyFaceUpCards = _testGame.PutDownCards(_testCollection);
+
+            //Assert
+            Assert.IsTrue(onlyFaceUpCards.TrueForAll(c => c.FaceUp == true));
         }
 
         [TestMethod]
         public void PlayerWillPutDownCardsOnlyOfDescendingRank()
         {
             //Arrange
-            var mockPlayerHolding = new List<Card>()
+            var playerHolding = new List<Card>()
             {
                 new Card(Rank.Ace, Suit.Diamonds) { FaceUp = true },
             };
-            _mockPlayer.Holding = mockPlayerHolding;
+            _testPlayer.Holding = playerHolding;
 
             //Act
-            var inDescendingOrder = _mockGame.PutDownCards(_mockCollection);
+            var cardsPutDown = _testGame.PutDownCards(_testCollection);
 
             //Assert
-            Assert.IsTrue(inDescendingOrder.Select((item, index) => new { item.Rank, index }).Skip(1).All(obj => obj.Rank == _mockCollection[obj.index - 1].Rank - 1));
+            //1. that any card put down is of a descending rank. if it isn't, the card isn't put down and the original collection is returned.
+            Assert.IsTrue(cardsPutDown.Select((item, index) => new { item.Rank, index }).Skip(1).All(obj => obj.Rank == cardsPutDown[obj.index - 1].Rank - 1));
         }
     }
 }
