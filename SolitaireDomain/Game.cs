@@ -55,28 +55,5 @@ namespace SolitaireDomain
 
             FlippedCards.ForEach(c => c.FaceUp = true);
         }
-
-        public List<Card> PickUpCards(IEnumerable<Card> collection)
-        {
-            return collection.Where(c => c.FaceUp == true).ToList();
-        }
-
-        public List<Card> PutDownCards(IEnumerable<Card> collection)
-        {
-            var faceDownCards = collection.Where(c => c.FaceUp == false).ToList();
-            var faceUpCards = collection.Where(c => c.FaceUp == true).ToList();
-
-            if (Player.Holding.First().Rank != collection.Last().Rank - 1)
-            {
-                return collection.ToList();
-            }
-            else
-            {
-                faceUpCards.AddRange(Player.Holding);
-                var fullCollection = faceDownCards;
-                fullCollection.AddRange(faceUpCards);
-                return fullCollection;
-            }
-        }
     }
 }
