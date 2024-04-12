@@ -93,7 +93,7 @@ namespace ModuleTesting
         }
 
         [TestMethod]
-        public void PileCardCanBeTurnedFaceUp()
+        public void FaceDownPileCardCanBeTurnedFaceUp()
         {
             //Arrange
             //1. using _testGame
@@ -132,14 +132,12 @@ namespace ModuleTesting
             var invalidCard = new Card(CardRank.Two, CardSuit.Spades);
 
             //Act
-            var testForCorrect = _testGame.ValidPlay(_testCollection, validCard);
-            var testForIncorrect = _testGame.ValidPlay(_testCollection, invalidCard);
 
             //Assert
             //1. that the correct card is a valid play.
-            Assert.IsTrue(testForCorrect);
+            Assert.AreEqual(true, _testGame.ValidPlay(_testCollection, validCard));
             //2. and, that the incorrect card is an invalid play.
-            Assert.IsFalse(testForIncorrect);
+            Assert.AreEqual(false, _testGame.ValidPlay(_testCollection, invalidCard));
         }
 
 
