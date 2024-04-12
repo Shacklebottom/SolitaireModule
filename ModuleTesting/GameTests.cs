@@ -21,10 +21,10 @@ namespace ModuleTesting
             _testGame = new Game(_testPlayer);
             _testCollection = new List<Card>()
             {
-                new (Rank.Five, Suit.Diamonds),
-                new (Rank.Four, Suit.Hearts),
-                new (Rank.Three, Suit.Spades) { FaceUp = true },
-                new (Rank.Two, Suit.Clubs) { FaceUp = true }
+                new (CardRank.Five, CardSuit.Diamonds),
+                new (CardRank.Four, CardSuit.Hearts),
+                new (CardRank.Three, CardSuit.Spades) { FaceUp = true },
+                new (CardRank.Two, CardSuit.Clubs) { FaceUp = true }
             };
         }
 
@@ -128,8 +128,8 @@ namespace ModuleTesting
         public void AValidPlayIsOfDescendingRank()
         {
             //Arrange
-            var validCard = new Card(Rank.Ace, Suit.Diamonds);
-            var invalidCard = new Card(Rank.Two, Suit.Spades);
+            var validCard = new Card(CardRank.Ace, CardSuit.Diamonds);
+            var invalidCard = new Card(CardRank.Two, CardSuit.Spades);
 
             //Act
             var testForCorrect = _testGame.ValidPlay(_testCollection, validCard);
@@ -146,8 +146,8 @@ namespace ModuleTesting
         public void AValidPlayIsOfAlternatingColor()
         {
             //Arrange
-            var validCard = new Card(Rank.Ace, Suit.Diamonds);
-            var invalidCard = new Card(Rank.Two, Suit.Spades);
+            var validCard = new Card(CardRank.Ace, CardSuit.Diamonds);
+            var invalidCard = new Card(CardRank.Two, CardSuit.Spades);
 
             //Act
             var testForCorrect = _testGame.ValidPlay(_testCollection, validCard);

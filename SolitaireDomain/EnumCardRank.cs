@@ -3,7 +3,7 @@ namespace SolitaireDomain
 {
     public static class EnumCardRank
     {
-        public enum Rank
+        public enum CardRank
         {
             Ace = 1,
             Two = 2,

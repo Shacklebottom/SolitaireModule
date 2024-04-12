@@ -14,9 +14,9 @@ namespace SolitaireDomain
 
         private void InitializeDeck()
         {
-            foreach (Suit suit in Enum.GetValues(typeof(Suit)))
+            foreach (CardSuit suit in Enum.GetValues(typeof(CardSuit)))
             {
-                foreach (Rank rank in Enum.GetValues(typeof(Rank)))
+                foreach (CardRank rank in Enum.GetValues(typeof(CardRank)))
                 {
                     Cards.Add(new Card(rank, suit));
                 }

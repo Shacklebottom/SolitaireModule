@@ -1,4 +1,5 @@
-using static SolitaireDomain.CardEnum;
+using static SolitaireDomain.EnumCardRank;
+using static SolitaireDomain.EnumCardSuit;
 using SolitaireDomain;
 
 namespace ModuleTesting
@@ -11,7 +12,7 @@ namespace ModuleTesting
         public void CardToString()
         {
             //Arrange
-            var mockCard = new Card(Rank.Ace, Suit.Diamonds);
+            var mockCard = new Card(CardRank.Ace, CardSuit.Diamonds);
 
             //Act
             var cardString = mockCard.ToString();

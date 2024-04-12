@@ -1,5 +1,6 @@
-﻿using SolitaireDomain;
-using static SolitaireDomain.CardEnum;
+﻿using static SolitaireDomain.EnumCardRank;
+using static SolitaireDomain.EnumCardSuit;
+using SolitaireDomain;
 
 namespace ModuleTesting
 {
@@ -51,7 +52,7 @@ namespace ModuleTesting
 
             //Assert
             var firstFiveCards = deck.Cards.Take(5);
-            var areAllHearts = firstFiveCards.All(c => c.Suit == Suit.Hearts);
+            var areAllHearts = firstFiveCards.All(c => c.Suit == CardSuit.Hearts);
             var sumFirstFive = firstFiveCards.Sum(c => (int)c.Rank);
             //1. If the first five cards are NOT Hearts _and_ the first five cards DON'T sum to 15. If both are true, the deck hasn't been shuffled.
             Assert.IsFalse(areAllHearts && sumFirstFive == 15, "First five cards were Ace - Five of Hearts");
