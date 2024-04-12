@@ -1,5 +1,4 @@
-﻿
-using System.Drawing;
+﻿using static SolitaireDomain.EnumCardColor;
 
 namespace SolitaireDomain
 {
@@ -13,12 +12,12 @@ namespace SolitaireDomain
             Clubs
         }
 
-        public static Color GetSuitColor(this CardSuit suit)
+        public static CardColor GetSuitColor(this CardSuit suit)
         {
             return suit switch
             {
-                CardSuit.Hearts or CardSuit.Diamonds => Color.Red,
-                CardSuit.Spades or CardSuit.Clubs => Color.Black,
+                CardSuit.Hearts or CardSuit.Diamonds => CardColor.Red,
+                CardSuit.Spades or CardSuit.Clubs => CardColor.Black,
                 _ => throw new Exception("oh no..."),
             };
         }

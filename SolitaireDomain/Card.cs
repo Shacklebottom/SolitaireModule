@@ -1,6 +1,6 @@
-﻿using System.Drawing;
-using static SolitaireDomain.EnumCardRank;
+﻿using static SolitaireDomain.EnumCardRank;
 using static SolitaireDomain.EnumCardSuit;
+using static SolitaireDomain.EnumCardColor;
 
 namespace SolitaireDomain
 {
@@ -12,7 +12,7 @@ namespace SolitaireDomain
 
         public bool FaceUp { get; set; } = false;
 
-        public Color Color => Suit.GetSuitColor();
+        public CardColor Color => Suit.GetSuitColor();
 
         public Card(CardRank rank, CardSuit suit)
         {
@@ -25,7 +25,5 @@ namespace SolitaireDomain
         {
             return $"{Rank} of {Suit}";
         }
-
-
     }
 }
