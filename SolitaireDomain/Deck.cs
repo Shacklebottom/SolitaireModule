@@ -1,4 +1,5 @@
-﻿using static SolitaireDomain.CardEnum;
+﻿using static SolitaireDomain.EnumCardRank;
+using static SolitaireDomain.EnumCardSuit;
 
 namespace SolitaireDomain
 {

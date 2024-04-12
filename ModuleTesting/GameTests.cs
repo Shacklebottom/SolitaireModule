@@ -1,8 +1,8 @@
 ﻿
-using static SolitaireDomain.CardEnum;
+using static SolitaireDomain.EnumCardRank;
+using static SolitaireDomain.EnumCardSuit;
 using SolitaireDomain;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Reflection.Metadata.Ecma335;
 
 namespace ModuleTesting
 {

@@ -1,7 +1,7 @@
 ﻿
 namespace SolitaireDomain
 {
-    public static class CardEnum
+    public static class EnumCardRank
     {
         public enum Rank
         {
@@ -18,13 +18,6 @@ namespace SolitaireDomain
             Jack = 11,
             Queen = 12,
             King = 13
-        }
-        public enum Suit
-        {
-            Hearts,
-            Diamonds,
-            Spades,
-            Clubs
         }
     }
 }

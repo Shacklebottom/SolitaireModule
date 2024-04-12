@@ -1,6 +1,7 @@
 ﻿using CustomLogging;
 using SolitaireDomain;
-using static SolitaireDomain.CardEnum;
+using static SolitaireDomain.EnumCardRank;
+using static SolitaireDomain.EnumCardSuit;
 
 
 var _logger = new Logger();
