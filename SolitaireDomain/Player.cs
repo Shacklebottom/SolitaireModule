@@ -5,8 +5,6 @@ namespace SolitaireDomain
     {
         public string Name { get; set; }
 
-        public List<Card> Holding { get; set; } = [];
-
         public Player(string name = "")
         {
             Name = name;

@@ -34,7 +34,7 @@ namespace ModuleTesting
             //We're preserving the Player obj being passed in to the Game constructor by the UI :)
 
             //Arrange
-            //1. using _mockGame
+            //1. using _testGame
 
             //Act
 
@@ -46,7 +46,7 @@ namespace ModuleTesting
         public void ThereAreFourFoundations()
         {
             //Arrange
-            //1. using _mockGame
+            //1. using _testGame
 
             //Act
 
@@ -58,7 +58,7 @@ namespace ModuleTesting
         public void ThereAreSevenPiles()
         {
             //Arrange
-            //1. using _mockGame
+            //1. using _testGame
 
             //Act
 
@@ -70,7 +70,7 @@ namespace ModuleTesting
         public void PilesHaveTheCorrectCount()
         {
             //Arrange
-            //1. using _mockGame
+            //1. using _testGame
 
             //Act
 
@@ -84,7 +84,7 @@ namespace ModuleTesting
         public void EachPileOnlyHasOneFaceUpCard()
         {
             //Arrange
-            //1. using _mockGame
+            //1. using _testGame
 
             //Act
 
@@ -96,7 +96,7 @@ namespace ModuleTesting
         public void PileCardCanBeTurnedFaceUp()
         {
             //Arrange
-            //1. using _mockGame
+            //1. using _testGame
             var pileIndex = 0;
             _testGame.Piles[pileIndex].Last().FaceUp = false;
 
@@ -111,7 +111,7 @@ namespace ModuleTesting
         public void ANumberOfCardsWereFlipped()
         {
             //Arrange
-            //1. using _mockGame
+            //1. using _testGame
             var drawCount = 3;
 
             //Act
@@ -122,6 +122,42 @@ namespace ModuleTesting
             Assert.AreEqual(drawCount, _testGame.FlippedCards.Count);
             //2. and, each card revealed is FaceUp.
             Assert.IsTrue(_testGame.FlippedCards.ToList().TrueForAll(c => c.FaceUp == true));
+        }
+
+        [TestMethod]
+        public void AValidPlayIsOfDescendingRank()
+        {
+            //Arrange
+            var validCard = new Card(Rank.Ace, Suit.Diamonds);
+            var invalidCard = new Card(Rank.Two, Suit.Spades);
+
+            //Act
+            var testForCorrect = _testGame.ValidPlay(_testCollection, validCard);
+            var testForIncorrect = _testGame.ValidPlay(_testCollection, invalidCard);
+
+            //Assert
+            //1. that the correct card is a valid play.
+            Assert.IsTrue(testForCorrect);
+            //2. and, that the incorrect card is an invalid play.
+            Assert.IsFalse(testForIncorrect);
+        }
+
+        [TestMethod]
+        public void AValidPlayIsOfAlternatingColor()
+        {
+            //Arrange
+            var validCard = new Card(Rank.Ace, Suit.Diamonds);
+            var invalidCard = new Card(Rank.Two, Suit.Spades);
+
+            //Act
+            var testForCorrect = _testGame.ValidPlay(_testCollection, validCard);
+            var testForIncorrect = _testGame.ValidPlay(_testCollection, invalidCard);
+
+            //Assert
+            //1.
+            Assert.IsTrue(testForCorrect);
+            //2.
+            Assert.IsFalse(testForIncorrect);
         }
 
         //[TestMethod]
