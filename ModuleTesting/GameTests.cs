@@ -155,38 +155,5 @@ namespace ModuleTesting
         //    //Assert
         //    Assert.IsTrue(faceUpCards.TrueForAll(c => c.FaceUp == true));
         //}
-
-
-
-
-        //[TestMethod]
-        //public void PlayerWillPutDownCardsOnlyOfDescendingRank()
-        //{
-        //    //Arrange
-        //    var playerHolding = new List<Card>()
-        //    {
-        //        new Card(Rank.Ace, Suit.Diamonds) { FaceUp = true },
-        //    };
-        //    _testPlayer.Holding = playerHolding;
-
-            //Act
-            //var cardsPutDown = _testGame.PutDownCards(_testCollection);
-
-            //Assert
-            //1. that any card put down is of a descending rank. if it isn't, the card isn't put down and the original collection is returned.
-            //Assert.IsTrue(cardsPutDown.Select((item, index) => new { item.Rank, index }).Skip(1).All(obj => obj.Rank == cardsPutDown[obj.index - 1].Rank - 1));
-        //}
-
-        //[TestMethod]
-        //public void PlayerWillPutDownCardsOnlyOfAlternatingColors()
-        //{
-        //    //Arrange
-
-        //    //Act
-
-        //    //Assert
-
-
-        //}
     }
 }
