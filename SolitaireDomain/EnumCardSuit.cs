@@ -12,7 +12,7 @@ namespace SolitaireDomain
             Clubs
         }
 
-        public static CardColor GetSuitColor(this CardSuit suit)
+        public static CardColor GetColor(this CardSuit suit)
         {
             return suit switch
             {

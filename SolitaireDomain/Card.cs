@@ -12,7 +12,7 @@ namespace SolitaireDomain
 
         public bool FaceUp { get; set; } = false;
 
-        public CardColor Color => Suit.GetSuitColor();
+        public CardColor Color => Suit.GetColor();
 
         public Card(CardRank rank, CardSuit suit)
         {

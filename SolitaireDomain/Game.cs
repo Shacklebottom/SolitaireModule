@@ -51,24 +51,14 @@ namespace SolitaireDomain
 
         public bool ValidPlay(IEnumerable<Card> collection, Card toBePlayed)
         {
-            if (collection.ToList().Last().Suit == toBePlayed.Suit)
+            if (collection.ToList().Last().Suit.GetColor() != toBePlayed.Suit.GetColor())
             {
-                return false;
+                if (collection.ToList().Last().Rank == toBePlayed.Rank + 1)
+                {
+                    return true;
+                }
             }
-            else
-            {
-                return true;
-            }
-
-
-            //if (collection.ToList().Last().Rank != toBePlayed.Rank + 1)
-            //{
-            //    return false;
-            //}
-            //else
-            //{
-            //    return true;
-            //}
+            return false;
         }
 
         //public List<Card> GetPile(int pileIndex)

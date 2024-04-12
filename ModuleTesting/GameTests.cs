@@ -125,7 +125,7 @@ namespace ModuleTesting
         }
 
         [TestMethod]
-        public void AValidPlayIsOfDescendingRank()
+        public void AValidPlayIsOfDescendingRankAndAlternatingColor()
         {
             //Arrange
             var validCard = new Card(CardRank.Ace, CardSuit.Diamonds);
@@ -142,23 +142,6 @@ namespace ModuleTesting
             Assert.IsFalse(testForIncorrect);
         }
 
-        [TestMethod]
-        public void AValidPlayIsOfAlternatingColor()
-        {
-            //Arrange
-            var validCard = new Card(CardRank.Ace, CardSuit.Diamonds);
-            var invalidCard = new Card(CardRank.Two, CardSuit.Spades);
-
-            //Act
-            var testForCorrect = _testGame.ValidPlay(_testCollection, validCard);
-            var testForIncorrect = _testGame.ValidPlay(_testCollection, invalidCard);
-
-            //Assert
-            //1.
-            Assert.IsTrue(testForCorrect);
-            //2.
-            Assert.IsFalse(testForIncorrect);
-        }
 
         //[TestMethod]
         //public void GetPileOnlyGetsFaceUpCards()
