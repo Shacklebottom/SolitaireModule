@@ -12,10 +12,10 @@ namespace ModuleTesting
         public void CardToString()
         {
             //Arrange
-            var mockCard = new Card(CardRank.Ace, CardSuit.Diamonds);
+            var testCard = new Card(CardRank.Ace, CardSuit.Diamonds);
 
             //Act
-            var cardString = mockCard.ToString();
+            var cardString = testCard.ToString();
 
             //Assert
             Assert.AreEqual("Ace of Diamonds", cardString);

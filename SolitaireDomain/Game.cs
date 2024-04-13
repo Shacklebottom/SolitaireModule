@@ -1,6 +1,4 @@
 ﻿
-using System.Linq;
-
 namespace SolitaireDomain
 {
     public class Game
