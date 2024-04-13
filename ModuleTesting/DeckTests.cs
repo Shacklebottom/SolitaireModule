@@ -42,7 +42,7 @@ namespace ModuleTesting
         }
 
         [TestMethod]
-        public void DeckWasShuffled()
+        public void DeckCanShuffle()
         {
             //Arrange
             //1. Global Initalizer

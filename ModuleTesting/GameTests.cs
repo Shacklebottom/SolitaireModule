@@ -76,7 +76,7 @@ namespace ModuleTesting
 
             //Assert.Dominance
             //1. We are testing for Piles[index].Count == index + 1;
-            Assert.IsTrue(_testGame.Piles.Select((item, index) => new { item, index }).All(x => x.item.Count == x.index + 1),
+            Assert.IsTrue(_testGame.Piles.Select((pile, index) => new { pile, index }).All(obj => obj.pile.Count == obj.index + 1),
                 "At least 1 pile doesn't have the correct number of cards");
         }
 
@@ -163,6 +163,13 @@ namespace ModuleTesting
             //1. that the correct card is a valid play.
             Assert.IsTrue(result);
         }
+
+        [TestMethod]
+        public void MyTestMethod()
+        {
+
+        }
+
 
 
         //[TestMethod]
