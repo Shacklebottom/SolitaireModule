@@ -125,19 +125,43 @@ namespace ModuleTesting
         }
 
         [TestMethod]
-        public void AValidPlayIsOfDescendingRankAndAlternatingColor()
+        public void AValidPlayIsOfDescendingRankAndAlternatingColor_FalseRank()
+        {
+            //Arrange
+            var invalidCard = new Card(CardRank.Two, CardSuit.Diamonds);
+
+            //Act
+            var result = _testGame.ValidPlay(_testCollection, invalidCard);
+
+            //Assert
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void AValidPlayIsOfDescendingRankAndAlternatingColor_FalseColor()
+        {
+            //Arrange
+            var invalidCard = new Card(CardRank.Ace, CardSuit.Spades);
+
+            //Act
+            var result = _testGame.ValidPlay(_testCollection, invalidCard);
+
+            //Assert
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void AValidPlayIsOfDescendingRankAndAlternatingColor_ValidCard()
         {
             //Arrange
             var validCard = new Card(CardRank.Ace, CardSuit.Diamonds);
-            var invalidCard = new Card(CardRank.Two, CardSuit.Spades);
 
             //Act
+            var result = _testGame.ValidPlay(_testCollection, validCard);
 
             //Assert
             //1. that the correct card is a valid play.
-            Assert.AreEqual(true, _testGame.ValidPlay(_testCollection, validCard));
-            //2. and, that the incorrect card is an invalid play.
-            Assert.AreEqual(false, _testGame.ValidPlay(_testCollection, invalidCard));
+            Assert.IsTrue(result);
         }
 
 

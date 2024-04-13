@@ -11,15 +11,5 @@ namespace SolitaireDomain
             Spades,
             Clubs
         }
-
-        public static CardColor GetColor(this CardSuit suit)
-        {
-            return suit switch
-            {
-                CardSuit.Hearts or CardSuit.Diamonds => CardColor.Red,
-                CardSuit.Spades or CardSuit.Clubs => CardColor.Black,
-                _ => throw new Exception("oh no..."),
-            };
-        }
     }
 }
