@@ -132,7 +132,7 @@ namespace ModuleTesting
         }
 
         [TestMethod]
-        public void ANumberOfCardsWereFlipped()
+        public void ANumberOfCardsCanBeFlipped()
         {
             //Arrange
             //1. using _testGame
@@ -189,7 +189,7 @@ namespace ModuleTesting
         }
 
         [TestMethod]
-        public void PlayFromFlipped()
+        public void GameCanPlayFromFlipped()
         {
             //Arrange
             var testStack = new Stack<Card>();
@@ -207,6 +207,10 @@ namespace ModuleTesting
             Assert.IsTrue(testStack.Peek().Rank != CardRank.Ace, "The card was not Pop()'d off the Stack");
         }
 
+        [TestMethod]
+        public void GameCanMovePileToPile()
+        {
 
+        }
     }
 }
