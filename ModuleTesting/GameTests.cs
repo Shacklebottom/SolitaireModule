@@ -65,6 +65,7 @@ namespace ModuleTesting
             //Assert
             Assert.IsTrue(_testGame.Piles.Length == 7);
         }
+
         [TestMethod]
         public void DeckWasShuffled()
         {
@@ -187,31 +188,25 @@ namespace ModuleTesting
             Assert.IsTrue(result);
         }
 
-
-
         [TestMethod]
-        public void CardPlaysToPile()
+        public void PlayFromFlipped()
         {
             //Arrange
+            var testStack = new Stack<Card>();
+            testStack.Push(new Card(CardRank.Five, CardSuit.Clubs));
+            testStack.Push(new Card(CardRank.Jack, CardSuit.Hearts));
+            testStack.Push(new Card(CardRank.Ace, CardSuit.Diamonds));
 
             //Act
+            _testGame.PlayFromFlipped(_testCollection, testStack);
 
             //Assert
-
-
+            //1. The card was added to the collection.
+            Assert.IsTrue(_testCollection.Last().Rank == CardRank.Ace, "The card was not added to the collection");
+            //2. The card was removed from the stack.
+            Assert.IsTrue(testStack.Peek().Rank != CardRank.Ace, "The card was not Pop()'d off the Stack");
         }
 
-        //[TestMethod]
-        //public void GetPileOnlyGetsFaceUpCards()
-        //{
-        //    //Arrange
-        //    //1. using _mockGame
 
-        //    //Act
-        //    var faceUpCards = _testGame.GetPile(0);
-
-        //    //Assert
-        //    Assert.IsTrue(faceUpCards.TrueForAll(c => c.FaceUp == true));
-        //}
     }
 }
