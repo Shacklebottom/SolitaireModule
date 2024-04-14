@@ -192,24 +192,32 @@ namespace ModuleTesting
         public void GameCanPlayFromFlipped()
         {
             //Arrange
-            var testStack = new Stack<Card>();
-            testStack.Push(new Card(CardRank.Five, CardSuit.Clubs));
-            testStack.Push(new Card(CardRank.Jack, CardSuit.Hearts));
-            testStack.Push(new Card(CardRank.Ace, CardSuit.Diamonds));
+            var testFlipped = new Stack<Card>();
+            testFlipped.Push(new Card(CardRank.Five, CardSuit.Clubs) { FaceUp = true });
+            testFlipped.Push(new Card(CardRank.Jack, CardSuit.Hearts) { FaceUp = true });
+            testFlipped.Push(new Card(CardRank.Ace, CardSuit.Diamonds) { FaceUp = true });
 
             //Act
-            _testGame.PlayFromFlipped(_testCollection, testStack);
+            _testGame.PlayFromFlipped(_testCollection, testFlipped);
 
             //Assert
             //1. The card was added to the collection.
             Assert.IsTrue(_testCollection.Last().Rank == CardRank.Ace, "The card was not added to the collection");
             //2. The card was removed from the stack.
-            Assert.IsTrue(testStack.Peek().Rank != CardRank.Ace, "The card was not Pop()'d off the Stack");
+            Assert.IsTrue(testFlipped.Peek().Rank != CardRank.Ace, "The card was not Pop()'d off the Stack");
         }
 
         [TestMethod]
         public void GameCanMovePileToPile()
         {
+            //Arrange
+            var testTargetPile = new List<Card>();
+
+            //Act
+
+
+            //Assert
+
 
         }
     }

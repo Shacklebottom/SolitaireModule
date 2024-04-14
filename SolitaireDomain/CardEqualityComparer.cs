@@ -19,6 +19,6 @@ namespace SolitaireDomain
                 && x.FaceUp == y.FaceUp;
         }
         //we're not implementing a HashCode, whatever that is :P
-        public int GetHashCode(Card? obj) { return 0; }
+        public int GetHashCode(Card? obj) { return obj != null ? obj.GetHashCode() : 0; }
     }
 }

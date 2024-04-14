@@ -1,4 +1,6 @@
 ﻿
+using System.Net;
+
 namespace SolitaireDomain
 {
     public class Game
@@ -63,10 +65,9 @@ namespace SolitaireDomain
             }
         }
 
+        public void MovePileToPile(List<Card> moveTo, List<Card> moveFrom)
+        {
 
-        //public List<Card> GetPile(int pileIndex)
-        //{
-        //    return Piles[pileIndex].Where(p => p.FaceUp == true).ToList();
-        //}
+        }
     }
 }
