@@ -29,7 +29,7 @@ namespace ModuleTesting
         }
 
         [TestMethod]
-        public void PlayerHasName()
+        public void Player_HasName()
         {
             //We're preserving the Player obj being passed in to the Game constructor by the UI :)
 
@@ -37,13 +37,14 @@ namespace ModuleTesting
             //1. using _testGame
 
             //Act
+            //1. The Game() Constructor assigns a default name to the Player or the name the UI passes in.
 
             //Assert
             Assert.AreEqual("Player 1", _testGame.Player.Name);
         }
 
         [TestMethod]
-        public void ThereAreFourFoundations()
+        public void Foundations_AreFour()
         {
             //Arrange
             //1. using _testGame
@@ -55,7 +56,7 @@ namespace ModuleTesting
         }
 
         [TestMethod]
-        public void ThereAreSevenPiles()
+        public void Piles_AreSeven()
         {
             //Arrange
             //1. using _testGame
@@ -67,7 +68,7 @@ namespace ModuleTesting
         }
 
         [TestMethod]
-        public void DeckWasShuffled()
+        public void Deck_WasShuffled_Operation()
         {
             //Arrange
             //Due to how the Deck obj and SetupPile() works, Piles.Last() will look like the testPile if the deck has not been shuffled,
@@ -91,12 +92,13 @@ namespace ModuleTesting
         }
 
         [TestMethod]
-        public void PilesHaveTheCorrectCount()
+        public void Piles_HaveTheCorrectCount_Operation()
         {
             //Arrange
             //1. using _testGame
 
             //Act
+            //1. In the Game() Constructor, SetupPiles() is called, which deals out to each pile.
 
             //Assert.Dominance
             //1. We are testing for Piles[index].Count == index + 1;
@@ -105,19 +107,20 @@ namespace ModuleTesting
         }
 
         [TestMethod]
-        public void EachPileOnlyHasOneFaceUpCard()
+        public void Piles_HaveOneFaceUpCardEach_Operation()
         {
             //Arrange
             //1. using _testGame
 
             //Act
+            //1. In the Game() Constructor, SetupPiles() is called, which turns the last card in each Pile FaceUp.
 
             //Assert.Dominance
             Assert.IsTrue(_testGame.Piles.All(p => p.Count(c => c.FaceUp) == 1));
         }
 
         [TestMethod]
-        public void FaceDownPileCardCanBeTurnedFaceUp()
+        public void FlipPileCard_CanFlip()
         {
             //Arrange
             //1. using _testGame
@@ -132,7 +135,7 @@ namespace ModuleTesting
         }
 
         [TestMethod]
-        public void ANumberOfCardsCanBeFlipped()
+        public void FlipFromDeck_CanFlip()
         {
             //Arrange
             //1. using _testGame
@@ -149,7 +152,7 @@ namespace ModuleTesting
         }
 
         [TestMethod]
-        public void AValidPlayIsOfDescendingRankAndAlternatingColor_FalseRank()
+        public void ValidPlay_IsDescendingRankAndAlternatingColor_FalseRank()
         {
             //Arrange
             var invalidCard = new Card(CardRank.Two, CardSuit.Diamonds);
@@ -162,7 +165,7 @@ namespace ModuleTesting
         }
 
         [TestMethod]
-        public void AValidPlayIsOfDescendingRankAndAlternatingColor_FalseColor()
+        public void ValidPlay_IsDescendingRankAndAlternatingColor_FalseColor()
         {
             //Arrange
             var invalidCard = new Card(CardRank.Ace, CardSuit.Spades);
@@ -175,7 +178,7 @@ namespace ModuleTesting
         }
 
         [TestMethod]
-        public void AValidPlayIsOfDescendingRankAndAlternatingColor_ValidCard()
+        public void ValidPlay_IsDescendingRankAndAlternatingColor_TrueCard()
         {
             //Arrange
             var validCard = new Card(CardRank.Ace, CardSuit.Diamonds);
@@ -189,7 +192,7 @@ namespace ModuleTesting
         }
 
         [TestMethod]
-        public void GameCanPlayFromFlipped()
+        public void PlayFromFlipped_CanPlay()
         {
             //Arrange
             var testFlipped = new Stack<Card>();
@@ -207,6 +210,34 @@ namespace ModuleTesting
             Assert.IsTrue(testFlipped.Peek().Rank != CardRank.Ace, "The card was not Pop()'d off the Stack");
         }
 
+        //[TestMethod]
+        //public void PlayFromFlipped_OnlyKingPlaysToEmptyPile_FalsePile()
+        //{
+        //    //Arrange
+
+
+        //    //Act
+
+
+        //    //Assert
+
+
+        //}
+
+        //[TestMethod]
+        //public void PlayFromFlipped_OnlyKingPlaysToEmptyPile_TruePile()
+        //{
+        //    //Arrange
+
+
+        //    //Act
+
+
+        //    //Assert
+
+
+        //}
+
         [TestMethod]
         public void GameCanMovePileToPile()
         {
@@ -214,10 +245,10 @@ namespace ModuleTesting
             var testTargetPile = new List<Card>();
 
             //Act
-
+            _testGame.MovePileToPile(testTargetPile, _testCollection);
 
             //Assert
-
+            Assert.IsTrue(testTargetPile.Count > 0);
 
         }
     }

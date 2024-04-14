@@ -67,7 +67,7 @@ namespace SolitaireDomain
 
         public void MovePileToPile(List<Card> moveTo, List<Card> moveFrom)
         {
-
+            moveTo.AddRange(moveFrom);
         }
     }
 }
