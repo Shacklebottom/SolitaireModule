@@ -43,17 +43,18 @@ namespace SolitaireDomain
             Deck.Draw(drawCount).ForEach(c => { c.FaceUp = true; FlippedCards.Push(c); });
         }
 
-        public bool ValidPlay(IEnumerable<Card> collection, Card toBePlayed)
+        public bool ValidPlay(IEnumerable<Card> pile, Card toBePlayed)
         {
-            if (collection.Last().Color != toBePlayed.Color)
+            if (pile.Last().Color != toBePlayed.Color)
             {
-                if (collection.Last().Rank == toBePlayed.Rank + 1)
+                if (pile.Last().Rank == toBePlayed.Rank + 1)
                 {
                     return true;
                 }
             }
             return false;
         }
+
 
         //public List<Card> GetPile(int pileIndex)
         //{

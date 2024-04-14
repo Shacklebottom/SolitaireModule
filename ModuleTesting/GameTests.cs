@@ -65,6 +65,29 @@ namespace ModuleTesting
             //Assert
             Assert.IsTrue(_testGame.Piles.Length == 7);
         }
+        [TestMethod]
+        public void DeckWasShuffled()
+        {
+            //Arrange
+            //Due to how the Deck obj and SetupPile() works, Piles.Last() will look like the testPile if the deck has not been shuffled,
+            //so if this test fails for an unknown reason, run the test again to be sure :)
+            var testPile = new List<Card>()
+            {
+                 new (CardRank.Ace, CardSuit.Hearts),
+                 new (CardRank.Two, CardSuit.Hearts),
+                 new (CardRank.Three, CardSuit.Hearts),
+                 new (CardRank.Four, CardSuit.Hearts),
+                 new (CardRank.Five, CardSuit.Hearts),
+                 new (CardRank.Six, CardSuit.Hearts),
+                 new (CardRank.Seven, CardSuit.Hearts) { FaceUp = true },
+            };
+
+            //Act
+            //1. in the Game() constructor, Deck.Shuffle() is called.
+
+            //Assert.Dominance
+            Assert.IsFalse(testPile.SequenceEqual(_testGame.Piles.Last(), new CardEqualityComparer()));
+        }
 
         [TestMethod]
         public void PilesHaveTheCorrectCount()
@@ -164,29 +187,19 @@ namespace ModuleTesting
             Assert.IsTrue(result);
         }
 
+
+
         [TestMethod]
-        public void DeckWasShuffled()
+        public void CardPlaysToPile()
         {
             //Arrange
-            //Due to how the Deck obj and SetupPile() works, Piles.Last() will look like the testPile if the deck has not been shuffled.
-            var testPile = new List<Card>()
-            {
-                 new (CardRank.Ace, CardSuit.Hearts),
-                 new (CardRank.Two, CardSuit.Hearts),
-                 new (CardRank.Three, CardSuit.Hearts),
-                 new (CardRank.Four, CardSuit.Hearts),
-                 new (CardRank.Five, CardSuit.Hearts),
-                 new (CardRank.Six, CardSuit.Hearts),
-                 new (CardRank.Seven, CardSuit.Hearts) { FaceUp = true },
-            };
 
             //Act
 
             //Assert
-            Assert.IsFalse(testPile.SequenceEqual(_testGame.Piles.Last(), new CardEqualityComparer()));
+
+
         }
-
-
 
         //[TestMethod]
         //public void GetPileOnlyGetsFaceUpCards()
