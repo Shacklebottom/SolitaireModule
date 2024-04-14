@@ -3,7 +3,7 @@ namespace SolitaireDomain
 {
     public class Game
     {
-        public Deck Deck { get; set; } = new();
+        public DeckOfCards Deck { get; set; } = new();
 
         public Player Player { get; set; }
 
@@ -16,14 +16,10 @@ namespace SolitaireDomain
         //Constructor
         public Game(Player? player = null)
         {
-            if (player != null)
-            {
-                Player = player;
-            }
-            else
-            {
-                Player = new("");
-            }
+            if (player != null) { Player = player; }
+            else { Player = new(""); }
+
+            Deck.Shuffle();
 
             SetupPiles();
         }

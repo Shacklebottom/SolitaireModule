@@ -3,11 +3,11 @@ using static SolitaireDomain.EnumCardSuit;
 
 namespace SolitaireDomain
 {
-    public class Deck
+    public class DeckOfCards
     {
         public List<Card> Cards { get; set; } = [];
 
-        public Deck()
+        public DeckOfCards()
         {
             InitializeDeck();
         }
