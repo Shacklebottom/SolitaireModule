@@ -52,32 +52,34 @@ namespace SolitaireDomain
             {
                 return false;
             }
-            return true;
-            //if (!targetCollection.Any())
-            //{
-            //    if (card.Rank == CardRank.King)
-            //    {
-            //        return true;
-            //    }
-            //    else { return false; }
-            //}
-            //if (targetCollection.Last().FaceUp == false)
-            //{
-            //    return false;
-            //}
-            //else if (targetCollection.Last().Color != card.Color)
-            //{
-            //    if (targetCollection.Last().Rank == card.Rank + 1)
-            //    {
-            //        return true;
-            //    }
-            //}
-            //return false;
+            if (parentCollection.Count() == 7)
+            {
+                if (!targetCollection.Any())
+                {
+                    if (card.Rank == CardRank.King)
+                    {
+                        return true;
+                    }
+                    else { return false; }
+                }
+                if (targetCollection.Last().FaceUp == false)
+                {
+                    return false;
+                }
+                else if (targetCollection.Last().Color != card.Color)
+                {
+                    if (targetCollection.Last().Rank == card.Rank + 1)
+                    {
+                        return true;
+                    }
+                }
+            }
+            throw new ArgumentOutOfRangeException();
         }
 
-        public void PlayFromFlipped(List<Card> targetCollection, Stack<Card> flippedCards)
+        public void PlayFromFlipped(List<Card> targetCollection, Stack<Card> flippedCards, IEnumerable<List<Card>> parentCollection)
         {
-            if (ValidatePlay(targetCollection, flippedCards.Peek()))
+            if (ValidatePlay(targetCollection, flippedCards.Peek(), parentCollection))
             {
                 targetCollection.Add(flippedCards.Pop());
             }
