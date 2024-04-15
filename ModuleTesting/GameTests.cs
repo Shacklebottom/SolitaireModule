@@ -192,7 +192,7 @@ namespace ModuleTesting
         }
 
         [TestMethod]
-        public void ValidatePlay_ToEmptyPileCanOnlyBeAKing_FalsePile()
+        public void ValidatePlay_EmptyPileWillOnlyAcceptAKing_FalsePile()
         {
             //Arrange
 
@@ -206,7 +206,7 @@ namespace ModuleTesting
         }
 
         [TestMethod]
-        public void ValidatePlay_ToEmptyPileCanOnlyBeAKing_TruePile()
+        public void ValidatePlay_EmptyPileWillOnlyAcceptAKing_TruePile()
         {
             //Arrange
 
