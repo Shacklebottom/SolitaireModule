@@ -12,19 +12,26 @@ namespace ModuleTesting
         //Global Test Variables
         private Player _testPlayer { get; set; } = new();
         private Game _testGame { get; set; } = new();
-        private List<Card> _testCollection { get; set; } = [];
+        private List<Card> _testPile { get; set; } = [];
+
+        private List<Card> _testFoundation { get; set; } = [];
 
         [TestInitialize]
         public void GameTestsInitialize()
         {
             _testPlayer = new Player("Player 1");
             _testGame = new Game(_testPlayer);
-            _testCollection = new List<Card>()
+            _testPile = new List<Card>()
             {
                 new (CardRank.Five, CardSuit.Diamonds),
                 new (CardRank.Four, CardSuit.Hearts),
                 new (CardRank.Three, CardSuit.Spades) { FaceUp = true },
                 new (CardRank.Two, CardSuit.Clubs) { FaceUp = true }
+            };
+            _testFoundation = new List<Card>()
+            {
+                new (CardRank.Ace, CardSuit.Hearts) { FaceUp = true },
+                new (CardRank.Two, CardSuit.Spades) { FaceUp = true },
             };
         }
 
@@ -158,7 +165,7 @@ namespace ModuleTesting
             var invalidCard = new Card(CardRank.Two, CardSuit.Diamonds);
 
             //Act
-            var result = _testGame.ValidatePlay(_testCollection, invalidCard);
+            var result = _testGame.ValidatePlay(_testPile, invalidCard);
 
             //Assert
             Assert.IsFalse(result);
@@ -171,7 +178,7 @@ namespace ModuleTesting
             var invalidCard = new Card(CardRank.Ace, CardSuit.Spades);
 
             //Act
-            var result = _testGame.ValidatePlay(_testCollection, invalidCard);
+            var result = _testGame.ValidatePlay(_testPile, invalidCard);
 
             //Assert
             Assert.IsFalse(result);
@@ -184,7 +191,7 @@ namespace ModuleTesting
             var validCard = new Card(CardRank.Ace, CardSuit.Diamonds);
 
             //Act
-            var result = _testGame.ValidatePlay(_testCollection, validCard);
+            var result = _testGame.ValidatePlay(_testPile, validCard);
 
             //Assert
             //1. that the correct card is a valid play.
@@ -254,17 +261,18 @@ namespace ModuleTesting
             Assert.IsFalse(result);
         }
 
+
         [TestMethod]
         public void ValidatePlay_ToAFoundation_IsAscendingRankAndAlternatingColor_FalseRank()
         {
             //Arrange
-
+            var invalidCard = new Card(CardRank.Five, CardSuit.Diamonds);
 
             //Act
-
+            var result = _testGame.ValidatePlay(_testFoundation, invalidCard);
 
             //Assert
-
+            Assert.IsFalse(result);
         }
 
         //[TestMethod]
@@ -304,11 +312,11 @@ namespace ModuleTesting
             testFlipped.Push(new Card(CardRank.Ace, CardSuit.Diamonds) { FaceUp = true });
 
             //Act
-            _testGame.PlayFromFlipped(_testCollection, testFlipped);
+            _testGame.PlayFromFlipped(_testPile, testFlipped);
 
             //Assert
             //1. The card was added to the collection.
-            Assert.IsTrue(_testCollection.Last().Rank == CardRank.Ace, "The card was not added to the collection");
+            Assert.IsTrue(_testPile.Last().Rank == CardRank.Ace, "The card was not added to the collection");
             //2. The card was removed from the stack.
             Assert.IsTrue(testFlipped.Peek().Rank != CardRank.Ace, "The card was not Pop()'d off the Stack");
         }
