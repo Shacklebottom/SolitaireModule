@@ -54,6 +54,7 @@ namespace SolitaireDomain
                 {
                     return true;
                 }
+                else { return false; }
             }
             if (targetCollection.Last().Color != card.Color)
             {

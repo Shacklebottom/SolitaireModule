@@ -226,17 +226,32 @@ namespace ModuleTesting
         public void ValidatePlay_EmptyPileWillOnlyAcceptAKing_FalseCard()
         {
             //Arrange
-
+            var truePile = new List<Card>();
+            var invalidCard = new Card(CardRank.Seven, CardSuit.Spades);
 
             //Act
-
+            var result = _testGame.ValidatePlay(truePile, invalidCard);
 
             //Assert
-
+            Assert.IsFalse(result);
         }
 
         [TestMethod]
         public void ValidatePlay_EmptyPileWillOnlyAcceptAKing_TrueCard()
+        {
+            //Arrange
+            var truePile = new List<Card>();
+            var validCard = new Card(CardRank.King, CardSuit.Spades);
+
+            //Act
+            var result = _testGame.ValidatePlay(truePile, validCard);
+
+            //Assert
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void ValidatePlay_DoesntConsiderFaceDownCards()
         {
             //Arrange
 
