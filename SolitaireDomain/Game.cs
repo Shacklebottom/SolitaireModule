@@ -1,5 +1,6 @@
-﻿
-using System.Net;
+﻿using static SolitaireDomain.EnumCardSuit;
+using static SolitaireDomain.EnumCardRank;
+using static SolitaireDomain.EnumCardColor;
 
 namespace SolitaireDomain
 {
@@ -47,6 +48,13 @@ namespace SolitaireDomain
 
         public bool ValidatePlay(IEnumerable<Card> targetCollection, Card card)
         {
+            if (!targetCollection.Any())
+            {
+                if (card.Rank == CardRank.King)
+                {
+                    return true;
+                }
+            }
             if (targetCollection.Last().Color != card.Color)
             {
                 if (targetCollection.Last().Rank == card.Rank + 1)

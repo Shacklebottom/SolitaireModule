@@ -195,18 +195,35 @@ namespace ModuleTesting
         public void ValidatePlay_EmptyPileWillOnlyAcceptAKing_FalsePile()
         {
             //Arrange
-
+            var validCard = new Card(CardRank.King, CardSuit.Diamonds);
+            var falsePile = new List<Card>()
+            {
+                new Card(CardRank.Six, CardSuit.Spades)
+            };
 
             //Act
-
+            var result = _testGame.ValidatePlay(falsePile, validCard);
 
             //Assert
-
-
+            Assert.IsFalse(result);
         }
 
         [TestMethod]
         public void ValidatePlay_EmptyPileWillOnlyAcceptAKing_TruePile()
+        {
+            //Arrange
+            var validCard = new Card(CardRank.King, CardSuit.Diamonds);
+            var truePile = new List<Card>();
+
+            //Act
+            var result = _testGame.ValidatePlay(truePile, validCard);
+
+            //Assert
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void ValidatePlay_EmptyPileWillOnlyAcceptAKing_FalseCard()
         {
             //Arrange
 
@@ -216,6 +233,18 @@ namespace ModuleTesting
 
             //Assert
 
+        }
+
+        [TestMethod]
+        public void ValidatePlay_EmptyPileWillOnlyAcceptAKing_TrueCard()
+        {
+            //Arrange
+
+
+            //Act
+
+
+            //Assert
 
         }
 
