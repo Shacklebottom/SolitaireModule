@@ -56,7 +56,11 @@ namespace SolitaireDomain
                 }
                 else { return false; }
             }
-            if (targetCollection.Last().Color != card.Color)
+            if (targetCollection.Last().FaceUp == false)
+            {
+                return false;
+            }
+            else if (targetCollection.Last().Color != card.Color)
             {
                 if (targetCollection.Last().Rank == card.Rank + 1)
                 {

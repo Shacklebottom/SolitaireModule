@@ -254,13 +254,18 @@ namespace ModuleTesting
         public void ValidatePlay_DoesntConsiderFaceDownCards()
         {
             //Arrange
-
+            var testPile = new List<Card>()
+            {
+                new Card(CardRank.Six, CardSuit.Hearts),
+            };
+            var testCard = new Card(CardRank.Five, CardSuit.Spades);
 
             //Act
-
+            var result = _testGame.ValidatePlay(testPile, testCard);
 
             //Assert
-
+            //1. that this valid play is invalid because the testPile card is FaceUp == false (default instantiation).
+            Assert.IsFalse(result);
         }
 
         [TestMethod]
