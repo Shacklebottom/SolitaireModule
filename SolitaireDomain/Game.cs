@@ -45,7 +45,7 @@ namespace SolitaireDomain
             Deck.Draw(drawCount).ForEach(c => { c.FaceUp = true; FlippedCards.Push(c); });
         }
 
-        public bool ValidPlay(IEnumerable<Card> targetCollection, Card card)
+        public bool ValidatePlay(IEnumerable<Card> targetCollection, Card card)
         {
             if (targetCollection.Last().Color != card.Color)
             {
@@ -59,15 +59,15 @@ namespace SolitaireDomain
 
         public void PlayFromFlipped(List<Card> targetCollection, Stack<Card> flippedCards)
         {
-            if (ValidPlay(targetCollection, flippedCards.Peek()))
+            if (ValidatePlay(targetCollection, flippedCards.Peek()))
             {
                 targetCollection.Add(flippedCards.Pop());
             }
         }
 
-        public void MovePileToPile(List<Card> moveTo, List<Card> moveFrom)
-        {
-            moveTo.AddRange(moveFrom);
-        }
+        //public void MovePileToPile(List<Card> moveTo, List<Card> moveFrom)
+        //{
+        //    moveTo.AddRange(moveFrom);
+        //}
     }
 }

@@ -158,7 +158,7 @@ namespace ModuleTesting
             var invalidCard = new Card(CardRank.Two, CardSuit.Diamonds);
 
             //Act
-            var result = _testGame.ValidPlay(_testCollection, invalidCard);
+            var result = _testGame.ValidatePlay(_testCollection, invalidCard);
 
             //Assert
             Assert.IsFalse(result);
@@ -171,7 +171,7 @@ namespace ModuleTesting
             var invalidCard = new Card(CardRank.Ace, CardSuit.Spades);
 
             //Act
-            var result = _testGame.ValidPlay(_testCollection, invalidCard);
+            var result = _testGame.ValidatePlay(_testCollection, invalidCard);
 
             //Assert
             Assert.IsFalse(result);
@@ -184,11 +184,39 @@ namespace ModuleTesting
             var validCard = new Card(CardRank.Ace, CardSuit.Diamonds);
 
             //Act
-            var result = _testGame.ValidPlay(_testCollection, validCard);
+            var result = _testGame.ValidatePlay(_testCollection, validCard);
 
             //Assert
             //1. that the correct card is a valid play.
             Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void ValidPlay_ToEmptyPileCanOnlyBeAKing_FalsePile()
+        {
+            //Arrange
+
+
+            //Act
+
+
+            //Assert
+
+
+        }
+
+        [TestMethod]
+        public void ValidPlay_ToEmptyPileCanOnlyBeAKing_TruePile()
+        {
+            //Arrange
+
+
+            //Act
+
+
+            //Assert
+
+
         }
 
         [TestMethod]
@@ -210,46 +238,81 @@ namespace ModuleTesting
             Assert.IsTrue(testFlipped.Peek().Rank != CardRank.Ace, "The card was not Pop()'d off the Stack");
         }
 
-        //[TestMethod]
-        //public void PlayFromFlipped_OnlyKingPlaysToEmptyPile_FalsePile()
-        //{
-        //    //Arrange
-
-
-        //    //Act
-
-
-        //    //Assert
-
-
-        //}
-
-        //[TestMethod]
-        //public void PlayFromFlipped_OnlyKingPlaysToEmptyPile_TruePile()
-        //{
-        //    //Arrange
-
-
-        //    //Act
-
-
-        //    //Assert
-
-
-        //}
-
         [TestMethod]
-        public void GameCanMovePileToPile()
+        public void PlayFromFlipped_OnlyKingPlaysToEmptyPile_FalsePile()
         {
             //Arrange
-            var testTargetPile = new List<Card>();
+            var emptyTestPile = new List<Card>()
+            {
+                new Card(CardRank.Three, CardSuit.Clubs)
+            };
+
+            var testFlipped = new Stack<Card>();
+            testFlipped.Push(new Card(CardRank.Nine, CardSuit.Spades) { FaceUp = true });
+            testFlipped.Push(new Card(CardRank.Six, CardSuit.Clubs) { FaceUp = true });
+            testFlipped.Push(new Card(CardRank.King, CardSuit.Hearts) { FaceUp = true });
 
             //Act
-            _testGame.MovePileToPile(testTargetPile, _testCollection);
+            _testGame.PlayFromFlipped(emptyTestPile, testFlipped);
 
             //Assert
-            Assert.IsTrue(testTargetPile.Count > 0);
+            Assert.IsTrue(emptyTestPile.Last().Rank == CardRank.King);
+        }
+
+        [TestMethod]
+        public void PlayFromFlipped_OnlyKingPlaysToEmptyPile_TruePile()
+        {
+            //Arrange
+
+
+            //Act
+
+
+            //Assert
+
 
         }
+
+        [TestMethod]
+        public void PlayFromFlipped_OnlyKingPlaysToEmptyPile_FalseFlipped()
+        {
+            //Arrange
+
+
+            //Act
+
+
+            //Assert
+
+
+        }
+
+        [TestMethod]
+        public void PlayFromFlipped_OnlyKingPlaysToEmptyPile_TrueFlipped()
+        {
+            //Arrange
+
+
+            //Act
+
+
+            //Assert
+
+
+        }
+
+        //[TestMethod]
+        //public void GameCanMovePileToPile()
+        //{
+        //    //Arrange
+        //    var testTargetPile = new List<Card>();
+
+        //    //Act
+        //    _testGame.MovePileToPile(testTargetPile, _testCollection);
+
+        //    //Assert
+        //    Assert.IsTrue(testTargetPile.Count > 0);
+
+        //}
     }
 }
