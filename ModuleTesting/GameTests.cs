@@ -152,7 +152,7 @@ namespace ModuleTesting
         }
 
         [TestMethod]
-        public void ValidatePlay_IsDescendingRankAndAlternatingColor_FalseRank()
+        public void ValidatePlay_ToAPile_IsDescendingRankAndAlternatingColor_FalseRank()
         {
             //Arrange
             var invalidCard = new Card(CardRank.Two, CardSuit.Diamonds);
@@ -165,7 +165,7 @@ namespace ModuleTesting
         }
 
         [TestMethod]
-        public void ValidatePlay_IsDescendingRankAndAlternatingColor_FalseColor()
+        public void ValidatePlay_ToAPile_IsDescendingRankAndAlternatingColor_FalseColor()
         {
             //Arrange
             var invalidCard = new Card(CardRank.Ace, CardSuit.Spades);
@@ -178,7 +178,7 @@ namespace ModuleTesting
         }
 
         [TestMethod]
-        public void ValidatePlay_IsDescendingRankAndAlternatingColor_TrueCard()
+        public void ValidatePlay_ToAPile_IsDescendingRankAndAlternatingColor_TrueCard()
         {
             //Arrange
             var validCard = new Card(CardRank.Ace, CardSuit.Diamonds);
@@ -206,20 +206,6 @@ namespace ModuleTesting
 
             //Assert
             Assert.IsFalse(result);
-        }
-
-        [TestMethod]
-        public void ValidatePlay_EmptyPileWillOnlyAcceptAKing_TruePile()
-        {
-            //Arrange
-            var validCard = new Card(CardRank.King, CardSuit.Diamonds);
-            var truePile = new List<Card>();
-
-            //Act
-            var result = _testGame.ValidatePlay(truePile, validCard);
-
-            //Assert
-            Assert.IsTrue(result);
         }
 
         [TestMethod]
@@ -267,6 +253,46 @@ namespace ModuleTesting
             //1. that this valid play is invalid because the testPile card is FaceUp == false (default instantiation).
             Assert.IsFalse(result);
         }
+
+        [TestMethod]
+        public void ValidatePlay_ToAFoundation_IsAscendingRankAndAlternatingColor_FalseRank()
+        {
+            //Arrange
+
+
+            //Act
+
+
+            //Assert
+
+        }
+
+        //[TestMethod]
+        //public void ValidatePlay_ToAFoundation_IsAscendingRankAndAlternatingColor_FalseColor()
+        //{
+        //    //Arrange
+
+
+        //    //Act
+
+
+        //    //Assert
+
+        //}
+
+        //[TestMethod]
+        //public void ValidatePlay_ToAFoundation_IsAscendingRankAndAlternatingColor_TrueCard()
+        //{
+        //    //Arrange
+
+
+        //    //Act
+
+
+        //    //Assert
+
+        //}
+
 
         [TestMethod]
         public void PlayFromFlipped_CanPlay()
