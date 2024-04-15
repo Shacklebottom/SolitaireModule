@@ -50,6 +50,13 @@ namespace SolitaireDomain
         {
             if (parentCollection.Count() == 4)
             {
+                if (targetCollection.Last().Color != card.Color)
+                {
+                    if (targetCollection.Last().Rank == card.Rank - 1)
+                    {
+                        return true;
+                    }
+                }
                 return false;
             }
             if (parentCollection.Count() == 7)
@@ -73,8 +80,9 @@ namespace SolitaireDomain
                         return true;
                     }
                 }
+                return false;
             }
-            throw new ArgumentOutOfRangeException();
+            throw new ArgumentOutOfRangeException("parentCollection", "Pile or Foundation doesn't have the correct number of elements");
         }
 
         public void PlayFromFlipped(List<Card> targetCollection, Stack<Card> flippedCards, IEnumerable<List<Card>> parentCollection)

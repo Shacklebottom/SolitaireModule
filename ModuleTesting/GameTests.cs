@@ -291,18 +291,18 @@ namespace ModuleTesting
             Assert.IsFalse(result);
         }
 
-        //[TestMethod]
-        //public void ValidatePlay_ToAFoundation_IsAscendingRankAndAlternatingColor_FalseColor()
-        //{
-        //    //Arrange
+        [TestMethod]
+        public void ValidatePlay_ToAFoundation_IsAscendingRankAndAlternatingColor_FalseColor()
+        {
+            //Arrange
+            var invalidCard = new Card(CardRank.Three, CardSuit.Spades);
 
+            //Act
+            var result = _testGame.ValidatePlay(_testFoundation, invalidCard, _parentOfFoundations);
 
-        //    //Act
-
-
-        //    //Assert
-
-        //}
+            //Assert
+            Assert.IsFalse(result);
+        }
 
         //[TestMethod]
         //public void ValidatePlay_ToAFoundation_IsAscendingRankAndAlternatingColor_TrueCard()
