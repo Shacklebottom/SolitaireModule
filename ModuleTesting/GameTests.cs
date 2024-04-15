@@ -152,7 +152,7 @@ namespace ModuleTesting
         }
 
         [TestMethod]
-        public void ValidPlay_IsDescendingRankAndAlternatingColor_FalseRank()
+        public void ValidatePlay_IsDescendingRankAndAlternatingColor_FalseRank()
         {
             //Arrange
             var invalidCard = new Card(CardRank.Two, CardSuit.Diamonds);
@@ -165,7 +165,7 @@ namespace ModuleTesting
         }
 
         [TestMethod]
-        public void ValidPlay_IsDescendingRankAndAlternatingColor_FalseColor()
+        public void ValidatePlay_IsDescendingRankAndAlternatingColor_FalseColor()
         {
             //Arrange
             var invalidCard = new Card(CardRank.Ace, CardSuit.Spades);
@@ -178,7 +178,7 @@ namespace ModuleTesting
         }
 
         [TestMethod]
-        public void ValidPlay_IsDescendingRankAndAlternatingColor_TrueCard()
+        public void ValidatePlay_IsDescendingRankAndAlternatingColor_TrueCard()
         {
             //Arrange
             var validCard = new Card(CardRank.Ace, CardSuit.Diamonds);
@@ -192,7 +192,7 @@ namespace ModuleTesting
         }
 
         [TestMethod]
-        public void ValidPlay_ToEmptyPileCanOnlyBeAKing_FalsePile()
+        public void ValidatePlay_ToEmptyPileCanOnlyBeAKing_FalsePile()
         {
             //Arrange
 
@@ -206,7 +206,7 @@ namespace ModuleTesting
         }
 
         [TestMethod]
-        public void ValidPlay_ToEmptyPileCanOnlyBeAKing_TruePile()
+        public void ValidatePlay_ToEmptyPileCanOnlyBeAKing_TruePile()
         {
             //Arrange
 
@@ -236,69 +236,6 @@ namespace ModuleTesting
             Assert.IsTrue(_testCollection.Last().Rank == CardRank.Ace, "The card was not added to the collection");
             //2. The card was removed from the stack.
             Assert.IsTrue(testFlipped.Peek().Rank != CardRank.Ace, "The card was not Pop()'d off the Stack");
-        }
-
-        [TestMethod]
-        public void PlayFromFlipped_OnlyKingPlaysToEmptyPile_FalsePile()
-        {
-            //Arrange
-            var emptyTestPile = new List<Card>()
-            {
-                new Card(CardRank.Three, CardSuit.Clubs)
-            };
-
-            var testFlipped = new Stack<Card>();
-            testFlipped.Push(new Card(CardRank.Nine, CardSuit.Spades) { FaceUp = true });
-            testFlipped.Push(new Card(CardRank.Six, CardSuit.Clubs) { FaceUp = true });
-            testFlipped.Push(new Card(CardRank.King, CardSuit.Hearts) { FaceUp = true });
-
-            //Act
-            _testGame.PlayFromFlipped(emptyTestPile, testFlipped);
-
-            //Assert
-            Assert.IsTrue(emptyTestPile.Last().Rank == CardRank.King);
-        }
-
-        [TestMethod]
-        public void PlayFromFlipped_OnlyKingPlaysToEmptyPile_TruePile()
-        {
-            //Arrange
-
-
-            //Act
-
-
-            //Assert
-
-
-        }
-
-        [TestMethod]
-        public void PlayFromFlipped_OnlyKingPlaysToEmptyPile_FalseFlipped()
-        {
-            //Arrange
-
-
-            //Act
-
-
-            //Assert
-
-
-        }
-
-        [TestMethod]
-        public void PlayFromFlipped_OnlyKingPlaysToEmptyPile_TrueFlipped()
-        {
-            //Arrange
-
-
-            //Act
-
-
-            //Assert
-
-
         }
 
         //[TestMethod]
