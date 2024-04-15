@@ -317,6 +317,33 @@ namespace ModuleTesting
             Assert.IsTrue(result);
         }
 
+        [TestMethod]
+        public void ValidatePlay_EmptyFoundationWillOnlyAcceptAnAce_FalseCard()
+        {
+            //Arrange
+            var testFoundation = new List<Card>();
+            var invalidCard = new Card(CardRank.Two, CardSuit.Clubs);
+
+            //Act
+            var result = _testGame.ValidatePlay(testFoundation, invalidCard, _parentOfFoundations);
+
+            //Assert
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void ValidatePlay_EmptyFoundationWillOnlyAcceptAnAce_TrueCard()
+        {
+            //Arrange
+            var testFoundation = new List<Card>();
+            var validCard = new Card(CardRank.Ace, CardSuit.Clubs);
+
+            //Act
+            var result = _testGame.ValidatePlay(testFoundation, validCard, _parentOfFoundations);
+
+            //Assert
+            Assert.IsTrue(result);
+        }
 
         [TestMethod]
         public void PlayFromFlipped_CanPlay()

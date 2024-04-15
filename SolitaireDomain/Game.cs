@@ -50,6 +50,14 @@ namespace SolitaireDomain
         {
             if (parentCollection.Count() == 4)
             {
+                if (!targetCollection.Any())
+                {
+                    if (card.Rank == CardRank.Ace)
+                    {
+                        return true; 
+                    }
+                    return false;
+                }
                 if (targetCollection.Last().Color != card.Color)
                 {
                     if (targetCollection.Last().Rank == card.Rank - 1)
@@ -67,7 +75,7 @@ namespace SolitaireDomain
                     {
                         return true;
                     }
-                    else { return false; }
+                    return false;
                 }
                 if (targetCollection.Last().FaceUp == false)
                 {
