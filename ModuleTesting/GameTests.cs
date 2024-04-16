@@ -35,7 +35,7 @@ namespace ModuleTesting
                 new (CardRank.Two, CardSuit.Spades) { FaceUp = true },
             };
         }
-
+        #region Constructor and Instantiation Tests
         [TestMethod]
         public void Player_HasName()
         {
@@ -126,7 +126,9 @@ namespace ModuleTesting
             //Assert.Dominance
             Assert.IsTrue(_testGame.Piles.All(p => p.Count(c => c.FaceUp) == 1));
         }
+        #endregion
 
+        #region FlipPileCard()
         [TestMethod]
         public void FlipPileCard_CanFlip()
         {
@@ -141,7 +143,9 @@ namespace ModuleTesting
             //Assert
             Assert.AreEqual(true, _testGame.Piles[pileIndex].Last().FaceUp);
         }
+        #endregion
 
+        #region FlipFromDeck()
         [TestMethod]
         public void FlipFromDeck_CanFlip()
         {
@@ -158,7 +162,7 @@ namespace ModuleTesting
             //2. and, each card revealed is FaceUp.
             Assert.IsTrue(_testGame.FlippedCards.ToList().TrueForAll(c => c.FaceUp == true));
         }
-
+        #endregion
 
         #region ValidatePlay() Tests
         [TestMethod]
