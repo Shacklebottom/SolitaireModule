@@ -352,6 +352,7 @@ namespace ModuleTesting
         }
         #endregion
 
+        #region PlayFromFlipped()
         [TestMethod]
         public void PlayFromFlipped_WillValidatePlay()
         {
@@ -389,7 +390,9 @@ namespace ModuleTesting
             //2. The card was removed from the stack.
             Assert.IsTrue(testFlipped.Peek().Rank != CardRank.Ace, "The card was not Pop()'d off the Stack");
         }
+        #endregion
 
+        #region MovePile()
         [TestMethod]
         public void MovePileToPile_WillValidateMove()
         {
@@ -408,12 +411,25 @@ namespace ModuleTesting
         public void MovePileToPile_CanMove()
         {
             //Arrange
+            var testTargetPile = new List<Card>();
 
+            var testPile = new List<Card>()
+            {
+
+                new(CardRank.King, CardSuit.Spades) { FaceUp = true },
+                new(CardRank.Queen, CardSuit.Hearts) { FaceUp = true },
+                new(CardRank.Jack, CardSuit.Clubs) { FaceUp = true },
+            };
 
             //Act
-
+            _testGame.MovePileToPile(testTargetPile, testPile, _parentOfPiles);
 
             //Assert
+            //1. That the cards were added to the collection, and
+            Assert.IsTrue(testTargetPile.First().Rank == CardRank.King, "the collection was not properly added to the target collection");
+            Assert.IsTrue(testTargetPile.Count == 3, "the FaceUp == false cards were added to the collection");
+            //2. that the cards were removed from their source pile.
+            Assert.IsFalse(testTargetPile.Any(testPile.Contains), "the collection was not removed from its source");
 
         }
 
@@ -421,13 +437,24 @@ namespace ModuleTesting
         public void MovePileToPile_IgnoresFaceDownCards()
         {
             //Arrange
+            var testTargetPile = new List<Card>();
 
+            var testPile = new List<Card>()
+            {
+                new(CardRank.Four, CardSuit.Hearts),
+                new(CardRank.Six, CardSuit.Diamonds),
+                new(CardRank.King, CardSuit.Spades) { FaceUp = true },
+                new(CardRank.Queen, CardSuit.Hearts) { FaceUp = true },
+                new(CardRank.Jack, CardSuit.Clubs) { FaceUp = true },
+            };
 
             //Act
+            _testGame.MovePileToPile(testTargetPile, testPile, _parentOfPiles);
 
 
             //Assert
 
         }
+        #endregion
     }
 }

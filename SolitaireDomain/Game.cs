@@ -106,6 +106,7 @@ namespace SolitaireDomain
             if (ValidatePlay(moveTo, moveFrom.First(), parentCollection))
             {
                 moveTo.AddRange(moveFrom);
+                moveFrom.Clear();
             }
         }
     }
