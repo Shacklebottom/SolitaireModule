@@ -90,7 +90,7 @@ namespace SolitaireDomain
                 }
                 return false;
             }
-            throw new ArgumentOutOfRangeException("parentCollection", "Pile or Foundation doesn't have the correct number of elements");
+            throw new ArgumentOutOfRangeException(nameof(parentCollection), "Pile or Foundation doesn't have the correct number of elements");
         }
 
         public void PlayFromFlipped(List<Card> targetCollection, Stack<Card> flippedCards, IEnumerable<List<Card>> parentCollection)
