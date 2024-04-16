@@ -159,6 +159,8 @@ namespace ModuleTesting
             Assert.IsTrue(_testGame.FlippedCards.ToList().TrueForAll(c => c.FaceUp == true));
         }
 
+
+        #region ValidatePlay() Tests
         [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void ValidatePlay_ThrowsAnExceptionIfParentCollectionDoesntHaveTheRightNumberOfItems()
@@ -344,6 +346,26 @@ namespace ModuleTesting
             //Assert
             Assert.IsTrue(result);
         }
+        #endregion
+
+        [TestMethod]
+        public void PlayFromFlipped_WillValidatePlay()
+        {
+            //Arrange
+            var testFlipped = new Stack<Card>();
+            testFlipped.Push(new Card(CardRank.Five, CardSuit.Clubs) { FaceUp = true });
+            testFlipped.Push(new Card(CardRank.Jack, CardSuit.Hearts) { FaceUp = true });
+            testFlipped.Push(new Card(CardRank.Ace, CardSuit.Diamonds) { FaceUp = true });
+
+            var testPile = new List<Card>();
+
+            //Act
+            _testGame.PlayFromFlipped(testPile, testFlipped, _parentOfPiles);
+
+            //Assert
+            //1. that this test will fail because ValidatePlay says the play is invalid.
+            Assert.IsFalse(testPile.Count > 0);
+        }
 
         [TestMethod]
         public void PlayFromFlipped_CanPlay()
@@ -364,18 +386,44 @@ namespace ModuleTesting
             Assert.IsTrue(testFlipped.Peek().Rank != CardRank.Ace, "The card was not Pop()'d off the Stack");
         }
 
-        //[TestMethod]
-        //public void GameCanMovePileToPile()
-        //{
-        //    //Arrange
-        //    var testTargetPile = new List<Card>();
+        [TestMethod]
+        public void MovePileToPile_WillValidateMove()
+        {
+            //Arrange
+            var testTargetPile = new List<Card>();
 
-        //    //Act
-        //    _testGame.MovePileToPile(testTargetPile, _testCollection);
+            //Act
+            _testGame.MovePileToPile(testTargetPile, _testPile, _parentOfPiles);
 
-        //    //Assert
-        //    Assert.IsTrue(testTargetPile.Count > 0);
+            //Assert
+            //1. that this test will fail because ValidatePlay() says the move is invalid.
+            Assert.IsFalse(testTargetPile.Count > 0);
+        }
 
-        //}
+        [TestMethod]
+        public void MovePileToPile_CanMove()
+        {
+            //Arrange
+
+
+            //Act
+
+
+            //Assert
+
+        }
+
+        [TestMethod]
+        public void MovePileToPile_IgnoresFaceDownCards()
+        {
+            //Arrange
+
+
+            //Act
+
+
+            //Assert
+
+        }
     }
 }

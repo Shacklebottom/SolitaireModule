@@ -93,7 +93,7 @@ namespace SolitaireDomain
             throw new ArgumentOutOfRangeException(nameof(parentCollection), "Pile or Foundation doesn't have the correct number of elements");
         }
 
-        public void PlayFromFlipped(List<Card> targetCollection, Stack<Card> flippedCards, IEnumerable<List<Card>> parentCollection)
+        public void PlayFromFlipped(List<Card> targetCollection, Stack<Card> flippedCards, List<Card>[] parentCollection)
         {
             if (ValidatePlay(targetCollection, flippedCards.Peek(), parentCollection))
             {
@@ -101,9 +101,12 @@ namespace SolitaireDomain
             }
         }
 
-        //public void MovePileToPile(List<Card> moveTo, List<Card> moveFrom)
-        //{
-        //    moveTo.AddRange(moveFrom);
-        //}
+        public void MovePileToPile(List<Card> moveTo, List<Card> moveFrom, List<Card>[] parentCollection)
+        {
+            if (ValidatePlay(moveTo, moveFrom.First(), parentCollection))
+            {
+                moveTo.AddRange(moveFrom);
+            }
+        }
     }
 }
