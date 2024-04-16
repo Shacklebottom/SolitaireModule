@@ -168,7 +168,7 @@ namespace ModuleTesting
             var testCard = new Card(CardRank.Two, CardSuit.Clubs);
 
             //Act
-            _testGame.ValidatePlay(_testPile, testCard, invalidParentCollection);
+            Game.ValidatePlay(_testPile, testCard, invalidParentCollection);
 
             //Assert
             //1. that ValidatePlay will throw an out of range exception if the Pile or Foundation doesn't have the right number of members.
@@ -181,7 +181,7 @@ namespace ModuleTesting
             var invalidCard = new Card(CardRank.Two, CardSuit.Diamonds);
 
             //Act
-            var result = _testGame.ValidatePlay(_testPile, invalidCard, _parentOfPiles);
+            var result = Game.ValidatePlay(_testPile, invalidCard, _parentOfPiles);
 
             //Assert
             Assert.IsFalse(result);
@@ -194,7 +194,7 @@ namespace ModuleTesting
             var invalidCard = new Card(CardRank.Ace, CardSuit.Spades);
 
             //Act
-            var result = _testGame.ValidatePlay(_testPile, invalidCard, _parentOfPiles);
+            var result = Game.ValidatePlay(_testPile, invalidCard, _parentOfPiles);
 
             //Assert
             Assert.IsFalse(result);
@@ -207,7 +207,7 @@ namespace ModuleTesting
             var validCard = new Card(CardRank.Ace, CardSuit.Diamonds);
 
             //Act
-            var result = _testGame.ValidatePlay(_testPile, validCard, _parentOfPiles);
+            var result = Game.ValidatePlay(_testPile, validCard, _parentOfPiles);
 
             //Assert
             //1. that the correct card is a valid play.
@@ -225,7 +225,7 @@ namespace ModuleTesting
             };
 
             //Act
-            var result = _testGame.ValidatePlay(falsePile, validCard, _parentOfPiles);
+            var result = Game.ValidatePlay(falsePile, validCard, _parentOfPiles);
 
             //Assert
             Assert.IsFalse(result);
@@ -239,7 +239,7 @@ namespace ModuleTesting
             var invalidCard = new Card(CardRank.Seven, CardSuit.Spades);
 
             //Act
-            var result = _testGame.ValidatePlay(truePile, invalidCard, _parentOfPiles);
+            var result = Game.ValidatePlay(truePile, invalidCard, _parentOfPiles);
 
             //Assert
             Assert.IsFalse(result);
@@ -253,7 +253,7 @@ namespace ModuleTesting
             var validCard = new Card(CardRank.King, CardSuit.Spades);
 
             //Act
-            var result = _testGame.ValidatePlay(truePile, validCard, _parentOfPiles);
+            var result = Game.ValidatePlay(truePile, validCard, _parentOfPiles);
 
             //Assert
             Assert.IsTrue(result);
@@ -270,7 +270,7 @@ namespace ModuleTesting
             var testCard = new Card(CardRank.Five, CardSuit.Spades);
 
             //Act
-            var result = _testGame.ValidatePlay(testPile, testCard, _parentOfPiles);
+            var result = Game.ValidatePlay(testPile, testCard, _parentOfPiles);
 
             //Assert
             //1. that this valid play is invalid because the testPile card is FaceUp == false (default instantiation).
@@ -285,7 +285,7 @@ namespace ModuleTesting
             var invalidCard = new Card(CardRank.Five, CardSuit.Diamonds);
 
             //Act
-            var result = _testGame.ValidatePlay(_testFoundation, invalidCard, _parentOfFoundations);
+            var result = Game.ValidatePlay(_testFoundation, invalidCard, _parentOfFoundations);
 
             //Assert
             Assert.IsFalse(result);
@@ -298,7 +298,7 @@ namespace ModuleTesting
             var invalidCard = new Card(CardRank.Three, CardSuit.Spades);
 
             //Act
-            var result = _testGame.ValidatePlay(_testFoundation, invalidCard, _parentOfFoundations);
+            var result = Game.ValidatePlay(_testFoundation, invalidCard, _parentOfFoundations);
 
             //Assert
             Assert.IsFalse(result);
@@ -311,7 +311,7 @@ namespace ModuleTesting
             var validCard = new Card(CardRank.Three, CardSuit.Diamonds);
 
             //Act
-            var result = _testGame.ValidatePlay(_testFoundation, validCard, _parentOfFoundations);
+            var result = Game.ValidatePlay(_testFoundation, validCard, _parentOfFoundations);
 
             //Assert
             Assert.IsTrue(result);
@@ -325,7 +325,7 @@ namespace ModuleTesting
             var invalidCard = new Card(CardRank.Two, CardSuit.Clubs);
 
             //Act
-            var result = _testGame.ValidatePlay(testFoundation, invalidCard, _parentOfFoundations);
+            var result = Game.ValidatePlay(testFoundation, invalidCard, _parentOfFoundations);
 
             //Assert
             Assert.IsFalse(result);
@@ -339,7 +339,7 @@ namespace ModuleTesting
             var validCard = new Card(CardRank.Ace, CardSuit.Clubs);
 
             //Act
-            var result = _testGame.ValidatePlay(testFoundation, validCard, _parentOfFoundations);
+            var result = Game.ValidatePlay(testFoundation, validCard, _parentOfFoundations);
 
             //Assert
             Assert.IsTrue(result);

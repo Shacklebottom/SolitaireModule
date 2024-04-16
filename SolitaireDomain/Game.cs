@@ -10,9 +10,9 @@ namespace SolitaireDomain
 
         public Player Player { get; set; }
 
-        public List<Card>[] Foundations { get; set; } = [[], [], [], []];
+        public List<Card>[] Foundations { get; set; } = [ [], [], [], [] ];
 
-        public List<Card>[] Piles { get; set; } = [[], [], [], [], [], [], []];
+        public List<Card>[] Piles { get; set; } = [ [], [], [], [], [], [], [] ];
 
         public Stack<Card> FlippedCards { get; set; } = [];
 
@@ -46,7 +46,7 @@ namespace SolitaireDomain
             Deck.Draw(drawCount).ForEach(c => { c.FaceUp = true; FlippedCards.Push(c); });
         }
 
-        public bool ValidatePlay(IEnumerable<Card> targetCollection, Card card, IEnumerable<List<Card>> parentCollection)
+        public static bool ValidatePlay(IEnumerable<Card> targetCollection, Card card, IEnumerable<List<Card>> parentCollection)
         {
             if (parentCollection.Count() == 4)
             {
