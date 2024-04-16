@@ -430,7 +430,6 @@ namespace ModuleTesting
             Assert.IsTrue(testTargetPile.Count == 3, "the FaceUp == false cards were added to the collection");
             //2. that the cards were removed from their source pile.
             Assert.IsFalse(testTargetPile.Any(testPile.Contains), "the collection was not removed from its source");
-
         }
 
         [TestMethod]
@@ -451,9 +450,9 @@ namespace ModuleTesting
             //Act
             _testGame.MovePileToPile(testTargetPile, testPile, _parentOfPiles);
 
-
             //Assert
-
+            //1. that only FaceUp == false cards are left in the testPile.
+            Assert.IsTrue(testPile.Count == 2);
         }
         #endregion
     }

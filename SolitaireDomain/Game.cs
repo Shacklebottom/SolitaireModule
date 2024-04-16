@@ -103,10 +103,14 @@ namespace SolitaireDomain
 
         public void MovePileToPile(List<Card> moveTo, List<Card> moveFrom, List<Card>[] parentCollection)
         {
-            if (ValidatePlay(moveTo, moveFrom.First(), parentCollection))
+            if (ValidatePlay(moveTo, moveFrom.First(c => c.FaceUp == true), parentCollection))
             {
-                moveTo.AddRange(moveFrom);
-                moveFrom.Clear();
+                var faceUpCards = moveFrom.Where(c => c.FaceUp == true).ToList();
+                foreach (var card in faceUpCards)
+                {
+                    moveTo.Add(card);
+                    moveFrom.Remove(card);
+                }
             }
         }
     }
