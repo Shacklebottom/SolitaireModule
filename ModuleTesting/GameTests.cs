@@ -367,7 +367,7 @@ namespace ModuleTesting
             _testGame.PlayFromFlipped(testPile, testFlipped, _parentOfPiles);
 
             //Assert
-            //1. that this test will fail because ValidatePlay says the play is invalid.
+            //1. that this test will be false because ValidatePlay says the play is invalid.
             Assert.IsFalse(testPile.Count > 0);
         }
 
@@ -400,7 +400,7 @@ namespace ModuleTesting
             _testGame.MovePileToPile(testTargetPile, _testPile, _parentOfPiles);
 
             //Assert
-            //1. that this test will fail because ValidatePlay() says the move is invalid.
+            //1. that this test will be false because ValidatePlay() says the move is invalid.
             Assert.IsFalse(testTargetPile.Count > 0);
         }
 
