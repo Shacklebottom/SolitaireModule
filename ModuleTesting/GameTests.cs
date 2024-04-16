@@ -400,7 +400,7 @@ namespace ModuleTesting
             var testTargetPile = new List<Card>();
 
             //Act
-            _testGame.MovePileToPile(testTargetPile, _testPile, _parentOfPiles);
+            _testGame.MovePile(testTargetPile, _testPile, _parentOfPiles);
 
             //Assert
             //1. that this test will be false because ValidatePlay() says the move is invalid.
@@ -423,7 +423,7 @@ namespace ModuleTesting
             };
 
             //Act
-            _testGame.MovePileToPile(testTargetPile, testPile, _parentOfPiles);
+            _testGame.MovePile(testTargetPile, testPile, _parentOfPiles);
 
             //Assert
             //1. that only FaceUp == false cards are left in the testPile.
@@ -446,7 +446,7 @@ namespace ModuleTesting
             };
 
             //Act
-            _testGame.MovePileToPile(testTargetPile, testPile, _parentOfPiles);
+            _testGame.MovePile(testTargetPile, testPile, _parentOfPiles);
 
             //Assert
             //1. That the cards were added to the collection, and

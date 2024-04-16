@@ -101,7 +101,7 @@ namespace SolitaireDomain
             }
         }
 
-        public void MovePileToPile(List<Card> moveTo, List<Card> moveFrom, List<Card>[] parentCollection)
+        public void MovePile(List<Card> moveTo, List<Card> moveFrom, List<Card>[] parentCollection)
         {
             if (ValidatePlay(moveTo, moveFrom.First(c => c.FaceUp == true), parentCollection))
             {
