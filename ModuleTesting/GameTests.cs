@@ -167,7 +167,7 @@ namespace ModuleTesting
         #region ValidatePlay() Tests
         [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
-        public void ValidatePlay_ThrowsAnExceptionIfParentCollectionDoesntHaveTheRightNumberOfItems()
+        public void ValidatePlay_ThrowsAnException_IfParentCollectionDoesntHaveTheRightNumberOfItems()
         {
             //Arrange
             var invalidParentCollection = new List<Card>[3];
@@ -399,8 +399,10 @@ namespace ModuleTesting
             //Arrange
             var testTargetPile = new List<Card>();
 
+            var startingIndex = 2;
+
             //Act
-            _testGame.MovePile(testTargetPile, _testPile, _parentOfPiles);
+            _testGame.MovePile(testTargetPile, _testPile, startingIndex, _parentOfPiles);
 
             //Assert
             //1. that this test will be false because ValidatePlay() says the move is invalid.
@@ -408,10 +410,14 @@ namespace ModuleTesting
         }
 
         [TestMethod]
-        public void MovePile_IgnoresFaceDownCards()
+        public void MovePile_CanMove_ToAPile_BasedOnStartingIndex()
         {
+            //NOTE!: this test could be better constructed to look at the actual contents of each list to ensure that the rules were properly addressed.
+
             //Arrange
             var testTargetPile = new List<Card>();
+
+            var startingIndex = 2;
 
             var testPile = new List<Card>()
             {
@@ -423,30 +429,7 @@ namespace ModuleTesting
             };
 
             //Act
-            _testGame.MovePile(testTargetPile, testPile, _parentOfPiles);
-
-            //Assert
-            //1. that only FaceUp == false cards are left in the testPile.
-            Assert.IsTrue(testPile.Count == 2);
-        }
-
-        [TestMethod]
-        public void MovePile_CanMove()
-        {
-            //Arrange
-            var testTargetPile = new List<Card>();
-
-            var testPile = new List<Card>()
-            {
-                new(CardRank.Four, CardSuit.Hearts),
-                new(CardRank.Six, CardSuit.Diamonds),
-                new(CardRank.King, CardSuit.Spades) { FaceUp = true },
-                new(CardRank.Queen, CardSuit.Hearts) { FaceUp = true },
-                new(CardRank.Jack, CardSuit.Clubs) { FaceUp = true },
-            };
-
-            //Act
-            _testGame.MovePile(testTargetPile, testPile, _parentOfPiles);
+            _testGame.MovePile(testTargetPile, testPile, startingIndex, _parentOfPiles);
 
             //Assert
             //1. That the cards were added to the collection, and
@@ -455,6 +438,63 @@ namespace ModuleTesting
             //2. that the cards were removed from their source pile.
             Assert.IsFalse(testTargetPile.Any(testPile.Contains), "the collection was not removed from its source");
         }
+
+        [TestMethod]
+        public void MovePile_CanMove_ToAFoundation_BasedOnEndingIndex()
+        {
+            //NOTE!: this test could be better constructed to look at the actual contents of each list to ensure that the rules were properly addressed.
+
+            //Arrange
+            var testTargetFoundation = new List<Card>();
+
+            var endingIndex = 2;
+
+            var testPile = new List<Card>()
+            {
+                new(CardRank.Four, CardSuit.Hearts),
+                new(CardRank.Six, CardSuit.Diamonds),
+                new(CardRank.Three, CardSuit.Spades) { FaceUp = true },
+                new(CardRank.Two, CardSuit.Hearts) { FaceUp = true },
+                new(CardRank.Ace, CardSuit.Clubs) { FaceUp = true },
+            };
+
+            //Act
+            _testGame.MovePile(testTargetFoundation, testPile, endingIndex, _parentOfFoundations);
+
+            //Assert
+            //1. That the cards were added to the collection, and
+            Assert.IsTrue(testTargetFoundation.First().Rank == CardRank.Ace, "the collection was not properly added to the target collection");
+            Assert.IsTrue(testTargetFoundation.Count == 3, "the FaceUp == false cards were added to the collection");
+            //2. that the cards were removed from their source pile.
+            Assert.IsFalse(testTargetFoundation.Any(testPile.Contains), "the collection was not removed from its source");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void MovePile_ThrowsAnException_IfTheSelectedCardsContainAFaceDownCard()
+        {
+            //Arrange
+            var testTargetPile = new List<Card>();
+
+            var startingIndex = 0;
+
+            var testPile = new List<Card>()
+            {
+                new(CardRank.Four, CardSuit.Hearts),
+                new(CardRank.Six, CardSuit.Diamonds),
+                new(CardRank.King, CardSuit.Spades) { FaceUp = true },
+                new(CardRank.Queen, CardSuit.Hearts) { FaceUp = true },
+                new(CardRank.Jack, CardSuit.Clubs) { FaceUp = true },
+            };
+
+
+            //Act
+            _testGame.MovePile(testTargetPile, testPile, startingIndex, _parentOfPiles);
+
+            //Assert
+            //1. that MovePile() will throw an exception if the startingIndex or endingIndex selects a FaceUp == false card as part of its selection.
+        }
+
         #endregion
     }
 }

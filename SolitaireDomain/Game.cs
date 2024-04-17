@@ -10,9 +10,9 @@ namespace SolitaireDomain
 
         public Player Player { get; set; }
 
-        public List<Card>[] Foundations { get; set; } = [ [], [], [], [] ];
+        public List<Card>[] Foundations { get; set; } = [[], [], [], []];
 
-        public List<Card>[] Piles { get; set; } = [ [], [], [], [], [], [], [] ];
+        public List<Card>[] Piles { get; set; } = [[], [], [], [], [], [], []];
 
         public Stack<Card> FlippedCards { get; set; } = [];
 
@@ -54,7 +54,7 @@ namespace SolitaireDomain
                 {
                     if (card.Rank == CardRank.Ace)
                     {
-                        return true; 
+                        return true;
                     }
                     return false;
                 }
@@ -101,15 +101,35 @@ namespace SolitaireDomain
             }
         }
 
-        public void MovePile(List<Card> moveTo, List<Card> moveFrom, List<Card>[] parentCollection)
+        public void MovePile(List<Card> moveTo, List<Card> moveFrom, int index, List<Card>[] parentCollection)
         {
-            if (ValidatePlay(moveTo, moveFrom.First(c => c.FaceUp == true), parentCollection))
+            if (moveFrom.Skip(index).Any(c => c.FaceUp == false))
             {
-                var faceUpCards = moveFrom.Where(c => c.FaceUp == true).ToList();
-                foreach (var card in faceUpCards)
+                throw new ArgumentException("Selected index includes invalid elements.");
+            }
+
+            if (parentCollection.Length == 7)
+            {
+                if (ValidatePlay(moveTo, moveFrom[index], parentCollection))
                 {
-                    moveTo.Add(card);
-                    moveFrom.Remove(card);
+                    var selectedCards = moveFrom.Skip(index).ToList();
+                    foreach (var card in selectedCards)
+                    {
+                        moveTo.Add(card);
+                        moveFrom.Remove(card);
+                    }
+                }
+            }
+            else if (parentCollection.Length == 4)
+            {
+                if (ValidatePlay(moveTo, moveFrom.Last(), parentCollection))
+                {
+                    var selectedCards = moveFrom.Skip(index).Reverse().ToList();
+                    foreach (var card in selectedCards)
+                    {
+                        moveTo.Add(card);
+                        moveFrom.Remove(card);
+                    }
                 }
             }
         }

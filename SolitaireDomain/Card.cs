@@ -10,9 +10,9 @@ namespace SolitaireDomain
 
         public CardSuit Suit { get; set; }
 
-        public bool FaceUp { get; set; } = false;
-
         public CardColor Color { get { return this.Suit == CardSuit.Spades || this.Suit == CardSuit.Clubs ? CardColor.Black : CardColor.Red; }  }
+
+        public bool FaceUp { get; set; } = false;
 
         public Card(CardRank rank, CardSuit suit)
         {
