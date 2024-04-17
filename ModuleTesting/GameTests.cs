@@ -495,7 +495,7 @@ namespace ModuleTesting
         }
         #endregion
 
-
+        #region GameOver()
         [TestMethod]
         public void GameOver_PlayerCanWin_FalsePiles()
         {
@@ -595,5 +595,6 @@ namespace ModuleTesting
             //1. that the result is false, because if it were true, that means the optional giveUp var is set to true.
             Assert.IsFalse(result);
         }
+        #endregion
     }
 }
