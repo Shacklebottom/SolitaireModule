@@ -394,7 +394,7 @@ namespace ModuleTesting
 
         #region MovePile()
         [TestMethod]
-        public void MovePileToPile_WillValidateMove()
+        public void MovePile_WillValidateMove()
         {
             //Arrange
             var testTargetPile = new List<Card>();
@@ -408,7 +408,7 @@ namespace ModuleTesting
         }
 
         [TestMethod]
-        public void MovePileToPile_IgnoresFaceDownCards()
+        public void MovePile_IgnoresFaceDownCards()
         {
             //Arrange
             var testTargetPile = new List<Card>();
@@ -431,7 +431,7 @@ namespace ModuleTesting
         }
 
         [TestMethod]
-        public void MovePileToPile_CanMove()
+        public void MovePile_CanMove()
         {
             //Arrange
             var testTargetPile = new List<Card>();
