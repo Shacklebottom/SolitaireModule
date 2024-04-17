@@ -164,7 +164,7 @@ namespace ModuleTesting
         }
         #endregion
 
-        #region ValidatePlay() Tests
+        #region ValidatePlay()
         [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void ValidatePlay_ThrowsAnException_IfParentCollectionDoesntHaveTheRightNumberOfItems()
@@ -487,14 +487,113 @@ namespace ModuleTesting
                 new(CardRank.Jack, CardSuit.Clubs) { FaceUp = true },
             };
 
-
             //Act
             _testGame.MovePile(testTargetPile, testPile, startingIndex, _parentOfPiles);
 
             //Assert
             //1. that MovePile() will throw an exception if the startingIndex or endingIndex selects a FaceUp == false card as part of its selection.
         }
-
         #endregion
+
+
+        [TestMethod]
+        public void GameOver_PlayerCanWin_FalsePiles()
+        {
+            //Arrange
+            var testDeck = new List<Card>();
+
+            var testFlipped = new Stack<Card>();
+
+            List<Card>[] testPiles = [ [], [], [], [], [], [], [] ];
+            testPiles[0].Add(new Card(CardRank.Ace, CardSuit.Hearts));
+
+            //Act
+            var result = _testGame.GameOver(testPiles, testDeck, testFlipped);
+
+            //Assert
+            //1. that GameOver() is false because one of the Piles has one or more elements.
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void GameOver_PlayerCanWin_FalseDeck()
+        {
+            //Arrange
+            var testDeck = new List<Card>()
+            {
+                new Card(CardRank.Eight, CardSuit.Diamonds)
+            };
+            var testFlipped = new Stack<Card>();
+
+            //Act
+            var result = _testGame.GameOver(_parentOfPiles, testDeck, testFlipped);
+
+            //Assert
+            //1. that GameOver() is false because testDeck has one or more elements.
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void GameOver_PlayerCanWin_FalseFlipped()
+        {
+            //Arrange
+            var testDeck = new List<Card>();
+
+            var testFlipped = new Stack<Card>();
+            testFlipped.Push(new Card(CardRank.Seven, CardSuit.Spades));
+
+            //Act
+            var result = _testGame.GameOver(_parentOfPiles, testDeck, testFlipped);
+
+            //Assert
+            //1. that GameOver() is false because testFlipped has one or more elements.
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void GameOver_PlayerCanWin_TrueCollections()
+        {
+            //Arrange
+            var testDeck = new List<Card>();
+            var testFlipped = new Stack<Card>();
+
+            //Act
+            var result = _testGame.GameOver(_parentOfPiles, testDeck, testFlipped);
+
+            //Assert
+            //1. that GameOver() is true if the Piles, Deck, and Flipped are empty.
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void GameOver_PlayerCanGiveUp()
+        {
+            //Arrange
+            var testFlipped = new Stack<Card>();
+
+            var giveUpSelected = true;
+
+            //Act
+            var result = _testGame.GameOver(_parentOfPiles, _testGame.Deck.Cards, testFlipped, giveUpSelected);
+
+            //Assert
+            //1. that the result is true because giveUp is true;
+            Assert.IsTrue(result);
+            
+        }
+
+        [TestMethod]
+        public void GameOver_PlayerCanGiveUp_OptionalVarDefaultsToFalse()
+        {
+            //Arrange
+            var testFlipped = new Stack<Card>();
+
+            //Act
+            var result = _testGame.GameOver(_parentOfPiles, _testGame.Deck.Cards, testFlipped);
+
+            //Assert
+            //1. that the result is false, because if it were true, that means the optional giveUp var is set to true.
+            Assert.IsFalse(result);
+        }
     }
 }

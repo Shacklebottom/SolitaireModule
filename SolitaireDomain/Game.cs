@@ -133,5 +133,21 @@ namespace SolitaireDomain
                 }
             }
         }
+        
+        public bool GameOver(IEnumerable<Card>[] piles, IEnumerable<Card> deck, IEnumerable<Card> flipped, bool giveUp = false)
+        {
+            if (!giveUp)
+            {
+                if (piles.All(p => !p.Any()) && !deck.Any() && !flipped.Any())
+                {
+                    return true;
+                }
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
     }
 }
