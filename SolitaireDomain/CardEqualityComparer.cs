@@ -15,8 +15,7 @@ namespace SolitaireDomain
                 return false;
             }
             return x.Rank == y.Rank
-                && x.Suit == y.Suit
-                && x.FaceUp == y.FaceUp;
+                && x.Suit == y.Suit;
         }
 
         //we're not implementing a HashCode, whatever that is :P

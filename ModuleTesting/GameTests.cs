@@ -9,6 +9,9 @@ namespace ModuleTesting
     [TestClass]
     public class GameTests
     {
+        //LOOKIT HERE BUDDY (IM NOT YOUR BUDDY, FRIEND), Change ValidatePlay() away from a static method because Mock framework can't handle static methods.
+        //Also, you may be missing nuances when testing variables outside the Game obj
+
         //Global Test Variables
         private Player _testPlayer { get; set; } = new();
         private Game _testGame { get; set; } = new();
@@ -35,6 +38,7 @@ namespace ModuleTesting
                 new (CardRank.Two, CardSuit.Spades) { FaceUp = true },
             };
         }
+
         #region Constructor and Instantiation Tests
         [TestMethod]
         public void Player_HasName()
@@ -126,6 +130,8 @@ namespace ModuleTesting
             //Assert.Dominance
             Assert.IsTrue(_testGame.Piles.All(p => p.Count(c => c.FaceUp) == 1));
         }
+
+        //probably use a test to check that the last card is the face up card in each pile.
         #endregion
 
         #region FlipPileCard()
@@ -152,6 +158,7 @@ namespace ModuleTesting
             //Arrange
             //1. using _testGame
             var drawCount = 3;
+            //store how many cards are in flipped and then flip more and compare the two values.
 
             //Act
             _testGame.FlipFromDeck(drawCount);
@@ -165,6 +172,8 @@ namespace ModuleTesting
         #endregion
 
         #region ValidatePlay()
+        //NOTE! Change Piles and Foundations into their own objs, which then can have a ValidatePlay(), and also make test instantiation easier and more clean.
+
         [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void ValidatePlay_ThrowsAnException_IfParentCollectionDoesntHaveTheRightNumberOfItems()
@@ -223,15 +232,16 @@ namespace ModuleTesting
         [TestMethod]
         public void ValidatePlay_EmptyPileWillOnlyAcceptAKing_FalsePile()
         {
+            //redundant!
             //Arrange
             var validCard = new Card(CardRank.King, CardSuit.Diamonds);
-            var falsePile = new List<Card>()
+            var notEmptyPile = new List<Card>()
             {
                 new Card(CardRank.Six, CardSuit.Spades)
             };
 
             //Act
-            var result = Game.ValidatePlay(falsePile, validCard, _parentOfPiles);
+            var result = Game.ValidatePlay(notEmptyPile, validCard, _parentOfPiles);
 
             //Assert
             Assert.IsFalse(result);
@@ -241,11 +251,11 @@ namespace ModuleTesting
         public void ValidatePlay_EmptyPileWillOnlyAcceptAKing_FalseCard()
         {
             //Arrange
-            var truePile = new List<Card>();
+            var emptyPile = new List<Card>();
             var invalidCard = new Card(CardRank.Seven, CardSuit.Spades);
 
             //Act
-            var result = Game.ValidatePlay(truePile, invalidCard, _parentOfPiles);
+            var result = Game.ValidatePlay(emptyPile, invalidCard, _parentOfPiles);
 
             //Assert
             Assert.IsFalse(result);
@@ -255,11 +265,11 @@ namespace ModuleTesting
         public void ValidatePlay_EmptyPileWillOnlyAcceptAKing_TrueCard()
         {
             //Arrange
-            var truePile = new List<Card>();
+            var emptyPile = new List<Card>();
             var validCard = new Card(CardRank.King, CardSuit.Spades);
 
             //Act
-            var result = Game.ValidatePlay(truePile, validCard, _parentOfPiles);
+            var result = Game.ValidatePlay(emptyPile, validCard, _parentOfPiles);
 
             //Assert
             Assert.IsTrue(result);
@@ -269,6 +279,8 @@ namespace ModuleTesting
         public void ValidatePlay_DoesntConsiderFaceDownCards()
         {
             //Arrange
+            //card default FaceUp == false (default instantiation).
+
             var testPile = new List<Card>()
             {
                 new Card(CardRank.Six, CardSuit.Hearts),
@@ -287,6 +299,8 @@ namespace ModuleTesting
         [TestMethod]
         public void ValidatePlay_ToAFoundation_IsAscendingRankAndAlternatingColor_FalseRank()
         {
+            //Based on the ruleset I was reading, I made an assumption that Foundations were ALSO filled using alternating color. This is not the case
+            //and we're checking just for ascending rank. OOPS LMAO.
             //Arrange
             var invalidCard = new Card(CardRank.Five, CardSuit.Diamonds);
 
@@ -354,7 +368,7 @@ namespace ModuleTesting
 
         #region PlayFromFlipped()
         [TestMethod]
-        public void PlayFromFlipped_WillValidatePlay()
+        public void PlayFromFlipped_WillValidatePlay_InvalidPlay()
         {
             //Arrange
             var testFlipped = new Stack<Card>();
@@ -394,7 +408,7 @@ namespace ModuleTesting
 
         #region MovePile()
         [TestMethod]
-        public void MovePile_WillValidateMove()
+        public void MovePile_WillValidateMove_InvalidMove()
         {
             //Arrange
             var testTargetPile = new List<Card>();
@@ -497,7 +511,7 @@ namespace ModuleTesting
 
         #region GameOver()
         [TestMethod]
-        public void GameOver_PlayerCanWin_FalsePiles()
+        public void GameOver_PlayerCanWin_InvalidPiles()
         {
             //Arrange
             var testDeck = new List<Card>();
@@ -516,7 +530,7 @@ namespace ModuleTesting
         }
 
         [TestMethod]
-        public void GameOver_PlayerCanWin_FalseDeck()
+        public void GameOver_PlayerCanWin_InvalidDeck()
         {
             //Arrange
             var testDeck = new List<Card>()
@@ -534,7 +548,7 @@ namespace ModuleTesting
         }
 
         [TestMethod]
-        public void GameOver_PlayerCanWin_FalseFlipped()
+        public void GameOver_PlayerCanWin_InvalidFlipped()
         {
             //Arrange
             var testDeck = new List<Card>();
@@ -551,7 +565,7 @@ namespace ModuleTesting
         }
 
         [TestMethod]
-        public void GameOver_PlayerCanWin_TrueCollections()
+        public void GameOver_PlayerCanWin_ValidCollections()
         {
             //Arrange
             var testDeck = new List<Card>();
