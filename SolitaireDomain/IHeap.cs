@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace SolitaireDomain
 {
     public interface IHeap
     {
         List<Card> Cards { get; }
 
-        bool ValidatePlay();
+        bool ValidatePlay(IEnumerable<Card> targetCollection, Card card);
     }
 }

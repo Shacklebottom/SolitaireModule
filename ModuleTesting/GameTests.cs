@@ -24,8 +24,7 @@ namespace ModuleTesting
         [TestInitialize]
         public void GameTestsInitialize()
         {
-            _mockPlayer.Setup(p => p.Name).Returns("Player 1");
-            _testGame = new Game(_mockPlayer.Object);
+
             
             
             
@@ -51,6 +50,9 @@ namespace ModuleTesting
 
             //Arrange
             //1. using _testGame
+            _mockPlayer.Setup(p => p.Name).Returns("Player 1");
+            _testGame = new Game(_mockPlayer.Object);
+
 
             //Act
             //1. The Game() Constructor assigns a default name to the Player or the name the UI passes in.

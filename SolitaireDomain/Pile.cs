@@ -5,7 +5,7 @@ namespace SolitaireDomain
     {
         public List<Card> Cards { get; set; } = [];
 
-        public bool ValidatePlay()
+        public bool ValidatePlay(IEnumerable<Card> targetCollection, Card card)
         {
             return true;
         }

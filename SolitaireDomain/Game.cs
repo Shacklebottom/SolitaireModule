@@ -8,7 +8,7 @@ namespace SolitaireDomain
     {
         public DeckOfCards Deck { get; set; } = new();
 
-        public Player Player { get; set; }
+        public IPlayer Player { get; set; }
 
         public List<Card>[] Foundations { get; set; } = [[], [], [], []];
 
@@ -19,8 +19,7 @@ namespace SolitaireDomain
         //Constructor
         public Game(IPlayer? player = null)
         {
-            if (player != null) { Player = (Player)player; }
-            else { Player = new(""); }
+            Player = player ?? new Player("");
 
             Deck.Shuffle();
 
