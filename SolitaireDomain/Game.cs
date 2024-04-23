@@ -10,9 +10,9 @@ namespace SolitaireDomain
 
         public IPlayer Player { get; set; }
 
-        public List<Card>[] Foundations { get; set; } = [[], [], [], []];
+        public Foundation[] Foundations { get; set; } = new Foundation[4];
 
-        public List<Card>[] Piles { get; set; } = [[], [], [], [], [], [], []];
+        public Pile[] Piles { get; set; } = new Pile[7];
 
         public Stack<Card> FlippedCards { get; set; } = [];
 
@@ -30,14 +30,14 @@ namespace SolitaireDomain
         {
             for (int i = 6; i >= 0; i--)
             {
-                Piles[i].AddRange(Deck.Draw(i + 1));
-                Piles[i].Last().FaceUp = true;
+                Piles[i].Cards.AddRange(Deck.Draw(i + 1));
+                Piles[i].Cards.Last().FaceUp = true;
             }
         }
 
         public void FlipPileCard(int pileIndex)
         {
-            Piles[pileIndex].Last().FaceUp = true;
+            Piles[pileIndex].Cards.Last().FaceUp = true;
         }
 
         public void FlipFromDeck(int drawCount)

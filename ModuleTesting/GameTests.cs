@@ -24,10 +24,11 @@ namespace ModuleTesting
         [TestInitialize]
         public void GameTestsInitialize()
         {
+            _mockPlayer.Setup(p => p.Name).Returns("Player 1");
+            _testGame = new Game(_mockPlayer.Object);
 
-            
-            
-            
+
+
             _testPile = new List<Card>()
             {
                 new (CardRank.Five, CardSuit.Diamonds),
@@ -50,15 +51,14 @@ namespace ModuleTesting
 
             //Arrange
             //1. using _testGame
-            _mockPlayer.Setup(p => p.Name).Returns("Player 1");
-            _testGame = new Game(_mockPlayer.Object);
-
 
             //Act
             //1. The Game() Constructor assigns a default name to the Player or the name the UI passes in.
 
             //Assert
-            Assert.AreEqual("Player 1", _testGame.Player.Name);
+            var name = _testGame.Player.Name;
+
+            Assert.AreEqual("Player 1", name);
         }
 
         [TestMethod]
@@ -106,7 +106,7 @@ namespace ModuleTesting
             //1. in the Game() constructor, Deck.Shuffle() is called.
 
             //Assert.Dominance
-            Assert.IsFalse(testPile.SequenceEqual(_testGame.Piles.Last(), new CardEqualityComparer()));
+            Assert.IsFalse(testPile.SequenceEqual(_testGame.Piles.Last().Cards, new CardEqualityComparer()));
         }
 
         [TestMethod]
@@ -120,7 +120,7 @@ namespace ModuleTesting
 
             //Assert.Dominance
             //1. We are testing for Piles[index].Count == index + 1;
-            Assert.IsTrue(_testGame.Piles.Select((pile, index) => new { pile, index }).All(obj => obj.pile.Count == obj.index + 1),
+            Assert.IsTrue(_testGame.Piles.Select((pile, index) => new { pile, index }).All(obj => obj.pile.Cards.Count == obj.index + 1),
                 "At least 1 pile doesn't have the correct number of cards");
         }
 
@@ -134,7 +134,7 @@ namespace ModuleTesting
             //1. In the Game() Constructor, SetupPiles() is called, which turns the last card in each Pile FaceUp.
 
             //Assert.Dominance
-            Assert.IsTrue(_testGame.Piles.All(p => p.Count(c => c.FaceUp) == 1));
+            Assert.IsTrue(_testGame.Piles.All(p => p.Cards.Count(c => c.FaceUp) == 1));
         }
 
         //probably use a test to check that the last card is the face up card in each pile.
@@ -147,13 +147,13 @@ namespace ModuleTesting
             //Arrange
             //1. using _testGame
             var pileIndex = 0;
-            _testGame.Piles[pileIndex].Last().FaceUp = false;
+            _testGame.Piles[pileIndex].Cards.Last().FaceUp = false;
 
             //Act
             _testGame.FlipPileCard(pileIndex);
 
             //Assert
-            Assert.AreEqual(true, _testGame.Piles[pileIndex].Last().FaceUp);
+            Assert.AreEqual(true, _testGame.Piles[pileIndex].Cards.Last().FaceUp);
         }
         #endregion
 
