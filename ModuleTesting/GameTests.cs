@@ -3,6 +3,7 @@ using static SolitaireDomain.EnumCardRank;
 using static SolitaireDomain.EnumCardSuit;
 using SolitaireDomain;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 
 namespace ModuleTesting
 {
@@ -13,7 +14,7 @@ namespace ModuleTesting
         //Also, you may be missing nuances when testing variables outside the Game obj
 
         //Global Test Variables
-        private Player _testPlayer { get; set; } = new();
+        private Mock<IPlayer> _mockPlayer = new();
         private Game _testGame { get; set; } = new();
         private List<Card>[] _parentOfPiles { get; set; } = [[], [], [], [], [], [], []];
         private List<Card>[] _parentOfFoundations { get; set; } = [[], [], [], []];
@@ -23,8 +24,11 @@ namespace ModuleTesting
         [TestInitialize]
         public void GameTestsInitialize()
         {
-            _testPlayer = new Player("Player 1");
-            _testGame = new Game(_testPlayer);
+            _mockPlayer.Setup(p => p.Name).Returns("Player 1");
+            _testGame = new Game(_mockPlayer.Object);
+            
+            
+            
             _testPile = new List<Card>()
             {
                 new (CardRank.Five, CardSuit.Diamonds),

@@ -17,9 +17,9 @@ namespace SolitaireDomain
         public Stack<Card> FlippedCards { get; set; } = [];
 
         //Constructor
-        public Game(Player? player = null)
+        public Game(IPlayer? player = null)
         {
-            if (player != null) { Player = player; }
+            if (player != null) { Player = (Player)player; }
             else { Player = new(""); }
 
             Deck.Shuffle();

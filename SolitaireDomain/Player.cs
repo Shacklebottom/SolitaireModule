@@ -1,13 +1,8 @@
 ﻿
 namespace SolitaireDomain
 {
-    public class Player
+    public class Player(string name = "") : IPlayer
     {
-        public string Name { get; set; }
-
-        public Player(string name = "")
-        {
-            Name = name;
-        }
+        public string Name { get; set; } = name;
     }
 }
