@@ -24,12 +24,18 @@ namespace SolitaireDomain
             Deck.Shuffle();
 
             SetupPiles();
+
+            //for (int i = 4; i >= 0; i--)
+            //{
+            //    Foundations[i] = new Foundation();
+            //}
         }
 
         private void SetupPiles()
         {
             for (int i = 6; i >= 0; i--)
             {
+                Piles[i] = new Pile();
                 Piles[i].Cards.AddRange(Deck.Draw(i + 1));
                 Piles[i].Cards.Last().FaceUp = true;
             }
