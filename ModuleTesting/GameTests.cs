@@ -70,7 +70,10 @@ namespace ModuleTesting
                 _mockPiles.Select(p => p.Object).ToArray(),
                 _mockPlayer.Object);
 
-
+            //flippedCards setup
+            _testGame.FlippedCards = new Stack<Card>();
+            _testGame.FlippedCards.Push(new Card(CardRank.Three, CardSuit.Spades) { FaceUp = true });
+            _testGame.FlippedCards.Push(new Card(CardRank.Seven, CardSuit.Hearts) { FaceUp = true });
 
         }
 
@@ -173,63 +176,57 @@ namespace ModuleTesting
         }
         #endregion
 
-        //#region FlipPileCard()
-        //[TestMethod]
-        //public void FlipPileCard_CanFlip()
-        //{
-        //    //Arrange
-        //    //1. using _testGame
-        //    var pileIndex = 0;
-        //    _testGame.Piles[pileIndex].Cards.Last().FaceUp = false;
+        #region FlipPileCard()
+        [TestMethod]
+        public void FlipPileCard_CanFlip()
+        {
+            //Arrange
+            //1. using _testGame
+            var pileIndex = 0;
+            _testGame.Piles[pileIndex].Cards.Last().FaceUp = false;
 
-        //    //Act
-        //    _testGame.FlipPileCard(pileIndex);
+            //Act
+            _testGame.FlipPileCard(pileIndex);
 
-        //    //Assert
-        //    Assert.AreEqual(true, _testGame.Piles[pileIndex].Cards.Last().FaceUp);
-        //}
-        //#endregion
+            //Assert
+            Assert.AreEqual(true, _testGame.Piles[pileIndex].Cards.Last().FaceUp);
+        }
+        #endregion
 
-        //#region FlipFromDeck()
-        //[TestMethod]
-        //public void FlipFromDeck_CanFlip()
-        //{
-        //    //Arrange
-        //    //1. using _testGame
-        //    var drawCount = 3;
-        //    //store how many cards are in flipped and then flip more and compare the two values.
+        #region FlipFromDeck()
+        [TestMethod]
+        public void FlipFromDeck_CanFlip()
+        {
+            //Arrange
+            //1. using _testGame
+            var countOfFlipped = _testGame.FlippedCards.Count;
+            var drawCount = 3;
 
-        //    //Act
-        //    _testGame.FlipFromDeck(drawCount);
+            //Act
+            _testGame.FlipFromDeck(drawCount);
 
-        //    //Assert
-        //    //1. The correct number of cards are present.
-        //    Assert.AreEqual(drawCount, _testGame.FlippedCards.Count);
-        //    //2. and, each card revealed is FaceUp.
-        //    Assert.IsTrue(_testGame.FlippedCards.ToList().TrueForAll(c => c.FaceUp == true));
-        //}
-        //#endregion
+            //Assert
+            //1. The correct number of cards are present.
+            Assert.AreEqual(drawCount + countOfFlipped, _testGame.FlippedCards.Count);
+            //2. and, each card revealed is FaceUp.
+            Assert.IsTrue(_testGame.FlippedCards.ToList().TrueForAll(c => c.FaceUp == true));
+        }
+        #endregion
 
+        #region PlayFromFlipped()
+        [TestMethod]
+        public void PlayFromFlipped_WillValidatePlay_Once()
+        {
+            //Arrange
+            //I honestly dont know if this is right lol
 
-        //#region PlayFromFlipped()
-        //[TestMethod]
-        //public void PlayFromFlipped_WillValidatePlay_InvalidPlay()
-        //{
-        //    //Arrange
-        //    var testFlipped = new Stack<Card>();
-        //    testFlipped.Push(new Card(CardRank.Five, CardSuit.Clubs) { FaceUp = true });
-        //    testFlipped.Push(new Card(CardRank.Jack, CardSuit.Hearts) { FaceUp = true });
-        //    testFlipped.Push(new Card(CardRank.Ace, CardSuit.Diamonds) { FaceUp = true });
+            //Act
+            _testGame.PlayFromFlipped(_testGame.Piles[0], _testGame.FlippedCards);
 
-        //    var testPile = new List<Card>();
-
-        //    //Act
-        //    _testGame.PlayFromFlipped(testPile, testFlipped, _parentOfPiles);
-
-        //    //Assert
-        //    //1. that this test will be false because ValidatePlay says the play is invalid.
-        //    Assert.IsFalse(testPile.Count > 0);
-        //}
+            //Assert
+            _mockPiles[0].Verify(p => p.ValidatePlay(_testGame.Piles[0].Cards, _testGame.FlippedCards.Peek()));
+        }
+        #endregion
 
         //[TestMethod]
         //public void PlayFromFlipped_CanPlay()
