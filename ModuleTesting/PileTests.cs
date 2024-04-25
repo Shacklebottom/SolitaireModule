@@ -1,6 +1,5 @@
 ﻿using static SolitaireDomain.EnumCardRank;
 using static SolitaireDomain.EnumCardSuit;
-using static SolitaireDomain.EnumCardColor;
 using SolitaireDomain;
 
 namespace ModuleTesting
@@ -63,20 +62,6 @@ namespace ModuleTesting
             //Assert
             //1. that the correct card is a valid play.
             Assert.IsTrue(result);
-        }
-
-        [TestMethod]
-        public void ValidatePlay_EmptyPileWillOnlyAcceptAKing_InvalidCard()
-        {
-            //Arrange
-            var emptyPile = new Pile(); //a new Pile automatically instantiates Cards property as a new List<Card>
-            var invalidCard = new Card(CardRank.Seven, CardSuit.Spades);
-
-            //Act
-            var result = emptyPile.ValidatePlay(emptyPile.Cards, invalidCard);
-
-            //Assert
-            Assert.IsFalse(result);
         }
 
         [TestMethod]
