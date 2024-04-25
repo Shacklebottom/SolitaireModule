@@ -10,9 +10,6 @@ namespace ModuleTesting
     [TestClass]
     public class GameTests
     {
-        //LOOKIT HERE BUDDY (IM NOT YOUR BUDDY, FRIEND), Change ValidatePlay() away from a static method because Mock framework can't handle static methods.
-        //Also, you may be missing nuances when testing variables outside the Game obj
-
         //Global Test Variables
         private Game _testGame;
         private Mock<IPlayer> _mockPlayer;
@@ -45,6 +42,13 @@ namespace ModuleTesting
             }
 
             _mockDeckUnwrapper.Setup(d => d.Cards).Returns(new List<Card>(cards));
+
+            _mockDeckUnwrapper.Setup(d => d.Draw(It.IsAny<int>())).Returns((int count) =>
+            {
+                var cardsDrawn = cards.Take(count).ToList();
+                cards = cards.Skip(count).ToList();
+                return cardsDrawn;
+            });
 
             //foundations setup
             _mockFoundations = new Mock<IHeap>[4];

@@ -10,9 +10,9 @@ namespace SolitaireDomain
 
         public IPlayer Player { get; set; }
 
-        public IHeap[] Foundations { get; set; }
+        public IHeap[] Foundations { get; set; } = new IHeap[4];
 
-        public IHeap[] Piles { get; set; }
+        public IHeap[] Piles { get; set; } = new IHeap[7];
 
         public Stack<Card> FlippedCards { get; set; } = [];
 
