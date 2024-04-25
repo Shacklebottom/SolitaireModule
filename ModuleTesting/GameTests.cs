@@ -224,29 +224,27 @@ namespace ModuleTesting
             _testGame.PlayFromFlipped(_testGame.Piles[0], _testGame.FlippedCards);
 
             //Assert
-            _mockPiles[0].Verify(p => p.ValidatePlay(_testGame.Piles[0].Cards, _testGame.FlippedCards.Peek()));
+            _mockPiles[0].Verify(p => p.ValidatePlay(_testGame.FlippedCards.Peek()));
+        }
+
+        [TestMethod]
+        public void PlayFromFlipped_CanPlay()
+        {
+            //Arrange
+            _testGame.Piles[0].Cards.Add(new Card(CardRank.Two, CardSuit.Spades) { FaceUp = true });
+
+            _testGame.FlippedCards.Push(new Card(CardRank.Ace, CardSuit.Diamonds) { FaceUp = true });
+
+            //Act
+            _testGame.PlayFromFlipped(_testGame.Piles[0], _testGame.FlippedCards);
+
+            //Assert
+            //1. The card was added to the collection.
+            Assert.IsTrue(_testGame.Piles[0].Cards.Last().Rank == CardRank.Ace, "The card was not added to the collection");
+            //2. The card was removed from the stack.
+            Assert.IsTrue(_testGame.FlippedCards.Peek().Rank != CardRank.Ace, "The card was not Pop()'d off the Stack");
         }
         #endregion
-
-        //[TestMethod]
-        //public void PlayFromFlipped_CanPlay()
-        //{
-        //    //Arrange
-        //    var testFlipped = new Stack<Card>();
-        //    testFlipped.Push(new Card(CardRank.Five, CardSuit.Clubs) { FaceUp = true });
-        //    testFlipped.Push(new Card(CardRank.Jack, CardSuit.Hearts) { FaceUp = true });
-        //    testFlipped.Push(new Card(CardRank.Ace, CardSuit.Diamonds) { FaceUp = true });
-
-        //    //Act
-        //    _testGame.PlayFromFlipped(_testPile, testFlipped, _parentOfPiles);
-
-        //    //Assert
-        //    //1. The card was added to the collection.
-        //    Assert.IsTrue(_testPile.Last().Rank == CardRank.Ace, "The card was not added to the collection");
-        //    //2. The card was removed from the stack.
-        //    Assert.IsTrue(testFlipped.Peek().Rank != CardRank.Ace, "The card was not Pop()'d off the Stack");
-        //}
-        //#endregion
 
         //#region MovePile()
         //[TestMethod]

@@ -32,7 +32,7 @@ namespace ModuleTesting
             var invalidCard = new Card(CardRank.Five, CardSuit.Diamonds);
 
             //Act
-            var result = _testFoundation.ValidatePlay(_testFoundation.Cards, invalidCard);
+            var result = _testFoundation.ValidatePlay(invalidCard);
 
             //Assert
             Assert.IsFalse(result);
@@ -45,7 +45,7 @@ namespace ModuleTesting
             var invalidCard = new Card(CardRank.Three, CardSuit.Spades);
 
             //Act
-            var result = _testFoundation.ValidatePlay(_testFoundation.Cards, invalidCard);
+            var result = _testFoundation.ValidatePlay(invalidCard);
 
             //Assert
             Assert.IsFalse(result);

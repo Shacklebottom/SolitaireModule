@@ -53,7 +53,7 @@ namespace SolitaireDomain
 
         public void PlayFromFlipped(ICardCollection targetCollection, Stack<Card> flippedCards)
         {
-            if (targetCollection.ValidatePlay(targetCollection.Cards, flippedCards.Peek()))
+            if (targetCollection.ValidatePlay(flippedCards.Peek()))
             {
                 targetCollection.Cards.Add(flippedCards.Pop());
             }
@@ -65,7 +65,7 @@ namespace SolitaireDomain
             {
                 throw new ArgumentException("Selected index includes invalid elements.");
             }
-            if (moveTo.ValidatePlay(moveTo.Cards, moveFrom.Cards[index]))
+            if (moveTo.ValidatePlay(moveFrom.Cards[index]))
             {
                 var selectedCards = moveFrom.Cards.Skip(index).ToList();
                 foreach (var card in selectedCards)

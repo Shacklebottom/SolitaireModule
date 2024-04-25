@@ -31,7 +31,7 @@ namespace ModuleTesting
             var invalidCard = new Card(CardRank.Two, CardSuit.Diamonds);
 
             //Act
-            var result = _testPile.ValidatePlay(_testPile.Cards, invalidCard);
+            var result = _testPile.ValidatePlay(invalidCard);
 
             //Assert
             Assert.IsFalse(result);
@@ -44,7 +44,7 @@ namespace ModuleTesting
             var invalidCard = new Card(CardRank.Ace, CardSuit.Spades);
 
             //Act
-            var result = _testPile.ValidatePlay(_testPile.Cards, invalidCard);
+            var result = _testPile.ValidatePlay(invalidCard);
 
             //Assert
             Assert.IsFalse(result);
@@ -57,7 +57,7 @@ namespace ModuleTesting
             var validCard = new Card(CardRank.Ace, CardSuit.Diamonds);
 
             //Act
-            var result = _testPile.ValidatePlay(_testPile.Cards, validCard);
+            var result = _testPile.ValidatePlay(validCard);
 
             //Assert
             //1. that the correct card is a valid play.
@@ -72,7 +72,7 @@ namespace ModuleTesting
             var validCard = new Card(CardRank.King, CardSuit.Spades);
 
             //Act
-            var result = emptyPile.ValidatePlay(emptyPile.Cards, validCard);
+            var result = emptyPile.ValidatePlay(validCard);
 
             //Assert
             Assert.IsTrue(result);
@@ -92,7 +92,7 @@ namespace ModuleTesting
             var testCard = new Card(CardRank.Five, CardSuit.Spades);
 
             //Act
-            var result = testPile.ValidatePlay(testPile.Cards, testCard);
+            var result = testPile.ValidatePlay(testCard);
 
             //Assert
             //1. that this valid play is actually invalid because the testPile card is FaceUp == false (default instantiation).

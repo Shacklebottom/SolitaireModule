@@ -7,9 +7,9 @@ namespace SolitaireDomain
     {
         public List<Card> Cards { get; set; } = [];
 
-        public bool ValidatePlay(IEnumerable<Card> targetCollection, Card card)
+        public bool ValidatePlay(Card card)
         {
-            if (!targetCollection.Any())
+            if (!Cards.Any())
             {
                 if (card.Rank == CardRank.Ace)
                 {
@@ -17,9 +17,9 @@ namespace SolitaireDomain
                 }
                 return false;
             }
-            if (targetCollection.Last().Color == card.Color)
+            if (Cards.Last().Color == card.Color)
             {
-                if (targetCollection.Last().Rank == card.Rank - 1)
+                if (Cards.Last().Rank == card.Rank - 1)
                 {
                     return true;
                 }
