@@ -10,14 +10,14 @@ namespace SolitaireDomain
 
         public IPlayer Player { get; set; }
 
-        public Foundation[] Foundations { get; set; } = new Foundation[4];
+        public IHeap[] Foundations { get; set; }
 
-        public Pile[] Piles { get; set; } = new Pile[7];
+        public IHeap[] Piles { get; set; }
 
         public Stack<Card> FlippedCards { get; set; } = [];
 
         //Constructor
-        public Game(IDeckUnwrapper deck, IPlayer? player = null)
+        public Game(IDeckUnwrapper deck, IHeap[] foundations, IHeap[] piles, IPlayer? player = null)
         {
             Player = player ?? new Player("");
 
@@ -25,19 +25,17 @@ namespace SolitaireDomain
             
             Deck.Shuffle();
 
-            SetupPiles();
+            Foundations = foundations;
 
-            //for (int i = 4; i >= 0; i--)
-            //{
-            //    Foundations[i] = new Foundation();
-            //}
+            Piles = piles;
+
+            SetupPiles();
         }
 
         private void SetupPiles()
         {
             for (int i = 6; i >= 0; i--)
             {
-                Piles[i] = new Pile();
                 Piles[i].Cards.AddRange(Deck.Draw(i + 1));
                 Piles[i].Cards.Last().FaceUp = true;
             }
@@ -53,6 +51,7 @@ namespace SolitaireDomain
             Deck.Draw(drawCount).ForEach(c => { c.FaceUp = true; FlippedCards.Push(c); });
         }
 
+        //ValidatePlay needs to be removed here after the dependency injection refactor is finished
         public static bool ValidatePlay(IEnumerable<Card> targetCollection, Card card, IEnumerable<List<Card>> parentCollection)
         {
             if (parentCollection.Count() == 4)
