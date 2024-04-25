@@ -8,12 +8,12 @@ namespace ModuleTesting
     public class DeckTests
     {
         //Global Test Variables
-        private DeckOfCards _deck = new();
+        private StandardDeck _deck = new();
 
         [TestInitialize]
         public void DeckTestsInitialize()
         {
-            _deck = new DeckOfCards();
+            _deck = new StandardDeck();
         }
 
         [TestMethod]

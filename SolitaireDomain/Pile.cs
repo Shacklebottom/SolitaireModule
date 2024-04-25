@@ -1,4 +1,5 @@
-﻿
+﻿using static SolitaireDomain.EnumCardRank;
+
 namespace SolitaireDomain
 {
     public class Pile : IHeap
@@ -7,7 +8,26 @@ namespace SolitaireDomain
 
         public bool ValidatePlay(IEnumerable<Card> targetCollection, Card card)
         {
-            return true;
+            if (!targetCollection.Any())
+            {
+                if (card.Rank == CardRank.King)
+                {
+                    return true;
+                }
+                return false;
+            }
+            else if (targetCollection.Last().FaceUp == false)
+            {
+                return false;
+            }
+            else if (targetCollection.Last().Color != card.Color)
+            {
+                if (targetCollection.Last().Rank == card.Rank + 1)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

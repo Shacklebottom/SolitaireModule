@@ -3,16 +3,16 @@ using static SolitaireDomain.EnumCardSuit;
 
 namespace SolitaireDomain
 {
-    public class DeckOfCards
+    public class StandardDeck : IDeckUnwrapper
     {
         public List<Card> Cards { get; set; } = [];
 
-        public DeckOfCards()
+        public StandardDeck()
         {
-            InitializeDeck();
+            UnwrapDeck();
         }
 
-        private void InitializeDeck()
+        public void UnwrapDeck()
         {
             foreach (CardSuit suit in Enum.GetValues(typeof(CardSuit)))
             {

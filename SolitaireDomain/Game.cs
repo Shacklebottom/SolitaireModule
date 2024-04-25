@@ -6,7 +6,7 @@ namespace SolitaireDomain
 {
     public class Game
     {
-        public DeckOfCards Deck { get; set; } = new();
+        public IDeckUnwrapper Deck { get; set; }
 
         public IPlayer Player { get; set; }
 
@@ -17,10 +17,12 @@ namespace SolitaireDomain
         public Stack<Card> FlippedCards { get; set; } = [];
 
         //Constructor
-        public Game(IPlayer? player = null)
+        public Game(IDeckUnwrapper deck, IPlayer? player = null)
         {
             Player = player ?? new Player("");
 
+            Deck = deck;
+            
             Deck.Shuffle();
 
             SetupPiles();
