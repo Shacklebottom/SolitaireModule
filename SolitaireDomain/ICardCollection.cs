@@ -1,7 +1,7 @@
 ﻿
 namespace SolitaireDomain
 {
-    public interface IHeap
+    public interface ICardCollection
     {
         List<Card> Cards { get; }
 

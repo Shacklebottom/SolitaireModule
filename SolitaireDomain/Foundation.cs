@@ -3,7 +3,7 @@ using static SolitaireDomain.EnumCardRank;
 
 namespace SolitaireDomain
 {
-    public class Foundation : IHeap
+    public class Foundation : ICardCollection
     {
         public List<Card> Cards { get; set; } = [];
 

@@ -2,7 +2,7 @@
 
 namespace SolitaireDomain
 {
-    public class Pile : IHeap
+    public class Pile : ICardCollection
     {
         public List<Card> Cards { get; set; } = [];
 

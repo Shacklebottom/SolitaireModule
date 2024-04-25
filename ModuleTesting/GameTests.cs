@@ -14,12 +14,8 @@ namespace ModuleTesting
         private Game _testGame;
         private Mock<IPlayer> _mockPlayer;
         private Mock<IDeckUnwrapper> _mockDeckUnwrapper;
-        private Mock<IHeap>[] _mockFoundations;
-        private Mock<IHeap>[] _mockPiles;
-        private List<Card>[] _parentOfPiles { get; set; } = [[], [], [], [], [], [], []];
-        private List<Card>[] _parentOfFoundations { get; set; } = [[], [], [], []];
-        private List<Card> _testPile { get; set; } = [];
-        private List<Card> _testFoundation { get; set; } = [];
+        private Mock<ICardCollection>[] _mockFoundations;
+        private Mock<ICardCollection>[] _mockPiles;
 
         [TestInitialize]
         public void GameTestsInitialize()
@@ -51,20 +47,20 @@ namespace ModuleTesting
             });
 
             //foundations setup
-            _mockFoundations = new Mock<IHeap>[4];
+            _mockFoundations = new Mock<ICardCollection>[4];
 
             for (var i = 0; i < _mockFoundations.Length; i++)
             {
-                _mockFoundations[i] = new Mock<IHeap>();
+                _mockFoundations[i] = new Mock<ICardCollection>();
                 _mockFoundations[i].Setup(f => f.Cards).Returns(new List<Card>());
             }
 
             //piles setup
-            _mockPiles = new Mock<IHeap>[7];
+            _mockPiles = new Mock<ICardCollection>[7];
 
             for (var i = 0; i < _mockPiles.Length; i++)
             {
-                _mockPiles[i] = new Mock<IHeap>();
+                _mockPiles[i] = new Mock<ICardCollection>();
                 _mockPiles[i].Setup(p => p.Cards).Returns(new List<Card>());
             }
 
@@ -76,18 +72,6 @@ namespace ModuleTesting
 
 
 
-            _testPile = new List<Card>()
-            {
-                new (CardRank.Five, CardSuit.Diamonds),
-                new (CardRank.Four, CardSuit.Hearts),
-                new (CardRank.Three, CardSuit.Spades) { FaceUp = true },
-                new (CardRank.Two, CardSuit.Clubs) { FaceUp = true }
-            };
-            _testFoundation = new List<Card>()
-            {
-                new (CardRank.Ace, CardSuit.Hearts) { FaceUp = true },
-                new (CardRank.Two, CardSuit.Spades) { FaceUp = true },
-            };
         }
 
         #region Constructor and Instantiation Tests
@@ -132,59 +116,61 @@ namespace ModuleTesting
             Assert.IsTrue(_testGame.Piles.Length == 7);
         }
 
-        //[TestMethod]
-        //public void Deck_WasShuffled_Operation()
-        //{
-        //    //Arrange
-        //    //Due to how the Deck obj and SetupPile() works, Piles.Last() will look like the testPile if the deck has not been shuffled,
-        //    //so if this test fails for an unknown reason, run the test again to be sure :)
-        //    var testPile = new List<Card>()
-        //    {
-        //         new (CardRank.Ace, CardSuit.Hearts),
-        //         new (CardRank.Two, CardSuit.Hearts),
-        //         new (CardRank.Three, CardSuit.Hearts),
-        //         new (CardRank.Four, CardSuit.Hearts),
-        //         new (CardRank.Five, CardSuit.Hearts),
-        //         new (CardRank.Six, CardSuit.Hearts),
-        //         new (CardRank.Seven, CardSuit.Hearts) { FaceUp = true },
-        //    };
+        [TestMethod]
+        public void Deck_WasShuffled_Once()
+        {
+            //Arrange
+            _mockDeckUnwrapper.Setup(d => d.Shuffle());
 
-        //    //Act
-        //    //1. in the Game() constructor, Deck.Shuffle() is called.
+            //Act
+            //1. In the Game() Constructor, Shuffle() is called, which shuffles the deck.
 
-        //    //Assert.Dominance
-        //    Assert.IsFalse(testPile.SequenceEqual(_testGame.Piles.Last().Cards, new CardEqualityComparer()));
-        //}
+            //Assert
+            //1. that deck.Shuffle() was called exactly once by the Game() constructor.
+            _mockDeckUnwrapper.Verify(d => d.Shuffle(), Times.Once);
+        }
 
-        //[TestMethod]
-        //public void Piles_HaveTheCorrectCount_Operation()
-        //{
-        //    //Arrange
-        //    //1. using _testGame
+        [TestMethod]
+        public void Piles_HaveTheCorrectCount_Operation()
+        {
+            //Arrange
+            //1. using _testGame
 
-        //    //Act
-        //    //1. In the Game() Constructor, SetupPiles() is called, which deals out to each pile.
+            //Act
+            //1. In the Game() Constructor, SetupPiles() is called, which deals out to each pile.
 
-        //    //Assert.Dominance
-        //    //1. We are testing for Piles[index].Count == index + 1;
-        //    Assert.IsTrue(_testGame.Piles.Select((pile, index) => new { pile, index }).All(obj => obj.pile.Cards.Count == obj.index + 1),
-        //        "At least 1 pile doesn't have the correct number of cards");
-        //}
+            //Assert.Dominance
+            //1. We are testing for Piles[index].Count == index + 1;
+            Assert.IsTrue(_testGame.Piles.Select((pile, index) => new { pile, index }).All(obj => obj.pile.Cards.Count == obj.index + 1),
+                "At least 1 pile doesn't have the correct number of cards");
+        }
 
-        //[TestMethod]
-        //public void Piles_HaveOneFaceUpCardEach_Operation()
-        //{
-        //    //Arrange
-        //    //1. using _testGame
+        [TestMethod]
+        public void Piles_HaveOneFaceUpCardEach_Operation()
+        {
+            //Arrange
+            //1. using _testGame
 
-        //    //Act
-        //    //1. In the Game() Constructor, SetupPiles() is called, which turns the last card in each Pile FaceUp.
+            //Act
+            //1. In the Game() Constructor, SetupPiles() is called, which turns the last card in each Pile FaceUp.
 
-        //    //Assert.Dominance
-        //    Assert.IsTrue(_testGame.Piles.All(p => p.Cards.Count(c => c.FaceUp) == 1));
-        //}
+            //Assert.Dominance
+            Assert.IsTrue(_testGame.Piles.All(p => p.Cards.Count(c => c.FaceUp) == 1));
+        }
 
-        //probably use a test to check that the last card is the face up card in each pile.
+        [TestMethod]
+        public void Piles_TheLastCardIsTheFaceUpCard_Operation()
+        {
+            //Arrange
+            //1. using _testGame
+
+            //Act
+            //1. In the Game() Constructor, SetupPiles() is called, which turns the last card in each Pile FaceUp.
+
+            //Assert
+            Assert.IsTrue(_testGame.Piles.All(p => p.Cards.Last().FaceUp == true));
+
+        }
         #endregion
 
         //#region FlipPileCard()

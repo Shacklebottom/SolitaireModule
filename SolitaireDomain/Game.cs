@@ -10,19 +10,19 @@ namespace SolitaireDomain
 
         public IPlayer Player { get; set; }
 
-        public IHeap[] Foundations { get; set; } = new IHeap[4];
+        public ICardCollection[] Foundations { get; set; } = new ICardCollection[4];
 
-        public IHeap[] Piles { get; set; } = new IHeap[7];
+        public ICardCollection[] Piles { get; set; } = new ICardCollection[7];
 
         public Stack<Card> FlippedCards { get; set; } = [];
 
         //Constructor
-        public Game(IDeckUnwrapper deck, IHeap[] foundations, IHeap[] piles, IPlayer? player = null)
+        public Game(IDeckUnwrapper deck, ICardCollection[] foundations, ICardCollection[] piles, IPlayer? player = null)
         {
             Player = player ?? new Player("");
 
             Deck = deck;
-            
+
             Deck.Shuffle();
 
             Foundations = foundations;
