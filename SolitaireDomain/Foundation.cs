@@ -26,5 +26,10 @@ namespace SolitaireDomain
             }
             return false;
         }
+
+        public void SetupCardCollection(List<Card> cards)
+        {
+            throw new NotImplementedException("We don't set up the Foundation collections");
+        }
     }
 }

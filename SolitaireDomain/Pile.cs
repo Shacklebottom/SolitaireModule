@@ -8,7 +8,7 @@ namespace SolitaireDomain
 
         public bool ValidatePlay(Card card)
         {
-            if (!Cards.Any())
+            if (Cards.Count == 0)
             {
                 if (card.Rank == CardRank.King)
                 {
@@ -28,6 +28,12 @@ namespace SolitaireDomain
                 }
             }
             return false;
+        }
+
+        public void SetupCardCollection(List<Card> cards)
+        {
+            Cards.AddRange(cards);
+            Cards.Last().FaceUp = true;
         }
     }
 }

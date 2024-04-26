@@ -1,6 +1,7 @@
 ﻿using static SolitaireDomain.EnumCardRank;
 using static SolitaireDomain.EnumCardSuit;
 using SolitaireDomain;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ModuleTesting
 {
@@ -17,13 +18,14 @@ namespace ModuleTesting
 
             _testPile.Cards = new List<Card>()
             {
-                        new (CardRank.Five, CardSuit.Diamonds),
-                        new (CardRank.Four, CardSuit.Hearts),
-                        new (CardRank.Three, CardSuit.Spades) { FaceUp = true },
-                        new (CardRank.Two, CardSuit.Clubs) { FaceUp = true }
+                new(CardRank.Five, CardSuit.Diamonds),
+                new(CardRank.Four, CardSuit.Hearts),
+                new(CardRank.Three, CardSuit.Spades) { FaceUp = true },
+                new(CardRank.Two, CardSuit.Clubs) { FaceUp = true }
             };
         }
 
+        #region ValidatePlay() tests
         [TestMethod]
         public void ValidatePlay_IsDescendingRankAndAlternatingColor_InvalidRank()
         {
@@ -89,7 +91,7 @@ namespace ModuleTesting
                         new Card(CardRank.Six, CardSuit.Hearts),
                     };
 
-            var testCard = new Card(CardRank.Five, CardSuit.Spades);
+            var testCard = new Card(CardRank.Five, CardSuit.Spades) { FaceUp = true };
 
             //Act
             var result = testPile.ValidatePlay(testCard);
@@ -97,6 +99,33 @@ namespace ModuleTesting
             //Assert
             //1. that this valid play is actually invalid because the testPile card is FaceUp == false (default instantiation).
             Assert.IsFalse(result);
+        }
+        #endregion
+
+        [TestMethod]
+        public void SetupCardCollection_CanSetup()
+        {
+            //Arrange
+            Pile emptyPile = new Pile();
+
+            emptyPile.Cards = new List<Card>();
+
+            var cards = new List<Card>()
+            {
+                new(CardRank.Four, CardSuit.Spades),
+                new(CardRank.Three, CardSuit.Hearts),
+                new(CardRank.Ten, CardSuit.Hearts),
+                new(CardRank.Seven, CardSuit.Clubs)
+            };
+
+            //Act
+            emptyPile.SetupCardCollection(cards);
+
+            //Assert
+            //1. that SetupCardCollection added cards to the pile, and
+            Assert.IsTrue(emptyPile.Cards.SequenceEqual(cards, new CardEqualityComparer()), "the cards were not added to the collection.");
+            //2. that the last card in the pile is FaceUp == true.
+            Assert.IsTrue(emptyPile.Cards.Last().FaceUp == true, "the last element in the collection is not FaceUp");
         }
     }
 }

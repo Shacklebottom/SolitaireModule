@@ -3,6 +3,7 @@ using static SolitaireDomain.EnumCardSuit;
 using static SolitaireDomain.EnumCardColor;
 
 using SolitaireDomain;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ModuleTesting
 {
@@ -25,6 +26,7 @@ namespace ModuleTesting
             };
         }
 
+        #region ValidatePlay() tests
         [TestMethod]
         public void ValidatePlay_IsAscendingRankAndTheSameColor_InvalidRank()
         {
@@ -58,12 +60,11 @@ namespace ModuleTesting
             var validCard = new Card(CardRank.Three, CardSuit.Diamonds);
 
             //Act
-            var result = _testFoundation.ValidatePlay(_testFoundation.Cards, validCard);
+            var result = _testFoundation.ValidatePlay(validCard);
 
             //Assert
             Assert.IsTrue(result);
         }
-
 
         [TestMethod]
         public void ValidatePlay_EmptyFoundationWillOnlyAcceptAnAce_ValidCard()
@@ -74,12 +75,25 @@ namespace ModuleTesting
             var validCard = new Card(CardRank.Ace, CardSuit.Clubs);
 
             //Act
-            var result = emptyFoundation.ValidatePlay(emptyFoundation.Cards, validCard);
+            var result = emptyFoundation.ValidatePlay(validCard);
 
             //Assert
             Assert.IsTrue(result);
         }
+        #endregion
 
+        [TestMethod]
+        [ExpectedException(typeof(NotImplementedException))]
+        public void SetupCardCollection_ThrowsANotImplementedException()
+        {
+            //Arrange
+            var cards = new List<Card>();
 
+            //Act
+            _testFoundation.SetupCardCollection(cards);
+
+            //Assert
+            //1. that SetupCardCollection will throw an exception because it doesn't get implemented for the Foundation class.
+        }
     }
 }

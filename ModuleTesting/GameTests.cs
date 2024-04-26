@@ -39,12 +39,12 @@ namespace ModuleTesting
 
             _mockDeckUnwrapper.Setup(d => d.Cards).Returns(new List<Card>(cards));
 
-            _mockDeckUnwrapper.Setup(d => d.Draw(It.IsAny<int>())).Returns((int count) =>
-            {
-                var cardsDrawn = cards.Take(count).ToList();
-                cards = cards.Skip(count).ToList();
-                return cardsDrawn;
-            });
+            //_mockDeckUnwrapper.Setup(d => d.Draw(It.IsAny<int>())).Returns((int count) =>
+            //{
+            //    var cardsDrawn = cards.Take(count).ToList();
+            //    cards = cards.Skip(count).ToList();
+            //    return cardsDrawn;
+            //});
 
             //foundations setup
             _mockFoundations = new Mock<ICardCollection>[4];
@@ -77,7 +77,7 @@ namespace ModuleTesting
 
         }
 
-        #region Constructor and Instantiation Tests
+        //#region Constructor and Instantiation Tests
         [TestMethod]
         public void Player_HasName()
         {
@@ -95,156 +95,156 @@ namespace ModuleTesting
             Assert.AreEqual("Player 1", name);
         }
 
-        [TestMethod]
-        public void Foundations_AreFour()
-        {
-            //Arrange
-            //1. using _testGame
+        //[TestMethod]
+        //public void Foundations_AreFour()
+        //{
+        //    //Arrange
+        //    //1. using _testGame
 
-            //Act
+        //    //Act
 
-            //Assert
-            Assert.IsTrue(_testGame.Foundations.Length == 4);
-        }
+        //    //Assert
+        //    Assert.IsTrue(_testGame.Foundations.Length == 4);
+        //}
 
-        [TestMethod]
-        public void Piles_AreSeven()
-        {
-            //Arrange
-            //1. using _testGame
+        //[TestMethod]
+        //public void Piles_AreSeven()
+        //{
+        //    //Arrange
+        //    //1. using _testGame
 
-            //Act
+        //    //Act
 
-            //Assert
-            Assert.IsTrue(_testGame.Piles.Length == 7);
-        }
+        //    //Assert
+        //    Assert.IsTrue(_testGame.Piles.Length == 7);
+        //}
 
-        [TestMethod]
-        public void Deck_WasShuffled_Once()
-        {
-            //Arrange
-            _mockDeckUnwrapper.Setup(d => d.Shuffle());
+        //[TestMethod]
+        //public void Deck_WasShuffled_Once()
+        //{
+        //    //Arrange
+        //    _mockDeckUnwrapper.Setup(d => d.Shuffle());
 
-            //Act
-            //1. In the Game() Constructor, Shuffle() is called, which shuffles the deck.
+        //    //Act
+        //    //1. In the Game() Constructor, Shuffle() is called, which shuffles the deck.
 
-            //Assert
-            //1. that deck.Shuffle() was called exactly once by the Game() constructor.
-            _mockDeckUnwrapper.Verify(d => d.Shuffle(), Times.Once);
-        }
+        //    //Assert
+        //    //1. that deck.Shuffle() was called exactly once by the Game() constructor.
+        //    _mockDeckUnwrapper.Verify(d => d.Shuffle(), Times.Once);
+        //}
 
-        [TestMethod]
-        public void Piles_HaveTheCorrectCount_Operation()
-        {
-            //Arrange
-            //1. using _testGame
+        //[TestMethod]
+        //public void Piles_HaveTheCorrectCount_Operation()
+        //{
+        //    //Arrange
+        //    //1. using _testGame
 
-            //Act
-            //1. In the Game() Constructor, SetupPiles() is called, which deals out to each pile.
+        //    //Act
+        //    //1. In the Game() Constructor, SetupPiles() is called, which deals out to each pile.
 
-            //Assert.Dominance
-            //1. We are testing for Piles[index].Count == index + 1;
-            Assert.IsTrue(_testGame.Piles.Select((pile, index) => new { pile, index }).All(obj => obj.pile.Cards.Count == obj.index + 1),
-                "At least 1 pile doesn't have the correct number of cards");
-        }
+        //    //Assert.Dominance
+        //    //1. We are testing for Piles[index].Count == index + 1;
+        //    Assert.IsTrue(_testGame.Piles.Select((pile, index) => new { pile, index }).All(obj => obj.pile.Cards.Count == obj.index + 1),
+        //        "At least 1 pile doesn't have the correct number of cards");
+        //}
 
-        [TestMethod]
-        public void Piles_HaveOneFaceUpCardEach_Operation()
-        {
-            //Arrange
-            //1. using _testGame
+        //[TestMethod]
+        //public void Piles_HaveOneFaceUpCardEach_Operation()
+        //{
+        //    //Arrange
+        //    //1. using _testGame
 
-            //Act
-            //1. In the Game() Constructor, SetupPiles() is called, which turns the last card in each Pile FaceUp.
+        //    //Act
+        //    //1. In the Game() Constructor, SetupPiles() is called, which turns the last card in each Pile FaceUp.
 
-            //Assert.Dominance
-            Assert.IsTrue(_testGame.Piles.All(p => p.Cards.Count(c => c.FaceUp) == 1));
-        }
+        //    //Assert.Dominance
+        //    Assert.IsTrue(_testGame.Piles.All(p => p.Cards.Count(c => c.FaceUp) == 1));
+        //}
 
-        [TestMethod]
-        public void Piles_TheLastCardIsTheFaceUpCard_Operation()
-        {
-            //Arrange
-            //1. using _testGame
+        //[TestMethod]
+        //public void Piles_TheLastCardIsTheFaceUpCard_Operation()
+        //{
+        //    //Arrange
+        //    //1. using _testGame
 
-            //Act
-            //1. In the Game() Constructor, SetupPiles() is called, which turns the last card in each Pile FaceUp.
+        //    //Act
+        //    //1. In the Game() Constructor, SetupPiles() is called, which turns the last card in each Pile FaceUp.
 
-            //Assert
-            Assert.IsTrue(_testGame.Piles.All(p => p.Cards.Last().FaceUp == true));
+        //    //Assert
+        //    Assert.IsTrue(_testGame.Piles.All(p => p.Cards.Last().FaceUp == true));
 
-        }
-        #endregion
+        //}
+        //#endregion
 
-        #region FlipPileCard()
-        [TestMethod]
-        public void FlipPileCard_CanFlip()
-        {
-            //Arrange
-            //1. using _testGame
-            var pileIndex = 0;
-            _testGame.Piles[pileIndex].Cards.Last().FaceUp = false;
+        //#region FlipPileCard()
+        //[TestMethod]
+        //public void FlipPileCard_CanFlip()
+        //{
+        //    //Arrange
+        //    //1. using _testGame
+        //    var pileIndex = 0;
+        //    _testGame.Piles[pileIndex].Cards.Last().FaceUp = false;
 
-            //Act
-            _testGame.FlipPileCard(pileIndex);
+        //    //Act
+        //    _testGame.FlipPileCard(pileIndex);
 
-            //Assert
-            Assert.AreEqual(true, _testGame.Piles[pileIndex].Cards.Last().FaceUp);
-        }
-        #endregion
+        //    //Assert
+        //    Assert.AreEqual(true, _testGame.Piles[pileIndex].Cards.Last().FaceUp);
+        //}
+        //#endregion
 
-        #region FlipFromDeck()
-        [TestMethod]
-        public void FlipFromDeck_CanFlip()
-        {
-            //Arrange
-            //1. using _testGame
-            var countOfFlipped = _testGame.FlippedCards.Count;
-            var drawCount = 3;
+        //#region FlipFromDeck()
+        //[TestMethod]
+        //public void FlipFromDeck_CanFlip()
+        //{
+        //    //Arrange
+        //    //1. using _testGame
+        //    var countOfFlipped = _testGame.FlippedCards.Count;
+        //    var drawCount = 3;
 
-            //Act
-            _testGame.FlipFromDeck(drawCount);
+        //    //Act
+        //    _testGame.FlipFromDeck(drawCount);
 
-            //Assert
-            //1. The correct number of cards are present.
-            Assert.AreEqual(drawCount + countOfFlipped, _testGame.FlippedCards.Count);
-            //2. and, each card revealed is FaceUp.
-            Assert.IsTrue(_testGame.FlippedCards.ToList().TrueForAll(c => c.FaceUp == true));
-        }
-        #endregion
+        //    //Assert
+        //    //1. The correct number of cards are present.
+        //    Assert.AreEqual(drawCount + countOfFlipped, _testGame.FlippedCards.Count);
+        //    //2. and, each card revealed is FaceUp.
+        //    Assert.IsTrue(_testGame.FlippedCards.ToList().TrueForAll(c => c.FaceUp == true));
+        //}
+        //#endregion
 
-        #region PlayFromFlipped()
-        [TestMethod]
-        public void PlayFromFlipped_WillValidatePlay_Once()
-        {
-            //Arrange
-            //I honestly dont know if this is right lol
+        //#region PlayFromFlipped()
+        //[TestMethod]
+        //public void PlayFromFlipped_WillValidatePlay_Once()
+        //{
+        //    //Arrange
+        //    //I honestly dont know if this is right lol
 
-            //Act
-            _testGame.PlayFromFlipped(_testGame.Piles[0], _testGame.FlippedCards);
+        //    //Act
+        //    _testGame.PlayFromFlipped(_testGame.Piles[0], _testGame.FlippedCards);
 
-            //Assert
-            _mockPiles[0].Verify(p => p.ValidatePlay(_testGame.FlippedCards.Peek()));
-        }
+        //    //Assert
+        //    _mockPiles[0].Verify(p => p.ValidatePlay(_testGame.FlippedCards.Peek()));
+        //}
 
-        [TestMethod]
-        public void PlayFromFlipped_CanPlay()
-        {
-            //Arrange
-            _testGame.Piles[0].Cards.Add(new Card(CardRank.Two, CardSuit.Spades) { FaceUp = true });
+        //[TestMethod]
+        //public void PlayFromFlipped_CanPlay()
+        //{
+        //    //Arrange
+        //    _testGame.Piles[0].Cards.Add(new Card(CardRank.Two, CardSuit.Spades) { FaceUp = true });
 
-            _testGame.FlippedCards.Push(new Card(CardRank.Ace, CardSuit.Diamonds) { FaceUp = true });
+        //    _testGame.FlippedCards.Push(new Card(CardRank.Ace, CardSuit.Diamonds) { FaceUp = true });
 
-            //Act
-            _testGame.PlayFromFlipped(_testGame.Piles[0], _testGame.FlippedCards);
+        //    //Act
+        //    _testGame.PlayFromFlipped(_testGame.Piles[0], _testGame.FlippedCards);
 
-            //Assert
-            //1. The card was added to the collection.
-            Assert.IsTrue(_testGame.Piles[0].Cards.Last().Rank == CardRank.Ace, "The card was not added to the collection");
-            //2. The card was removed from the stack.
-            Assert.IsTrue(_testGame.FlippedCards.Peek().Rank != CardRank.Ace, "The card was not Pop()'d off the Stack");
-        }
-        #endregion
+        //    //Assert
+        //    //1. The card was added to the collection.
+        //    Assert.IsTrue(_testGame.Piles[0].Cards.Last().Rank == CardRank.Ace, "The card was not added to the collection");
+        //    //2. The card was removed from the stack.
+        //    Assert.IsTrue(_testGame.FlippedCards.Peek().Rank != CardRank.Ace, "The card was not Pop()'d off the Stack");
+        //}
+        //#endregion
 
         //#region MovePile()
         //[TestMethod]

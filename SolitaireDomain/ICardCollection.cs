@@ -6,5 +6,7 @@ namespace SolitaireDomain
         List<Card> Cards { get; }
 
         bool ValidatePlay(Card card);
+
+        void SetupCardCollection(List<Card> cards);
     }
 }
