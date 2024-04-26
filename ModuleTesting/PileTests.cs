@@ -2,6 +2,7 @@
 using static SolitaireDomain.Enums.EnumCardSuit;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SolitaireDomain.Objects;
+using SolitaireDomain.Comparers;
 
 namespace ModuleTesting
 {
