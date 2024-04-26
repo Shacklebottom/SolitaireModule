@@ -31,24 +31,6 @@ namespace ModuleTesting
             //deck setup
             _mockDeckUnwrapper = new Mock<IDeckUnwrapper>();
 
-            List<Card> cards = [];
-            foreach (CardSuit suit in Enum.GetValues(typeof(CardSuit)))
-            {
-                foreach (CardRank rank in Enum.GetValues(typeof(CardRank)))
-                {
-                    cards.Add(new Card(rank, suit));
-                }
-            }
-
-            _mockDeckUnwrapper.Setup(d => d.Cards).Returns(new List<Card>(cards));
-
-            //_mockDeckUnwrapper.Setup(d => d.Draw(It.IsAny<int>())).Returns((int count) =>
-            //{
-            //    var cardsDrawn = cards.Take(count).ToList();
-            //    cards = cards.Skip(count).ToList();
-            //    return cardsDrawn;
-            //});
-
             //foundations setup
             _mockFoundations = new Mock<ICardCollection>[4];
 
@@ -126,7 +108,6 @@ namespace ModuleTesting
         public void Constructor_DeckWasShuffled_Once()
         {
             //Arrange
-            _mockDeckUnwrapper.Setup(d => d.Shuffle());
 
             //Act
 
@@ -139,28 +120,41 @@ namespace ModuleTesting
         public void Constructor_SetupCardCollectionWasCalled_OnceForEachPile()
         {
             //Arrange
-            _mockPiles.ForEach(p => p.Setup(c => c.SetupCardCollection(_mockDeckUnwrapper.Object.Draw(1))));
 
             //Act
 
             //Assert
-            //1. that Piles[i].SetupCardCollection was called once for each pile.
-            _mockPiles.ForEach(p => p.Verify(c => c.SetupCardCollection(_mockDeckUnwrapper.Object.Draw(1)), Times.Once, "the method wasn't called for each pile in piles"));
+            //1. that Piles[i].SetupCardCollection was called once for each pile, and
+            _mockPiles.ForEach(
+                p => p.Verify(
+                    c => c.SetupCardCollection(It.IsAny<List<Card>>()), 
+                    Times.Once, 
+                    "the method wasn't called once for each pile in piles"));
+        }
+
+        [TestMethod]
+        public void Constructor_DrawWasCalled_OnceForEachPile()
+        {
+            //Arrange
+
+            //Act
+
+            //Assert
+            //1. that Deck.Draw() was called once for each pile.
+            _mockDeckUnwrapper.Verify(d => d.Draw(It.IsAny<int>()), Times.Exactly(_mockPiles.Length));
         }
 
         //[TestMethod]
-        //public void Piles_HaveTheCorrectCount_Operation()
+        //public void Constructor_PilesHaveTheCorrectCount()
         //{
         //    //Arrange
-        //    //1. using _testGame
 
         //    //Act
         //    //1. In the Game() Constructor, SetupPiles() is called, which deals out to each pile.
 
         //    //Assert.Dominance
         //    //1. We are testing for Piles[index].Count == index + 1;
-        //    Assert.IsTrue(_testGame.Piles.Select((pile, index) => new { pile, index }).All(obj => obj.pile.Cards.Count == obj.index + 1),
-        //        "At least 1 pile doesn't have the correct number of cards");
+
         //}
 
         //[TestMethod]

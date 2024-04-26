@@ -5,6 +5,7 @@ using SolitaireDomain.Interfaces;
 
 namespace SolitaireDomain.Objects
 {
+    //oh hey dont forget, because you have forgotten. What happens when the Deck all flipped and there is no more deck?
     public class Game
     {
         public IDeckUnwrapper Deck { get; set; }
