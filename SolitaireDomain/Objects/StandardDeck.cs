@@ -1,7 +1,8 @@
-﻿using static SolitaireDomain.EnumCardRank;
-using static SolitaireDomain.EnumCardSuit;
+﻿using SolitaireDomain.Interfaces;
+using static SolitaireDomain.Enums.EnumCardRank;
+using static SolitaireDomain.Enums.EnumCardSuit;
 
-namespace SolitaireDomain
+namespace SolitaireDomain.Objects
 {
     public class StandardDeck : IDeckUnwrapper
     {

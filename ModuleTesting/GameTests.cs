@@ -1,9 +1,12 @@
 ﻿
-using static SolitaireDomain.EnumCardRank;
-using static SolitaireDomain.EnumCardSuit;
-using SolitaireDomain;
+using static SolitaireDomain.Enums.EnumCardRank;
+using static SolitaireDomain.Enums.EnumCardSuit;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using System.Net.NetworkInformation;
+using SolitaireDomain.Interfaces;
+using SolitaireDomain.Extensions;
+using SolitaireDomain.Objects;
 
 namespace ModuleTesting
 {
@@ -95,43 +98,55 @@ namespace ModuleTesting
             Assert.AreEqual("Player 1", name);
         }
 
-        //[TestMethod]
-        //public void Foundations_AreFour()
-        //{
-        //    //Arrange
-        //    //1. using _testGame
+        [TestMethod]
+        public void Foundations_AreFour()
+        {
+            //Arrange
+            //1. using _testGame
 
-        //    //Act
+            //Act
 
-        //    //Assert
-        //    Assert.IsTrue(_testGame.Foundations.Length == 4);
-        //}
+            //Assert
+            Assert.IsTrue(_testGame.Foundations.Length == 4);
+        }
 
-        //[TestMethod]
-        //public void Piles_AreSeven()
-        //{
-        //    //Arrange
-        //    //1. using _testGame
+        [TestMethod]
+        public void Piles_AreSeven()
+        {
+            //Arrange
+            //1. using _testGame
 
-        //    //Act
+            //Act
 
-        //    //Assert
-        //    Assert.IsTrue(_testGame.Piles.Length == 7);
-        //}
+            //Assert
+            Assert.IsTrue(_testGame.Piles.Length == 7);
+        }
 
-        //[TestMethod]
-        //public void Deck_WasShuffled_Once()
-        //{
-        //    //Arrange
-        //    _mockDeckUnwrapper.Setup(d => d.Shuffle());
+        [TestMethod]
+        public void Constructor_DeckWasShuffled_Once()
+        {
+            //Arrange
+            _mockDeckUnwrapper.Setup(d => d.Shuffle());
 
-        //    //Act
-        //    //1. In the Game() Constructor, Shuffle() is called, which shuffles the deck.
+            //Act
 
-        //    //Assert
-        //    //1. that deck.Shuffle() was called exactly once by the Game() constructor.
-        //    _mockDeckUnwrapper.Verify(d => d.Shuffle(), Times.Once);
-        //}
+            //Assert
+            //1. that deck.Shuffle() was called exactly once by the Game() constructor.
+            _mockDeckUnwrapper.Verify(d => d.Shuffle(), Times.Once);
+        }
+
+        [TestMethod]
+        public void Constructor_SetupCardCollectionWasCalled_OnceForEachPile()
+        {
+            //Arrange
+            _mockPiles.ForEach(p => p.Setup(c => c.SetupCardCollection(_mockDeckUnwrapper.Object.Draw(1))));
+
+            //Act
+
+            //Assert
+            //1. that Piles[i].SetupCardCollection was called once for each pile.
+            _mockPiles.ForEach(p => p.Verify(c => c.SetupCardCollection(_mockDeckUnwrapper.Object.Draw(1)), Times.Once, "the method wasn't called for each pile in piles"));
+        }
 
         //[TestMethod]
         //public void Piles_HaveTheCorrectCount_Operation()

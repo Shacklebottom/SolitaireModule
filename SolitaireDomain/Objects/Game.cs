@@ -1,8 +1,9 @@
-﻿using static SolitaireDomain.EnumCardSuit;
-using static SolitaireDomain.EnumCardRank;
-using static SolitaireDomain.EnumCardColor;
+﻿using static SolitaireDomain.Enums.EnumCardSuit;
+using static SolitaireDomain.Enums.EnumCardRank;
+using static SolitaireDomain.Enums.EnumCardColor;
+using SolitaireDomain.Interfaces;
 
-namespace SolitaireDomain
+namespace SolitaireDomain.Objects
 {
     public class Game
     {
@@ -36,8 +37,7 @@ namespace SolitaireDomain
         {
             for (int i = 6; i >= 0; i--)
             {
-                Piles[i].Cards.AddRange(Deck.Draw(i + 1));
-                Piles[i].Cards.Last().FaceUp = true;
+                Piles[i].SetupCardCollection(Deck.Draw(i + 1));
             }
         }
 

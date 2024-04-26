@@ -1,6 +1,7 @@
-﻿using static SolitaireDomain.EnumCardRank;
+﻿using SolitaireDomain.Interfaces;
+using static SolitaireDomain.Enums.EnumCardRank;
 
-namespace SolitaireDomain
+namespace SolitaireDomain.Objects
 {
     public class Pile : ICardCollection
     {

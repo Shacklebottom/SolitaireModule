@@ -1,6 +1,6 @@
-﻿using static SolitaireDomain.EnumCardRank;
-using static SolitaireDomain.EnumCardSuit;
-using SolitaireDomain;
+﻿using static SolitaireDomain.Enums.EnumCardRank;
+using static SolitaireDomain.Enums.EnumCardSuit;
+using SolitaireDomain.Objects;
 
 namespace ModuleTesting
 {

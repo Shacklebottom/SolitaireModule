@@ -1,5 +1,6 @@
-﻿
-namespace SolitaireDomain
+﻿using SolitaireDomain.Interfaces;
+
+namespace SolitaireDomain.Objects
 {
     public class Player : IPlayer
     {

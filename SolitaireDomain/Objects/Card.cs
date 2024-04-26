@@ -1,8 +1,8 @@
-﻿using static SolitaireDomain.EnumCardRank;
-using static SolitaireDomain.EnumCardSuit;
-using static SolitaireDomain.EnumCardColor;
+﻿using static SolitaireDomain.Enums.EnumCardRank;
+using static SolitaireDomain.Enums.EnumCardSuit;
+using static SolitaireDomain.Enums.EnumCardColor;
 
-namespace SolitaireDomain
+namespace SolitaireDomain.Objects
 {
     public class Card
     {
@@ -10,7 +10,7 @@ namespace SolitaireDomain
 
         public CardSuit Suit { get; set; }
 
-        public CardColor Color { get { return this.Suit == CardSuit.Spades || this.Suit == CardSuit.Clubs ? CardColor.Black : CardColor.Red; }  }
+        public CardColor Color { get { return Suit == CardSuit.Spades || Suit == CardSuit.Clubs ? CardColor.Black : CardColor.Red; } }
 
         public bool FaceUp { get; set; } = false;
 

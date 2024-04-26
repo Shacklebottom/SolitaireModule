@@ -1,5 +1,4 @@
-﻿
-namespace SolitaireDomain
+﻿namespace SolitaireDomain.Interfaces
 {
     public interface IPlayer
     {

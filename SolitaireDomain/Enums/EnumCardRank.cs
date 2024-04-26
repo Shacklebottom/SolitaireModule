@@ -1,5 +1,4 @@
-﻿
-namespace SolitaireDomain
+﻿namespace SolitaireDomain.Enums
 {
     public static class EnumCardRank
     {

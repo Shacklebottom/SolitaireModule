@@ -1,5 +1,6 @@
-﻿
-namespace SolitaireDomain
+﻿using SolitaireDomain.Objects;
+
+namespace SolitaireDomain.Comparers
 {
     public class CardEqualityComparer : IEqualityComparer<Card>
     {

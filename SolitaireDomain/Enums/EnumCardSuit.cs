@@ -1,6 +1,6 @@
-﻿using static SolitaireDomain.EnumCardColor;
+﻿using static SolitaireDomain.Enums.EnumCardColor;
 
-namespace SolitaireDomain
+namespace SolitaireDomain.Enums
 {
     public static class EnumCardSuit
     {
