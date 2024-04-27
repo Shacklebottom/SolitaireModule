@@ -1,6 +1,7 @@
 ﻿using static SolitaireDomain.Enums.EnumCardRank;
 using static SolitaireDomain.Enums.EnumCardSuit;
 using SolitaireDomain.Objects;
+using SolitaireDomain.Comparers;
 
 namespace ModuleTesting
 {
@@ -72,7 +73,7 @@ namespace ModuleTesting
 
             //Assert
             //1. the drawn cards were the first three cards.
-            Assert.IsTrue(firstThreeCards.SequenceEqual(cards), $"The first {cardsToDraw} cards were not the cards drawn");
+            Assert.IsTrue(firstThreeCards.SequenceEqual(cards, new CardEqualityComparer()), $"The first {cardsToDraw} cards were not the cards drawn");
             //2. the first three cards are no longer in the deck.
             Assert.IsFalse(cards.Any(_deck.Cards.Contains), $"The first {cardsToDraw} cards weren't removed from the deck");
         }

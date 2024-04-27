@@ -124,7 +124,7 @@ namespace ModuleTesting
             //Act
 
             //Assert
-            //1. that Piles[i].SetupCardCollection was called once for each pile, and
+            //1. that Piles[i].SetupCardCollection was called once for each pile.
             _mockPiles.ForEach(
                 p => p.Verify(
                     c => c.SetupCardCollection(It.IsAny<List<Card>>()), 
