@@ -9,7 +9,7 @@ namespace ModuleTesting
     {
         [TestMethod]
 
-        public void CardToString()
+        public void CardCanToString()
         {
             //Arrange
             var testCard = new Card(CardRank.Ace, CardSuit.Diamonds);
