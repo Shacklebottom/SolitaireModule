@@ -3,7 +3,6 @@ using static SolitaireDomain.Enums.EnumCardSuit;
 using static SolitaireDomain.Enums.EnumCardColor;
 using SolitaireDomain.Objects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SolitaireDomain.Enums;
 
 namespace ModuleTesting
 {

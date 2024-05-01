@@ -140,7 +140,7 @@ namespace ModuleTesting
         }
 
         [TestMethod]
-        public void SetupCardCollection_CollectionHasOnlyOneFaceUpCard()
+        public void SetupCardCollection_CollectionHasASingleFaceUpCard()
         {
             //Arrange
 
@@ -152,7 +152,7 @@ namespace ModuleTesting
         }
 
         [TestMethod]
-        public void SetupCardCollection_OnlyTheLastCardIsFaceUp()
+        public void SetupCardCollection_TheFaceUpCardIsTheLastCard()
         {
             //Arrange
 
