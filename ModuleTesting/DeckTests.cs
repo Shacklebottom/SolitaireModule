@@ -18,26 +18,28 @@ namespace ModuleTesting
         }
 
         [TestMethod]
-        public void Cards_NumberToFiftyTwo()
+        public void Cards_NumberFiftyTwo()
         {
             //Arrange
+            var expectedCount = 52;
 
             //Act
 
             //Assert
-            Assert.AreEqual(52, _deck.Cards.Count, "the collection doesn't contain 52 cards");
+            Assert.AreEqual(expectedCount, _deck.Cards.Count, "the collection doesn't contain 52 cards");
         }
 
         [TestMethod]
         public void Cards_AreAllUnique()
         {
             //Arrange
+            var expectedCount = 52;
 
             //Act
 
             //Assert
             var uniqueCardCount = _deck.Cards.GroupBy(c => new { c.Rank, c.Suit }).Count();
-            Assert.AreEqual(52, uniqueCardCount, "the collection doesn't contain 52 unique cards");
+            Assert.AreEqual(expectedCount, uniqueCardCount, "the collection doesn't contain 52 unique cards");
         }
 
         [TestMethod]

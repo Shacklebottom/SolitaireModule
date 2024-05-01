@@ -10,11 +10,6 @@ namespace SolitaireDomain.Objects
 
         public StandardDeck()
         {
-            UnwrapDeck();
-        }
-
-        public void UnwrapDeck()
-        {
             foreach (CardSuit suit in Enum.GetValues(typeof(CardSuit)))
             {
                 foreach (CardRank rank in Enum.GetValues(typeof(CardRank)))
