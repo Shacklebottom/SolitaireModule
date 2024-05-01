@@ -40,7 +40,7 @@ namespace ModuleTesting
             };
         }
 
-        #region ValidatePlay() tests
+        #region ValidatePlay() ==VALIDATION TESTS==
         [TestMethod]
         public void ValidatePlay_IsDescendingRankAndAlternatingColor_InvalidRank()
         {
@@ -117,6 +117,14 @@ namespace ModuleTesting
         }
         #endregion
 
+        #region ValidatePlay() ==PLAY TESTS==
+
+
+
+        #endregion
+        
+        
+        #region SetupCardCollection() Tests
         [TestMethod]
         public void SetupCardCollection_CanSetup()
         {
@@ -155,5 +163,6 @@ namespace ModuleTesting
             //1. that the last card in the pile is FaceUp == true.
             Assert.IsTrue(_emptyPile.Cards.Last().FaceUp == true, "the last element in the collection is not FaceUp");
         }
+        #endregion
     }
 }
