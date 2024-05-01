@@ -12,7 +12,7 @@ namespace ModuleTesting
         private StandardDeck _deck;
 
         [TestInitialize]
-        public void DeckTestsInitialize()
+        public void Initialize_DeckTest()
         {
             _deck = new StandardDeck();
         }

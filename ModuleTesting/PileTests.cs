@@ -15,7 +15,7 @@ namespace ModuleTesting
         private List<Card> _cards;
 
         [TestInitialize]
-        public void PileTestsInitialize()
+        public void Initialize_PileTest()
         {
             _testPile = new Pile();
 

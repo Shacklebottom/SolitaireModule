@@ -19,7 +19,7 @@ namespace ModuleTesting
         private Mock<ICardCollection>[] _mockPiles;
 
         [TestInitialize]
-        public void GameTestsInitialize()
+        public void Initialize_GameTest()
         {
             //player setup
             _mockPlayer = new Mock<IPlayer>();
