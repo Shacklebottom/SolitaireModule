@@ -167,33 +167,7 @@ namespace ModuleTesting
         }
 
 
-        //[TestMethod]
-        //public void Piles_HaveOneFaceUpCardEach_Operation()
-        //{
-        //    //Arrange
-        //    //1. using _testGame
-
-        //    //Act
-        //    //1. In the Game() Constructor, SetupPiles() is called, which turns the last card in each Pile FaceUp.
-
-        //    //Assert.Dominance
-        //    Assert.IsTrue(_testGame.Piles.All(p => p.Cards.Count(c => c.FaceUp) == 1));
-        //}
-
-        //[TestMethod]
-        //public void Piles_TheLastCardIsTheFaceUpCard_Operation()
-        //{
-        //    //Arrange
-        //    //1. using _testGame
-
-        //    //Act
-        //    //1. In the Game() Constructor, SetupPiles() is called, which turns the last card in each Pile FaceUp.
-
-        //    //Assert
-        //    Assert.IsTrue(_testGame.Piles.All(p => p.Cards.Last().FaceUp == true));
-
-        //}
-        //#endregion
+        
 
         //#region FlipPileCard()
         //[TestMethod]

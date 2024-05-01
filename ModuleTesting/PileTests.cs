@@ -11,11 +11,15 @@ namespace ModuleTesting
     {
         //Global Test Variables
         Pile _testPile;
+        Pile _emptyPile;
+        List<Card> _cards;
 
         [TestInitialize]
         public void PileTestsInitialize()
         {
             _testPile = new Pile();
+
+            _emptyPile = new Pile();
 
             _testPile.Cards = new List<Card>()
             {
@@ -23,6 +27,16 @@ namespace ModuleTesting
                 new(CardRank.Four, CardSuit.Hearts),
                 new(CardRank.Three, CardSuit.Spades) { FaceUp = true },
                 new(CardRank.Two, CardSuit.Clubs) { FaceUp = true }
+            };
+
+            _emptyPile.Cards = new List<Card>();
+
+            _cards = new List<Card>()
+            {
+                new(CardRank.Four, CardSuit.Spades),
+                new(CardRank.Three, CardSuit.Hearts),
+                new(CardRank.Ten, CardSuit.Hearts),
+                new(CardRank.Seven, CardSuit.Clubs)
             };
         }
 
@@ -107,26 +121,39 @@ namespace ModuleTesting
         public void SetupCardCollection_CanSetup()
         {
             //Arrange
-            Pile emptyPile = new Pile();
-
-            emptyPile.Cards = new List<Card>();
-
-            var cards = new List<Card>()
-            {
-                new(CardRank.Four, CardSuit.Spades),
-                new(CardRank.Three, CardSuit.Hearts),
-                new(CardRank.Ten, CardSuit.Hearts),
-                new(CardRank.Seven, CardSuit.Clubs)
-            };
 
             //Act
-            emptyPile.SetupCardCollection(cards);
+            _emptyPile.SetupCardCollection(_cards);
 
             //Assert
             //1. that SetupCardCollection added cards to the pile, and
-            Assert.IsTrue(emptyPile.Cards.SequenceEqual(cards, new CardEqualityComparer()), "the cards were not added to the collection.");
-            //2. that the last card in the pile is FaceUp == true.
-            Assert.IsTrue(emptyPile.Cards.Last().FaceUp == true, "the last element in the collection is not FaceUp");
+            Assert.IsTrue(_emptyPile.Cards.SequenceEqual(_cards, new CardEqualityComparer()), "the cards were not added to the collection.");
+
+        }
+
+        [TestMethod]
+        public void SetupCardCollection_CollectionHasOnlyOneFaceUpCard()
+        {
+            //Arrange
+
+            //Act
+            _emptyPile.SetupCardCollection(_cards);
+
+            //Assert
+            Assert.IsTrue(_emptyPile.Cards.Count(c => c.FaceUp == true) == 1, "there was not exactly one FaceUp card in the collection");
+        }
+
+        [TestMethod]
+        public void SetupCardCollection_OnlyTheLastCardIsFaceUp()
+        {
+            //Arrange
+
+            //Act
+            _emptyPile.SetupCardCollection(_cards);
+
+            //Assert
+            //1. that the last card in the pile is FaceUp == true.
+            Assert.IsTrue(_emptyPile.Cards.Last().FaceUp == true, "the last element in the collection is not FaceUp");
         }
     }
 }
