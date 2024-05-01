@@ -51,7 +51,7 @@ namespace ModuleTesting
             var result = _testPile.ValidatePlay(invalidCard);
 
             //Assert
-            Assert.IsFalse(result);
+            Assert.IsFalse(result, "an invalid card was said to be valid");
         }
 
         [TestMethod]
@@ -64,7 +64,7 @@ namespace ModuleTesting
             var result = _testPile.ValidatePlay(invalidCard);
 
             //Assert
-            Assert.IsFalse(result);
+            Assert.IsFalse(result, "an invalid card was said to be valid");
         }
 
         [TestMethod]
@@ -78,7 +78,7 @@ namespace ModuleTesting
 
             //Assert
             //1. that the correct card is a valid play.
-            Assert.IsTrue(result);
+            Assert.IsTrue(result, "a valid card was said to be invalid");
         }
 
         [TestMethod]
@@ -92,7 +92,7 @@ namespace ModuleTesting
             var result = emptyPile.ValidatePlay(validCard);
 
             //Assert
-            Assert.IsTrue(result);
+            Assert.IsTrue(result, "a valid card was said to be invalid");
         }
 
         [TestMethod]
@@ -113,7 +113,7 @@ namespace ModuleTesting
 
             //Assert
             //1. that this valid play is actually invalid because the testPile card is FaceUp == false (default instantiation).
-            Assert.IsFalse(result);
+            Assert.IsFalse(result, "an invalid play was said to be valid");
         }
         #endregion
 
