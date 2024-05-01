@@ -10,9 +10,9 @@ namespace ModuleTesting
     public class PileTests
     {
         //Global Test Variables
-        Pile _testPile;
-        Pile _emptyPile;
-        List<Card> _cards;
+        private Pile _testPile;
+        private Pile _emptyPile;
+        private List<Card> _cards;
 
         [TestInitialize]
         public void PileTestsInitialize()

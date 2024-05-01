@@ -9,7 +9,7 @@ namespace ModuleTesting
     public class DeckTests
     {
         //Global Test Variables
-        private StandardDeck _deck = new();
+        private StandardDeck _deck;
 
         [TestInitialize]
         public void DeckTestsInitialize()
@@ -18,35 +18,32 @@ namespace ModuleTesting
         }
 
         [TestMethod]
-        public void CardsNumberToFiftyTwo()
+        public void Cards_NumberToFiftyTwo()
         {
             //Arrange
-            //1. Global Initalizer
 
             //Act
 
             //Assert
-            Assert.AreEqual(52, _deck.Cards.Count);
+            Assert.AreEqual(52, _deck.Cards.Count, "the collection doesn't contain 52 cards");
         }
 
         [TestMethod]
-        public void CardsAreAllUnique()
+        public void Cards_AreAllUnique()
         {
             //Arrange
-            //1. Global Initalizer
 
             //Act
 
             //Assert
             var uniqueCardCount = _deck.Cards.GroupBy(c => new { c.Rank, c.Suit }).Count();
-            Assert.AreEqual(52, uniqueCardCount);
+            Assert.AreEqual(52, uniqueCardCount, "the collection doesn't contain 52 unique cards");
         }
 
         [TestMethod]
-        public void DeckCanShuffle()
+        public void Deck_CanShuffle()
         {
             //Arrange
-            //1. Global Initalizer
 
             //Act
             _deck.Shuffle();
@@ -61,10 +58,9 @@ namespace ModuleTesting
         }
 
         [TestMethod]
-        public void DeckCanDraw()
+        public void Deck_CanDraw()
         {
             //Arrange
-            //1. Global Initalizer
             var cardsToDraw = 3;
             var firstThreeCards = _deck.Cards.Take(cardsToDraw).ToList();
 
@@ -77,5 +73,7 @@ namespace ModuleTesting
             //2. the first three cards are no longer in the deck.
             Assert.IsFalse(cards.Any(_deck.Cards.Contains), $"The first {cardsToDraw} cards weren't removed from the deck");
         }
+
+
     }
 }
