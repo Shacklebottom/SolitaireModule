@@ -60,26 +60,16 @@ namespace ModuleTesting
 
         }
 
-        private Card GetCard()
-        {
-            return new Card(CardRank.Ace, CardSuit.Hearts);
-        }
-
         //#region Constructor and Instantiation Tests
         [TestMethod]
-        public void Player_HasName()
+        public void Constructor_ShouldSetPlayer()
         {
-            //We're preserving the Player obj being passed in to the Game constructor by the UI :)
-
             //Arrange
-            //1. using _testGame
 
             //Act
-            //1. The Game() Constructor assigns a default name to the Player or the name the UI passes in.
-
-            //Assert
             var name = _testGame.Player.Name;
 
+            //Assert
             Assert.AreEqual("Player 1", name);
         }
 
@@ -87,24 +77,26 @@ namespace ModuleTesting
         public void Foundations_AreFour()
         {
             //Arrange
-            //1. using _testGame
+            var expectedCount = 4;
 
             //Act
+            var foundationCount = _testGame.Foundations.Length;
 
             //Assert
-            Assert.IsTrue(_testGame.Foundations.Length == 4);
+            Assert.AreEqual(expectedCount, foundationCount);
         }
 
         [TestMethod]
         public void Piles_AreSeven()
         {
             //Arrange
-            //1. using _testGame
+            var expectedCount = 7;
 
             //Act
+            var pilesCount = _testGame.Piles.Length;
 
             //Assert
-            Assert.IsTrue(_testGame.Piles.Length == 7);
+            Assert.AreEqual(expectedCount, pilesCount);
         }
 
         [TestMethod]
@@ -148,7 +140,7 @@ namespace ModuleTesting
         }
 
         [TestMethod]
-        public void Constructor_PilesHaveTheCorrectCount()
+        public void Constructor_PilesHaveTheCorrectNumberOfElements()
         {
             //Arrange
 
