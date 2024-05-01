@@ -36,7 +36,7 @@ namespace SolitaireDomain.Objects
 
         private void SetupPiles()
         {
-            for (int i = 6; i >= 0; i--)
+            for (int i = 0; i < Piles.Length; i++)
             {
                 Piles[i].SetupCardCollection(Deck.Draw(i + 1));
             }

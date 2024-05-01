@@ -4,7 +4,7 @@ namespace SolitaireDomain.Interfaces
 {
     public interface ICardCollection
     {
-        List<Card> Cards { get; }
+        List<Card> Cards { get; set; }
 
         bool ValidatePlay(Card card);
 

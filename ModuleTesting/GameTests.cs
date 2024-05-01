@@ -7,6 +7,8 @@ using System.Net.NetworkInformation;
 using SolitaireDomain.Interfaces;
 using SolitaireDomain.Extensions;
 using SolitaireDomain.Objects;
+using static System.Reflection.Metadata.BlobBuilder;
+using System.Threading;
 
 namespace ModuleTesting
 {
@@ -60,6 +62,11 @@ namespace ModuleTesting
             _testGame.FlippedCards.Push(new Card(CardRank.Three, CardSuit.Spades) { FaceUp = true });
             _testGame.FlippedCards.Push(new Card(CardRank.Seven, CardSuit.Hearts) { FaceUp = true });
 
+        }
+
+        private Card GetCard()
+        {
+            return new Card(CardRank.Ace, CardSuit.Hearts);
         }
 
         //#region Constructor and Instantiation Tests
@@ -127,8 +134,8 @@ namespace ModuleTesting
             //1. that Piles[i].SetupCardCollection was called once for each pile.
             _mockPiles.ForEach(
                 p => p.Verify(
-                    c => c.SetupCardCollection(It.IsAny<List<Card>>()), 
-                    Times.Once, 
+                    c => c.SetupCardCollection(It.IsAny<List<Card>>()),
+                    Times.Once,
                     "the method wasn't called once for each pile in piles"));
         }
 
@@ -144,18 +151,21 @@ namespace ModuleTesting
             _mockDeckUnwrapper.Verify(d => d.Draw(It.IsAny<int>()), Times.Exactly(_mockPiles.Length));
         }
 
-        //[TestMethod]
-        //public void Constructor_PilesHaveTheCorrectCount()
-        //{
-        //    //Arrange
+        [TestMethod]
+        public void Constructor_PilesHaveTheCorrectCount()
+        {
+            //Arrange
 
-        //    //Act
-        //    //1. In the Game() Constructor, SetupPiles() is called, which deals out to each pile.
+            //Act
 
-        //    //Assert.Dominance
-        //    //1. We are testing for Piles[index].Count == index + 1;
+            //Assert
+            //1. that each pile will contain a number of elements equal to its index + 1.
+            for (var i = 0; i < _mockPiles.Length; ++i)
+            {
+                _mockDeckUnwrapper.Verify(d => d.Draw(i + 1), Times.Once);
+            }
+        }
 
-        //}
 
         //[TestMethod]
         //public void Piles_HaveOneFaceUpCardEach_Operation()
