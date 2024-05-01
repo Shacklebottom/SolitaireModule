@@ -8,6 +8,8 @@ namespace SolitaireDomain.Objects
     {
         public List<Card> Cards { get; set; } = [];
 
+        public Stack<Card> Flipped {  get; set; } = new Stack<Card>();
+
         public StandardDeck()
         {
             foreach (CardSuit suit in Enum.GetValues(typeof(CardSuit)))
@@ -38,6 +40,25 @@ namespace SolitaireDomain.Objects
             Cards = Cards.Skip(count).ToList();
 
             return cards;
+        }
+
+        public void Flip(int count)
+        {
+            if (Cards.Count == 0)
+            {
+                Cards = Flipped.Reverse().ToList();
+
+                Flipped.Clear();
+            }
+
+            List<Card> cards = Cards.Take(count).ToList();
+
+            Cards = Cards.Skip(count).ToList();
+
+            for (var i = 0; i < cards.Count; i++)
+            {
+                Flipped.Push(cards[i]);
+            }
         }
     }
 }

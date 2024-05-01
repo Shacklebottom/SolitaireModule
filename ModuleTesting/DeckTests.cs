@@ -2,6 +2,7 @@
 using static SolitaireDomain.Enums.EnumCardSuit;
 using SolitaireDomain.Objects;
 using SolitaireDomain.Comparers;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ModuleTesting
 {
@@ -70,12 +71,49 @@ namespace ModuleTesting
             var cards = _deck.Draw(cardsToDraw);
 
             //Assert
-            //1. the drawn cards were the first three cards.
-            Assert.IsTrue(firstThreeCards.SequenceEqual(cards, new CardEqualityComparer()), $"The first {cardsToDraw} cards were not the cards drawn");
+            //1. the drawn cards were the first three cards, and
+            Assert.IsTrue(firstThreeCards.SequenceEqual(cards, new CardEqualityComparer()), $"the first {cardsToDraw} cards were not the cards drawn");
             //2. the first three cards are no longer in the deck.
-            Assert.IsFalse(cards.Any(_deck.Cards.Contains), $"The first {cardsToDraw} cards weren't removed from the deck");
+            Assert.IsFalse(cards.Any(_deck.Cards.Contains), $"the first {cardsToDraw} cards weren't removed from the deck");
         }
 
+        [TestMethod]
+        public void Deck_CanFlip()
+        {
+            //Arrange
+            var cardsToFlip = 3;
+            var firstThreeCards = _deck.Cards.Take(cardsToFlip).ToList();
 
+            //Act
+            _deck.Flip(cardsToFlip);
+
+            //Assert
+            //1. the flipped cards were the first three cards, and
+            Assert.IsTrue(firstThreeCards.SequenceEqual(_deck.Flipped.Reverse(), new CardEqualityComparer()), $"the first {cardsToFlip} cards were not the flipped cards");
+            //2. the first three cards are no longer in the deck.
+            Assert.IsFalse(_deck.Flipped.Any(_deck.Cards.Contains), $"the first {cardsToFlip} cards weren't removed from the deck");
+        }
+
+        [TestMethod]
+        public void Flipped_ShouldFlipItselfOntoTheDeck_WhenTheDeckIsEmpty()
+        {
+            //Arrange
+            var requestedCount = 3;
+
+            var requestedCards = _deck.Cards.Take(requestedCount).ToList();
+
+            _deck.Cards.ForEach(_deck.Flipped.Push);
+
+            _deck.Cards.Clear();
+
+            //Act
+            _deck.Flip(requestedCount);
+
+            //Assert
+            //1. that the flipped cards were the first three cards, and
+            Assert.IsTrue(requestedCards.SequenceEqual(_deck.Flipped.Reverse(), new CardEqualityComparer()), $"the first {requestedCount} cards were not the flipped cards");
+            //2. that the flipped cards only contain three cards.
+            Assert.AreEqual(requestedCount, _deck.Flipped.Count, "the flipped cards weren't flipped back onto the deck");
+        }
     }
 }
