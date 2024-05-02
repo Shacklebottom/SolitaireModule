@@ -118,6 +118,22 @@ namespace ModuleTesting
 
         [TestMethod]
         [ExpectedException(typeof(NotImplementedException))]
+        public void ValidateMove_ThrowsANotImplementedException()
+        {
+            //Arrange
+            var cards = new List<Card>();
+
+            var startingIndex = 0;
+
+            //Act
+            _testFoundation.ValidateMove(cards, startingIndex);
+
+            //Assert
+            //1. that ValidateMove() will throw an exception because it doesn't get implemented for the Foundation class.
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NotImplementedException))]
         public void SetupCardCollection_ThrowsANotImplementedException()
         {
             //Arrange
@@ -127,7 +143,7 @@ namespace ModuleTesting
             _testFoundation.SetupCardCollection(cards);
 
             //Assert
-            //1. that SetupCardCollection will throw an exception because it doesn't get implemented for the Foundation class.
+            //1. that SetupCardCollection() will throw an exception because it doesn't get implemented for the Foundation class.
         }
     }
 }

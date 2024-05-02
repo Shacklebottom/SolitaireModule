@@ -8,6 +8,8 @@ namespace SolitaireDomain.Interfaces
 
         bool ValidatePlay(Card card);
 
+        bool ValidateMove(IEnumerable<Card> sourceCollection, int startingIndex);
+
         void SetupCardCollection(List<Card> cards);
     }
 }

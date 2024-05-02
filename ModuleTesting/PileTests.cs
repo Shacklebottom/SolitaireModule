@@ -27,9 +27,7 @@ namespace ModuleTesting
                 new(CardRank.Two, CardSuit.Clubs) { FaceUp = true }
             };
 
-            _emptyPile = new Pile();
-
-            _emptyPile.Cards = new List<Card>();
+            _emptyPile = new Pile(); //a new Pile instantiates Cards property as a new List<Card> by default
 
             _cards = new List<Card>()
             {

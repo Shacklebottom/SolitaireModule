@@ -35,6 +35,11 @@ namespace SolitaireDomain.Objects
             return false;
         }
 
+        public bool ValidateMove(IEnumerable<Card> sourceCollection, int startingIndex)
+        {
+            return true;
+        }
+
         public void SetupCardCollection(List<Card> cards)
         {
             Cards.AddRange(cards);

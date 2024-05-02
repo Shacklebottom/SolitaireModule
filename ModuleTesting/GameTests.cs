@@ -176,39 +176,6 @@ namespace ModuleTesting
         //}
         //#endregion
 
-        //#region PlayFromFlipped()
-        //[TestMethod]
-        //public void PlayFromFlipped_WillValidatePlay_Once()
-        //{
-        //    //Arrange
-        //    //I honestly dont know if this is right lol
-
-        //    //Act
-        //    _testGame.PlayFromFlipped(_testGame.Piles[0], _testGame.FlippedCards);
-
-        //    //Assert
-        //    _mockPiles[0].Verify(p => p.ValidatePlay(_testGame.FlippedCards.Peek()));
-        //}
-
-        //[TestMethod]
-        //public void PlayFromFlipped_CanPlay()
-        //{
-        //    //Arrange
-        //    _testGame.Piles[0].Cards.Add(new Card(CardRank.Two, CardSuit.Spades) { FaceUp = true });
-
-        //    _testGame.FlippedCards.Push(new Card(CardRank.Ace, CardSuit.Diamonds) { FaceUp = true });
-
-        //    //Act
-        //    _testGame.PlayFromFlipped(_testGame.Piles[0], _testGame.FlippedCards);
-
-        //    //Assert
-        //    //1. The card was added to the collection.
-        //    Assert.IsTrue(_testGame.Piles[0].Cards.Last().Rank == CardRank.Ace, "The card was not added to the collection");
-        //    //2. The card was removed from the stack.
-        //    Assert.IsTrue(_testGame.FlippedCards.Peek().Rank != CardRank.Ace, "The card was not Pop()'d off the Stack");
-        //}
-        //#endregion
-
         //#region MovePile()
         //[TestMethod]
         //public void MovePile_WillValidateMove_InvalidMove()
