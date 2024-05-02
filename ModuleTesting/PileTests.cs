@@ -144,9 +144,7 @@ namespace ModuleTesting
             //1. that ValidatePlay will play a valid card to a valid pile.
             Assert.AreEqual(validCard, _testPile.Cards.Last());
         }
-
         #endregion
-        
         
         #region SetupCardCollection() Tests
         [TestMethod]

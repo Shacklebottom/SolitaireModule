@@ -5,7 +5,6 @@ using SolitaireDomain.Interfaces;
 
 namespace SolitaireDomain.Objects
 {
-    //oh hey dont forget, because you have forgotten. What happens when the Deck all flipped and there is no more deck?
     public class Game
     {
         public IDeckUnwrapper Deck { get; set; }
@@ -29,11 +28,6 @@ namespace SolitaireDomain.Objects
 
             Piles = piles;
 
-            SetupPiles();
-        }
-
-        private void SetupPiles()
-        {
             for (int i = 0; i < Piles.Length; i++)
             {
                 Piles[i].SetupCardCollection(Deck.Draw(i + 1));
@@ -43,14 +37,6 @@ namespace SolitaireDomain.Objects
         public void FlipPileCard(int pileIndex)
         {
             Piles[pileIndex].Cards.Last().FaceUp = true;
-        }
-
-        public void PlayFromFlipped(ICardCollection targetCollection, Stack<Card> flippedCards)
-        {
-            if (targetCollection.ValidatePlay(flippedCards.Peek()))
-            {
-                targetCollection.Cards.Add(flippedCards.Pop());
-            }
         }
 
         public void MovePile(ICardCollection moveTo, ICardCollection moveFrom, int index)

@@ -113,8 +113,6 @@ namespace ModuleTesting
             //1. that ValidatePlay will play a valid card to a valid foundation
             Assert.AreEqual(validCard, _testFoundation.Cards.Last());
         }
-
-
         #endregion
 
 

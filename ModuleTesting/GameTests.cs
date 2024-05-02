@@ -62,7 +62,7 @@ namespace ModuleTesting
                 _mockPlayer.Object);
         }
 
-        //#region Constructor and Instantiation Tests
+        #region Constructor and Instantiation Tests
         [TestMethod]
         public void Constructor_ShouldSetPlayer()
         {
@@ -155,7 +155,7 @@ namespace ModuleTesting
                 _mockDeckUnwrapper.Verify(d => d.Draw(i + 1), Times.Once);
             }
         }
-
+        #endregion
 
 
 
