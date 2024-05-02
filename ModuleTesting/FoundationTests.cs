@@ -30,7 +30,7 @@ namespace ModuleTesting
         public void ValidatePlay_IsAscendingRankAndTheSameColor_InvalidRank()
         {
             //Arrange
-            var invalidCard = new Card(CardRank.Five, CardSuit.Diamonds);
+            var invalidCard = new Card(CardRank.Five, CardSuit.Hearts);
 
             //Act
             var result = _testFoundation.ValidatePlay(invalidCard);
@@ -56,7 +56,7 @@ namespace ModuleTesting
         public void ValidatePlay_IsAscendingRankAndTheSameColor_ValidCard()
         {
             //Arrange
-            var validCard = new Card(CardRank.Three, CardSuit.Diamonds);
+            var validCard = new Card(CardRank.Three, CardSuit.Hearts);
 
             //Act
             var result = _testFoundation.ValidatePlay(validCard);
