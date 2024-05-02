@@ -9,7 +9,7 @@ namespace SolitaireDomain.Objects
 
         public bool ValidatePlay(Card card)
         {
-            if (!Cards.Any())
+            if (Cards.Count == 0)
             {
                 if (card.Rank == CardRank.Ace)
                 {

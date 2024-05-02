@@ -176,26 +176,6 @@ namespace ModuleTesting
         //}
         //#endregion
 
-        //#region FlipFromDeck()
-        //[TestMethod]
-        //public void FlipFromDeck_CanFlip()
-        //{
-        //    //Arrange
-        //    //1. using _testGame
-        //    var countOfFlipped = _testGame.FlippedCards.Count;
-        //    var drawCount = 3;
-
-        //    //Act
-        //    _testGame.FlipFromDeck(drawCount);
-
-        //    //Assert
-        //    //1. The correct number of cards are present.
-        //    Assert.AreEqual(drawCount + countOfFlipped, _testGame.FlippedCards.Count);
-        //    //2. and, each card revealed is FaceUp.
-        //    Assert.IsTrue(_testGame.FlippedCards.ToList().TrueForAll(c => c.FaceUp == true));
-        //}
-        //#endregion
-
         //#region PlayFromFlipped()
         //[TestMethod]
         //public void PlayFromFlipped_WillValidatePlay_Once()
