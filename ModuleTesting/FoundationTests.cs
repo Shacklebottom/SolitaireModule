@@ -69,7 +69,7 @@ namespace ModuleTesting
         public void ValidatePlay_EmptyFoundationWillOnlyAcceptAnAce_ValidCard()
         {
             //Arrange
-            var emptyFoundation = new Foundation(); //a new Foundation automatically instantiates Cards property as a new List<Card>
+            var emptyFoundation = new Foundation(); //a new Foundation instantiates Cards property as a new List<Card> by default
 
             var validCard = new Card(CardRank.Ace, CardSuit.Clubs);
 
