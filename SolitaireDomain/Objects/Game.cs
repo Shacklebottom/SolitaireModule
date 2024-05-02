@@ -16,8 +16,6 @@ namespace SolitaireDomain.Objects
 
         public ICardCollection[] Piles { get; set; } = new ICardCollection[7];
 
-        public Stack<Card> FlippedCards { get; set; } = [];
-
         //Constructor
         public Game(IDeckUnwrapper deck, ICardCollection[] foundations, ICardCollection[] piles, IPlayer? player = null)
         {
@@ -49,7 +47,7 @@ namespace SolitaireDomain.Objects
 
         public void FlipFromDeck(int drawCount)
         {
-            Deck.Draw(drawCount).ForEach(c => { c.FaceUp = true; FlippedCards.Push(c); });
+            Deck.Draw(drawCount).ForEach(c => { c.FaceUp = true; Deck.Flipped.Push(c); });
         }
 
         public void PlayFromFlipped(ICardCollection targetCollection, Stack<Card> flippedCards)

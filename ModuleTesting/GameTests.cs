@@ -54,10 +54,12 @@ namespace ModuleTesting
                 _mockPlayer.Object);
 
             //flippedCards setup
-            _testGame.FlippedCards = new Stack<Card>();
-            _testGame.FlippedCards.Push(new Card(CardRank.Three, CardSuit.Spades) { FaceUp = true });
-            _testGame.FlippedCards.Push(new Card(CardRank.Seven, CardSuit.Hearts) { FaceUp = true });
-
+            var setupCards = new List<Card>
+            {
+                { new Card(CardRank.Three, CardSuit.Spades) { FaceUp = true } },
+                { new Card(CardRank.Seven, CardSuit.Hearts) { FaceUp = true } }
+            };
+            _mockDeckUnwrapper.Setup(d => d.Flipped).Returns(new Stack<Card>(setupCards));
         }
 
         //#region Constructor and Instantiation Tests
@@ -155,7 +157,7 @@ namespace ModuleTesting
         }
 
 
-        
+
 
         //#region FlipPileCard()
         //[TestMethod]
