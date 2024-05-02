@@ -29,6 +29,14 @@ namespace ModuleTesting
             //deck setup
             _mockDeckUnwrapper = new Mock<IDeckUnwrapper>();
 
+            //flippedCards setup
+            var setupCards = new List<Card>
+            {
+                { new Card(CardRank.Three, CardSuit.Spades) { FaceUp = true } },
+                { new Card(CardRank.Seven, CardSuit.Hearts) { FaceUp = true } }
+            };
+            _mockDeckUnwrapper.Setup(d => d.Flipped).Returns(new Stack<Card>(setupCards));
+
             //foundations setup
             _mockFoundations = new Mock<ICardCollection>[4];
 
@@ -52,14 +60,6 @@ namespace ModuleTesting
                 _mockFoundations.Select(f => f.Object).ToArray(),
                 _mockPiles.Select(p => p.Object).ToArray(),
                 _mockPlayer.Object);
-
-            //flippedCards setup
-            var setupCards = new List<Card>
-            {
-                { new Card(CardRank.Three, CardSuit.Spades) { FaceUp = true } },
-                { new Card(CardRank.Seven, CardSuit.Hearts) { FaceUp = true } }
-            };
-            _mockDeckUnwrapper.Setup(d => d.Flipped).Returns(new Stack<Card>(setupCards));
         }
 
         //#region Constructor and Instantiation Tests

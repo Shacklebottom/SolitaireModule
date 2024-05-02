@@ -13,6 +13,8 @@ namespace SolitaireDomain.Objects
             {
                 if (card.Rank == CardRank.King)
                 {
+                    Cards.Add(card);
+
                     return true;
                 }
                 return false;
@@ -25,6 +27,8 @@ namespace SolitaireDomain.Objects
             {
                 if (Cards.Last().Rank == card.Rank + 1)
                 {
+                    Cards.Add(card);
+
                     return true;
                 }
             }
@@ -34,6 +38,7 @@ namespace SolitaireDomain.Objects
         public void SetupCardCollection(List<Card> cards)
         {
             Cards.AddRange(cards);
+
             Cards.Last().FaceUp = true;
         }
     }

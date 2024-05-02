@@ -10,6 +10,7 @@ namespace SolitaireDomain.Objects
 
         public Stack<Card> Flipped {  get; set; } = new Stack<Card>();
 
+        //Constructor
         public StandardDeck()
         {
             foreach (CardSuit suit in Enum.GetValues(typeof(CardSuit)))

@@ -19,8 +19,6 @@ namespace ModuleTesting
         {
             _testPile = new Pile();
 
-            _emptyPile = new Pile();
-
             _testPile.Cards = new List<Card>()
             {
                 new(CardRank.Five, CardSuit.Diamonds),
@@ -28,6 +26,8 @@ namespace ModuleTesting
                 new(CardRank.Three, CardSuit.Spades) { FaceUp = true },
                 new(CardRank.Two, CardSuit.Clubs) { FaceUp = true }
             };
+
+            _emptyPile = new Pile();
 
             _emptyPile.Cards = new List<Card>();
 
@@ -85,11 +85,10 @@ namespace ModuleTesting
         public void ValidatePlay_EmptyPileWillOnlyAcceptAKing_ValidCard()
         {
             //Arrange
-            var emptyPile = new Pile();
             var validCard = new Card(CardRank.King, CardSuit.Spades);
 
             //Act
-            var result = emptyPile.ValidatePlay(validCard);
+            var result = _emptyPile.ValidatePlay(validCard);
 
             //Assert
             Assert.IsTrue(result, "a valid card was said to be invalid");
@@ -118,8 +117,33 @@ namespace ModuleTesting
         #endregion
 
         #region ValidatePlay() ==PLAY TESTS==
+        [TestMethod]
+        public void ValidatePlay_CanPlayAValidKing()
+        {
+            //Arrange
+            var validCard = new Card(CardRank.King, CardSuit.Clubs);
 
+            //Act
+            _emptyPile.ValidatePlay(validCard);
 
+            //Assert
+            //1. that ValidatePlay will play a valid King to a valid pile.
+            Assert.AreEqual(validCard, _emptyPile.Cards.First(), "the valid King was not played to the valid pile");
+        }
+
+        [TestMethod]
+        public void ValidatePlay_CanPlayAValidCard()
+        {
+            //Arrange
+            var validCard = new Card(CardRank.Ace, CardSuit.Diamonds);
+
+            //Act
+            _testPile.ValidatePlay(validCard);
+
+            //Assert
+            //1. that ValidatePlay will play a valid card to a valid pile.
+            Assert.AreEqual(validCard, _testPile.Cards.Last());
+        }
 
         #endregion
         

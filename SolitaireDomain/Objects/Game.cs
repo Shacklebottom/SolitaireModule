@@ -45,11 +45,6 @@ namespace SolitaireDomain.Objects
             Piles[pileIndex].Cards.Last().FaceUp = true;
         }
 
-        public void FlipFromDeck(int drawCount)
-        {
-            Deck.Draw(drawCount).ForEach(c => { c.FaceUp = true; Deck.Flipped.Push(c); });
-        }
-
         public void PlayFromFlipped(ICardCollection targetCollection, Stack<Card> flippedCards)
         {
             if (targetCollection.ValidatePlay(flippedCards.Peek()))
