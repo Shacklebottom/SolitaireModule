@@ -13,6 +13,8 @@ namespace ModuleTesting
 
         Foundation _testFoundation;
 
+        Foundation _emptyFoundation;
+
         [TestInitialize]
         public void FoundationTestsInitialize()
         {
@@ -23,9 +25,11 @@ namespace ModuleTesting
                 new Card(CardRank.Ace, CardSuit.Diamonds),
                 new Card(CardRank.Two, CardSuit.Diamonds)
             };
+
+            _emptyFoundation = new Foundation(); //a new Foundation instantiates Cards property as a new List<Card> by default
         }
 
-        #region ValidatePlay() tests
+        #region ValidatePlay() ==VALIDATION TESTS==
         [TestMethod]
         public void ValidatePlay_IsAscendingRankAndTheSameColor_InvalidRank()
         {
@@ -69,17 +73,50 @@ namespace ModuleTesting
         public void ValidatePlay_EmptyFoundationWillOnlyAcceptAnAce_ValidCard()
         {
             //Arrange
-            var emptyFoundation = new Foundation(); //a new Foundation instantiates Cards property as a new List<Card> by default
+
 
             var validCard = new Card(CardRank.Ace, CardSuit.Clubs);
 
             //Act
-            var result = emptyFoundation.ValidatePlay(validCard);
+            var result = _emptyFoundation.ValidatePlay(validCard);
 
             //Assert
             Assert.IsTrue(result);
         }
         #endregion
+
+        #region ValidatePlay() ==PLAY TESTS==
+        [TestMethod]
+        public void ValidatePlay_CanPlayAValidAce()
+        {
+            //Arrange
+            var validCard = new Card(CardRank.Ace, CardSuit.Clubs);
+
+            //Act
+            _emptyFoundation.ValidatePlay(validCard);
+
+            //Assert
+            //1. that ValidatePlay will play a valid Ace to a valid foundation.
+            Assert.AreEqual(validCard, _emptyFoundation.Cards.First(), "the valid Ace was not played to the valid foundation");
+        }
+
+        [TestMethod]
+        public void ValidatePlay_CanPlayAValidCard()
+        {
+            //Arrange
+            var validCard = new Card(CardRank.Three, CardSuit.Hearts);
+
+            //Act
+            _testFoundation.ValidatePlay(validCard);
+
+            //Assert
+            //1. that ValidatePlay will play a valid card to a valid foundation
+            Assert.AreEqual(validCard, _testFoundation.Cards.Last());
+        }
+
+
+        #endregion
+
 
         [TestMethod]
         [ExpectedException(typeof(NotImplementedException))]

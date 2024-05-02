@@ -13,6 +13,8 @@ namespace SolitaireDomain.Objects
             {
                 if (card.Rank == CardRank.Ace)
                 {
+                    Cards.Add(card);
+
                     return true;
                 }
                 return false;
@@ -21,6 +23,8 @@ namespace SolitaireDomain.Objects
             {
                 if (Cards.Last().Rank == card.Rank - 1)
                 {
+                    Cards.Add(card);
+
                     return true;
                 }
             }
