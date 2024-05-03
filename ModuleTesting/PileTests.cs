@@ -219,11 +219,11 @@ namespace ModuleTesting
 
             var sourcePile = new Pile();
 
-            sourcePile.Cards =
-            [
+            sourcePile.Cards = new List<Card>
+            {
                 new Card(CardRank.Four, CardSuit.Hearts),
-                validCard,
-            ];
+                validCard
+            };
 
             var targetPile = new Pile();
 
