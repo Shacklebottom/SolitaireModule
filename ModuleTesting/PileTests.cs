@@ -196,11 +196,11 @@ namespace ModuleTesting
 
             var sourcePile = new Pile();
 
-            sourcePile.Cards =
-            [
-                new Card(CardRank.Four, CardSuit.Hearts), 
+            sourcePile.Cards = new List<Card>
+            {
+                new Card(CardRank.Four, CardSuit.Hearts),
                 validCard,
-            ];
+            };
 
             var targetPile = new Pile();
 
