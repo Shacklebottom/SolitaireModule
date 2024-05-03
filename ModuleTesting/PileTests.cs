@@ -202,17 +202,15 @@ namespace ModuleTesting
                 validCard,
             };
 
-            var targetPile = new Pile();
-
             //Act
-            targetPile.ValidatePlay(sourcePile.Cards.Last(), sourcePile);
+            _emptyPile.ValidatePlay(sourcePile.Cards.Last(), sourcePile);
 
             //Assert
             Assert.AreNotEqual(validCard, sourcePile.Cards.Last());
         }
 
         [TestMethod]
-        public void ValidatePlay_ShouldRemoveTheValidCardFromTheSourcePile_AValidCard()
+        public void ValidatePlay_ShouldRemoveTheValidCardFromTheSourcePile_ValidCard()
         {
             //Arrange
             var validCard = new Card(CardRank.Nine, CardSuit.Spades) { FaceUp = true };
@@ -251,10 +249,8 @@ namespace ModuleTesting
                 new Card(CardRank.King, CardSuit.Spades) { FaceUp = true },
             };
 
-            var targetPile = new Pile();
-
             //Act
-            targetPile.ValidatePlay(sourcePile.Cards.Last(), sourcePile);
+            _emptyPile.ValidatePlay(sourcePile.Cards.Last(), sourcePile);
 
             //Assert
             //1. that the last card in the collection is FaceUp == true after a play has been made
@@ -288,7 +284,6 @@ namespace ModuleTesting
             Assert.IsTrue(sourcePile.Cards.Last().FaceUp == true);
         }
         #endregion
-
 
         #region SetupCardCollection() Tests
         [TestMethod]

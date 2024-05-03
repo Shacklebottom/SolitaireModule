@@ -158,24 +158,6 @@ namespace ModuleTesting
         #endregion
 
 
-
-        //#region FlipPileCard()
-        //[TestMethod]
-        //public void FlipPileCard_CanFlip()
-        //{
-        //    //Arrange
-        //    //1. using _testGame
-        //    var pileIndex = 0;
-        //    _testGame.Piles[pileIndex].Cards.Last().FaceUp = false;
-
-        //    //Act
-        //    _testGame.FlipPileCard(pileIndex);
-
-        //    //Assert
-        //    Assert.AreEqual(true, _testGame.Piles[pileIndex].Cards.Last().FaceUp);
-        //}
-        //#endregion
-
         //#region MovePile()
         //[TestMethod]
         //public void MovePile_WillValidateMove_InvalidMove()
