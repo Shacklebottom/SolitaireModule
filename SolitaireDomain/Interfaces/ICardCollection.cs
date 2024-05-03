@@ -6,7 +6,7 @@ namespace SolitaireDomain.Interfaces
     {
         List<Card> Cards { get; set; }
 
-        bool ValidatePlay(Card card);
+        bool ValidatePlay(Card card, ICardCollection? sourceCollection = null, IDeckUnwrapper? sourceDeck = null);
 
         bool ValidateMove(IEnumerable<Card> sourceCollection, int startingIndex);
 

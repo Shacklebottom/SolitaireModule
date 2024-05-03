@@ -3,6 +3,7 @@ using static SolitaireDomain.Enums.EnumCardSuit;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SolitaireDomain.Objects;
 using SolitaireDomain.Comparers;
+using SolitaireDomain.Interfaces;
 
 namespace ModuleTesting
 {
@@ -142,8 +143,153 @@ namespace ModuleTesting
             //1. that ValidatePlay will play a valid card to a valid pile.
             Assert.AreEqual(validCard, _testPile.Cards.Last());
         }
+
+        [TestMethod]
+        public void ValidatePlay_ShouldRemoveTheValidCardFromTheSourceStack_ValidKing()
+        {
+            //Arrange
+            var validCard = new Card(CardRank.King, CardSuit.Diamonds) { FaceUp = true };
+
+            var cards = new List<Card>
+            {
+                new Card(CardRank.Three, CardSuit.Hearts) { FaceUp = true },
+                validCard
+            };
+            var sourceDeck = new StandardDeck();
+
+            sourceDeck.Flipped = new Stack<Card>(cards);
+
+            //Act
+            _emptyPile.ValidatePlay(sourceDeck.Flipped.Peek(), sourceDeck: sourceDeck);
+
+            //Assert
+            Assert.AreNotEqual(validCard, sourceDeck.Flipped.Peek());
+        }
+
+        [TestMethod]
+        public void ValidatePlay_ShouldRemoveTheValidCardFromTheSourceStack_ValidCard()
+        {
+            //Arrange
+            var validCard = new Card(CardRank.Ace, CardSuit.Diamonds) { FaceUp = true };
+
+            var cards = new List<Card>
+            {
+                new Card(CardRank.Three, CardSuit.Hearts) { FaceUp = true },
+                validCard
+            };
+            var sourceDeck = new StandardDeck();
+
+            sourceDeck.Flipped = new Stack<Card>(cards);
+
+            //Act
+            _testPile.ValidatePlay(sourceDeck.Flipped.Peek(), sourceDeck: sourceDeck);
+
+            //Assert
+            Assert.AreNotEqual(validCard, sourceDeck.Flipped.Peek());
+        }
+
+        [TestMethod]
+        public void ValidatePlay_ShouldRemoveTheValidCardFromTheSourcePile_ValidKing()
+        {
+            //Arrange
+            var validCard = new Card(CardRank.King, CardSuit.Spades) { FaceUp = true };
+
+            var sourcePile = new Pile();
+
+            sourcePile.Cards =
+            [
+                new Card(CardRank.Four, CardSuit.Hearts), 
+                validCard,
+            ];
+
+            var targetPile = new Pile();
+
+            //Act
+            targetPile.ValidatePlay(sourcePile.Cards.Last(), sourcePile);
+
+            //Assert
+            Assert.AreNotEqual(validCard, sourcePile.Cards.Last());
+        }
+
+        [TestMethod]
+        public void ValidatePlay_ShouldRemoveTheValidCardFromTheSourcePile_AValidCard()
+        {
+            //Arrange
+            var validCard = new Card(CardRank.Nine, CardSuit.Spades) { FaceUp = true };
+
+            var sourcePile = new Pile();
+
+            sourcePile.Cards =
+            [
+                new Card(CardRank.Four, CardSuit.Hearts),
+                validCard,
+            ];
+
+            var targetPile = new Pile();
+
+            targetPile.Cards = new List<Card>
+            {
+                new Card(CardRank.Ten, CardSuit.Hearts) { FaceUp = true }
+            };
+
+            //Act
+            targetPile.ValidatePlay(sourcePile.Cards.Last(), sourcePile);
+
+            //Assert
+            Assert.AreNotEqual(validCard, sourcePile.Cards.Last());
+        }
+
+        [TestMethod]
+        public void ValidatePlay_ShouldFlipFaceDownCardAfterPlaying_AKingFromAPile()
+        {
+            //Arrange
+            var sourcePile = new Pile();
+            
+            sourcePile.Cards = new List<Card>
+            {
+                new Card(CardRank.Four, CardSuit.Hearts),
+                new Card(CardRank.King, CardSuit.Spades) { FaceUp = true },
+            };
+
+            var targetPile = new Pile();
+
+            //Act
+            targetPile.ValidatePlay(sourcePile.Cards.Last(), sourcePile);
+
+            //Assert
+            //1. that the last card in the collection is FaceUp == true after a play has been made
+            Assert.IsTrue(sourcePile.Cards.Last().FaceUp == true);
+        }
+
+        [TestMethod]
+        public void ValidatePlay_ShouldFlipFaceDownCardAfterPlaying_ACardFromAPile()
+        {
+            //Arrange
+            var sourcePile = new Pile();
+            
+            sourcePile.Cards = new List<Card>
+            {
+                new Card(CardRank.Four, CardSuit.Hearts),
+                new Card(CardRank.Seven, CardSuit.Spades) { FaceUp = true },
+            };
+
+            var targetPile = new Pile();
+
+            targetPile.Cards = new List<Card>
+            {
+                new Card(CardRank.Eight, CardSuit.Hearts) { FaceUp = true }
+            };
+
+            //Act
+            targetPile.ValidatePlay(sourcePile.Cards.Last(), sourcePile);
+
+            //Assert
+            //1. that the last card in the collection is FaceUp == true after a play has been made
+            Assert.IsTrue(sourcePile.Cards.Last().FaceUp == true);
+        }
         #endregion
-        
+
+
         #region SetupCardCollection() Tests
         [TestMethod]
         public void SetupCardCollection_CanSetup()

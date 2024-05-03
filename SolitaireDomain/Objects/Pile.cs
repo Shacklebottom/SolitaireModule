@@ -7,13 +7,27 @@ namespace SolitaireDomain.Objects
     {
         public List<Card> Cards { get; set; } = [];
 
-        public bool ValidatePlay(Card card)
+        public bool ValidatePlay(Card card, ICardCollection? sourcePile = null, IDeckUnwrapper? sourceDeck = null)
         {
             if (Cards.Count == 0)
             {
                 if (card.Rank == CardRank.King)
                 {
                     Cards.Add(card);
+
+                    if (sourcePile != null)
+                    {
+                        sourcePile.Cards.Remove(card);
+
+                        if (sourcePile.Cards.Last().FaceUp == false)
+                        {
+                            Card lastCard = sourcePile.Cards.Last();
+
+                            lastCard.FaceUp = true;
+                        } 
+                    }
+
+                    sourceDeck?.Flipped.Pop();
 
                     return true;
                 }
@@ -28,6 +42,20 @@ namespace SolitaireDomain.Objects
                 if (Cards.Last().Rank == card.Rank + 1)
                 {
                     Cards.Add(card);
+
+                    if (sourcePile != null)
+                    {
+                        sourcePile.Cards.Remove(card);
+
+                        if (sourcePile.Cards.Last().FaceUp == false)
+                        {
+                            Card lastCard = sourcePile.Cards.Last();
+
+                            lastCard.FaceUp = true;
+                        }
+                    }
+
+                    sourceDeck?.Flipped.Pop();
 
                     return true;
                 }

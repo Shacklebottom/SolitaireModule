@@ -7,7 +7,7 @@ namespace SolitaireDomain.Objects
     {
         public List<Card> Cards { get; set; } = [];
 
-        public bool ValidatePlay(Card card)
+        public bool ValidatePlay(Card card, ICardCollection? sourceFoundation = null, IDeckUnwrapper? sourceDeck = null)
         {
             if (Cards.Count == 0)
             {
