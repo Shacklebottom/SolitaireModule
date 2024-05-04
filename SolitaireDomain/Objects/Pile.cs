@@ -9,6 +9,10 @@ namespace SolitaireDomain.Objects
 
         public bool ValidatePlay(Card card, ICardCollection? sourcePile = null, IDeckUnwrapper? sourceDeck = null)
         {
+            if (card.FaceUp == false)
+            {
+                return false;
+            }
             if (Cards.Count == 0)
             {
                 if (card.Rank == CardRank.King)
@@ -24,7 +28,7 @@ namespace SolitaireDomain.Objects
                             Card lastCard = sourcePile.Cards.Last();
 
                             lastCard.FaceUp = true;
-                        } 
+                        }
                     }
 
                     sourceDeck?.Flipped.Pop();
@@ -54,7 +58,7 @@ namespace SolitaireDomain.Objects
                             lastCard.FaceUp = true;
                         }
                     }
-                    
+
                     sourceDeck?.Flipped.Pop();
 
                     return true;
@@ -63,9 +67,31 @@ namespace SolitaireDomain.Objects
             return false;
         }
 
-        public bool ValidateMove(IEnumerable<Card> sourceCollection, int startingIndex)
+        public bool ValidateMove(ICardCollection sourceCollection, int startingIndex)
         {
-            return true;
+            if (sourceCollection.Cards[startingIndex].FaceUp == false)
+            {
+                return false;
+            }
+            if (Cards.Count == 0)
+            {
+                if (sourceCollection.Cards[startingIndex].Rank == CardRank.King)
+                {
+                    return true;
+                }
+            }
+            else if (Cards.Last().FaceUp == false)
+            {
+                return false;
+            }
+            else if (Cards.Last().Color != sourceCollection.Cards[startingIndex].Color)
+            {
+                if (Cards.Last().Rank == sourceCollection.Cards[startingIndex].Rank + 1)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public void SetupCardCollection(List<Card> cards)

@@ -59,7 +59,7 @@ namespace SolitaireDomain.Objects
             return false;
         }
 
-        public bool ValidateMove(IEnumerable<Card> sourceCollection, int startingIndex) 
+        public bool ValidateMove(ICardCollection sourceCollection, int startingIndex) 
         {
             throw new NotImplementedException("We don't move collections to a Foundation");
         }

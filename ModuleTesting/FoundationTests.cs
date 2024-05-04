@@ -246,12 +246,12 @@ namespace ModuleTesting
         public void ValidateMove_ThrowsANotImplementedException()
         {
             //Arrange
-            var cards = new List<Card>();
+            var pile = new Pile();
 
             var startingIndex = 0;
 
             //Act
-            _testFoundation.ValidateMove(cards, startingIndex);
+            _testFoundation.ValidateMove(pile, startingIndex);
 
             //Assert
             //1. that ValidateMove() will throw an exception because it doesn't get implemented for the Foundation class.

@@ -23,7 +23,7 @@ namespace ModuleTesting
             {
                 new(CardRank.Five, CardSuit.Diamonds),
                 new(CardRank.Four, CardSuit.Hearts),
-                new(CardRank.Three, CardSuit.Spades) { FaceUp = true },
+                new(CardRank.Three, CardSuit.Hearts) { FaceUp = true },
                 new(CardRank.Two, CardSuit.Clubs) { FaceUp = true }
             };
 
@@ -69,7 +69,7 @@ namespace ModuleTesting
         public void ValidatePlay_ValidIsDescendingRankAndAlternatingColor_ValidCard()
         {
             //Arrange
-            var validCard = new Card(CardRank.Ace, CardSuit.Diamonds);
+            var validCard = new Card(CardRank.Ace, CardSuit.Diamonds) { FaceUp = true };
 
             //Act
             var result = _testPile.ValidatePlay(validCard);
@@ -83,7 +83,7 @@ namespace ModuleTesting
         public void ValidatePlay_EmptyPileWillOnlyAcceptAKing_ValidCard()
         {
             //Arrange
-            var validCard = new Card(CardRank.King, CardSuit.Spades);
+            var validCard = new Card(CardRank.King, CardSuit.Spades) { FaceUp = true };
 
             //Act
             var result = _emptyPile.ValidatePlay(validCard);
@@ -93,23 +93,45 @@ namespace ModuleTesting
         }
 
         [TestMethod]
-        public void ValidatePlay_DoesntConsiderFaceDownCards()
+        public void ValidatePlay_DoesntConsiderFaceDownCards_InSourceCollection()
+        {
+            //Arrange
+            var targetPile = new Pile();
+
+            targetPile.Cards = new List<Card>
+            {
+                new Card(CardRank.Three, CardSuit.Spades) { FaceUp = true },
+            };
+
+            var invalidCard = new Card(CardRank.Two, CardSuit.Hearts);
+
+            //Act
+            var result = targetPile.ValidatePlay(invalidCard);
+
+            //Assert
+            //1. that this valid play is actually invalid because the invalidCard is FaceUp == false.
+            Assert.IsFalse(result, "an invalid play was said to be valid");
+        }
+
+        [TestMethod]
+        public void ValidatePlay_DoesntConsiderFaceDownCards_InTargetCollection()
         {
             //Arrange
             //A new Card instantiates FaceUp == false as default.
-            var testPile = new Pile();
-            testPile.Cards = new List<Card>()
-                    {
-                        new Card(CardRank.Six, CardSuit.Hearts),
-                    };
+            var invalidTargetPile = new Pile();
 
-            var testCard = new Card(CardRank.Five, CardSuit.Spades) { FaceUp = true };
+            invalidTargetPile.Cards = new List<Card>
+            {
+                new Card(CardRank.Six, CardSuit.Hearts),
+            };
+
+            var validCard = new Card(CardRank.Five, CardSuit.Spades) { FaceUp = true };
 
             //Act
-            var result = testPile.ValidatePlay(testCard);
+            var result = invalidTargetPile.ValidatePlay(validCard);
 
             //Assert
-            //1. that this valid play is actually invalid because the testPile card is FaceUp == false (default instantiation).
+            //1. that this valid play is actually invalid because the invalidTargetPile card is FaceUp == false (default instantiation).
             Assert.IsFalse(result, "an invalid play was said to be valid");
         }
         #endregion
@@ -119,7 +141,7 @@ namespace ModuleTesting
         public void ValidatePlay_CanPlayAValidKing()
         {
             //Arrange
-            var validCard = new Card(CardRank.King, CardSuit.Clubs);
+            var validCard = new Card(CardRank.King, CardSuit.Clubs) { FaceUp = true };
 
             //Act
             _emptyPile.ValidatePlay(validCard);
@@ -133,7 +155,7 @@ namespace ModuleTesting
         public void ValidatePlay_CanPlayAValidCard()
         {
             //Arrange
-            var validCard = new Card(CardRank.Ace, CardSuit.Diamonds);
+            var validCard = new Card(CardRank.Ace, CardSuit.Diamonds) { FaceUp = true };
 
             //Act
             _testPile.ValidatePlay(validCard);
@@ -241,7 +263,7 @@ namespace ModuleTesting
         {
             //Arrange
             var sourcePile = new Pile();
-            
+
             sourcePile.Cards = new List<Card>
             {
                 new Card(CardRank.Four, CardSuit.Hearts),
@@ -261,7 +283,7 @@ namespace ModuleTesting
         {
             //Arrange
             var sourcePile = new Pile();
-            
+
             sourcePile.Cards = new List<Card>
             {
                 new Card(CardRank.Four, CardSuit.Hearts),
@@ -285,9 +307,170 @@ namespace ModuleTesting
         #endregion
 
         #region ValidateMove() ==VALIDATION TESTS==
+        [TestMethod]
+        public void ValidateMove_ValidIsDescendingRankAndAlternatingColor_InvalidRank()
+        {
+            //Arrange
+            var invalidCard = new Card(CardRank.Nine, CardSuit.Hearts) { FaceUp = true };
 
+            var sourcePile = new Pile();
 
+            sourcePile.Cards = new List<Card>
+            {
+                invalidCard,
+                new Card(CardRank.Eight, CardSuit.Spades) { FaceUp = true }
+            };
 
+            var targetPile = new Pile();
+
+            targetPile.Cards = new List<Card>
+            {
+                new Card(CardRank.Jack, CardSuit.Spades) { FaceUp = true }
+            };
+
+            //Act
+            var result = targetPile.ValidateMove(sourcePile, 0);
+
+            //Assert
+            Assert.IsFalse(result, "an invalid move was said to be a valid move");
+        }
+
+        [TestMethod]
+        public void ValidateMove_ValidIsDescendingRankAndAlternatingColor_InvalidColor()
+        {
+            //Arrange
+            var invalidCard = new Card(CardRank.Four, CardSuit.Hearts) { FaceUp = true };
+
+            var sourcePile = new Pile();
+
+            sourcePile.Cards = new List<Card>
+            {
+                invalidCard,
+                new Card(CardRank.Three, CardSuit.Clubs) { FaceUp = true }
+            };
+
+            var targetPile = new Pile();
+
+            targetPile.Cards = new List<Card>
+            {
+                new Card(CardRank.Five, CardSuit.Hearts) { FaceUp = true },
+            };
+
+            //Act
+            var result = targetPile.ValidateMove(sourcePile, 0);
+
+            //Assert
+            Assert.IsFalse(result, "an invalid card was said to be valid");
+        }
+
+        [TestMethod]
+        public void ValidateMove_ValidIsDescendingRankAndAlternatingColor_ValidCard()
+        {
+            //Arrange
+            var validCard = new Card(CardRank.Ten, CardSuit.Clubs) { FaceUp = true };
+
+            var sourcePile = new Pile();
+
+            sourcePile.Cards = new List<Card>
+            {
+                validCard,
+                new Card(CardRank.Nine, CardSuit.Diamonds) { FaceUp = true }
+            };
+
+            var targetPile = new Pile();
+
+            targetPile.Cards = new List<Card>
+            {
+                new Card(CardRank.Jack, CardSuit.Hearts) { FaceUp = true }
+            };
+
+            //Act
+            var result = targetPile.ValidateMove(sourcePile, 0);
+
+            //Assert
+            Assert.IsTrue(result, "a valid move was said to be invalid");
+        }
+
+        [TestMethod]
+        public void ValidateMove_EmptyPileWillOnlyAcceptAKing_ValidCard()
+        {
+            //Arrange
+            var validCard = new Card(CardRank.King, CardSuit.Spades) { FaceUp = true };
+
+            var sourcePile = new Pile();
+
+            sourcePile.Cards = new List<Card>
+            {
+                validCard,
+                new Card(CardRank.Queen, CardSuit.Hearts) { FaceUp = true },
+            };
+
+            var targetPile = new Pile();
+
+            //Act
+            var result = targetPile.ValidateMove(sourcePile, 0);
+
+            //Assert
+            Assert.IsTrue(result, "a valid move was said to be invalid");
+        }
+
+        [TestMethod]
+        public void ValidateMove_DoesntConsiderFaceDownCards_InSourceCollection()
+        {
+            //Arrange
+            var invalidCard = new Card(CardRank.Nine, CardSuit.Spades);
+
+            var sourcePile = new Pile();
+
+            sourcePile.Cards = new List<Card>
+            {
+                invalidCard,
+                new Card(CardRank.Five, CardSuit.Spades) { FaceUp = true },
+            };
+
+            var targetPile = new Pile();
+
+            targetPile.Cards = new List<Card>
+            {
+                new Card(CardRank.Ten, CardSuit.Diamonds) { FaceUp = true },
+            };
+
+            //Act
+            var result = targetPile.ValidateMove(sourcePile, 0);
+
+            //Assert
+            //1. that this valid move is actually invalid because the startingIndex yields a Card that is FaceUp == false.
+            Assert.IsFalse(result, "an invalid move was said to be valid");
+        }
+
+        [TestMethod]
+        public void ValidateMove_DoesntConsiderFaceDownCards_InTargetCollection()
+        {
+            //Arrange
+            var validCard = new Card(CardRank.Seven, CardSuit.Diamonds) { FaceUp = true };
+            
+            var invalidTargetPile = new Pile();
+
+            invalidTargetPile.Cards = new List<Card>
+            {
+                new Card(CardRank.Eight, CardSuit.Spades)
+            };
+
+            var sourcePile = new Pile();
+
+            sourcePile.Cards = new List<Card>
+            {
+                validCard,
+                new Card(CardRank.Six, CardSuit.Clubs) { FaceUp = true },
+            };
+
+            //Act
+            var result = invalidTargetPile.ValidateMove(sourcePile, 0);
+
+            //Assert
+            //1. that this valid move is actually invalid because the invalidTargetPile card is FaceUp == false.
+            Assert.IsFalse(result, "an invalid move was said to be valid");
+        }
         #endregion
 
         #region SetupCardCollection() Tests

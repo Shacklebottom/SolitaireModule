@@ -8,7 +8,7 @@ namespace SolitaireDomain.Interfaces
 
         bool ValidatePlay(Card card, ICardCollection? sourceCollection = null, IDeckUnwrapper? sourceDeck = null);
 
-        bool ValidateMove(IEnumerable<Card> sourceCollection, int startingIndex);
+        bool ValidateMove(ICardCollection sourceCollection, int startingIndex);
 
         void SetupCardCollection(List<Card> cards);
     }
