@@ -158,209 +158,83 @@ namespace ModuleTesting
         #endregion
 
 
-        //#region MovePile()
-        //[TestMethod]
-        //public void MovePile_WillValidateMove_InvalidMove()
-        //{
-        //    //Arrange
-        //    var testTargetPile = new List<Card>();
+        #region GameOver()
+        [TestMethod]
+        public void GameOver_PlayerCanWin_InvalidPiles()
+        {
+            //Arrange
+            _mockDeckUnwrapper.Setup(d => d.Cards).Returns(new List<Card>());
 
-        //    var startingIndex = 2;
+            _mockDeckUnwrapper.Setup(d => d.Flipped).Returns(new Stack<Card>());
 
-        //    //Act
-        //    _testGame.MovePile(testTargetPile, _testPile, startingIndex, _parentOfPiles);
+            _mockPiles.ForEach(p => p.Setup(c => c.Cards).Returns(new List<Card>()));
 
-        //    //Assert
-        //    //1. that this test will be false because ValidatePlay() says the move is invalid.
-        //    Assert.IsFalse(testTargetPile.Count > 0);
-        //}
+            _mockPiles[0].Setup(c => c.Cards).Returns(new List<Card> { new Card(CardRank.Ace, CardSuit.Hearts) { FaceUp = true } });
 
-        //[TestMethod]
-        //public void MovePile_CanMove_ToAPile_BasedOnStartingIndex()
-        //{
-        //    //NOTE!: this test could be better constructed to look at the actual contents of each list to ensure that the rules were properly addressed.
+            //Act
+            var result = _testGame.GameOver();
 
-        //    //Arrange
-        //    var testTargetPile = new List<Card>();
+            //Assert
+            //1. that GameOver() is false because one of the Piles has one or more elements.
+            Assert.IsFalse(result);
+        }
 
-        //    var startingIndex = 2;
+        [TestMethod]
+        public void GameOver_PlayerCanWin_InvalidDeck()
+        {
+            //Arrange
+            _mockDeckUnwrapper.Setup(d => d.Cards).Returns(new List<Card> { new Card(CardRank.Three, CardSuit.Spades) });
 
-        //    var testPile = new List<Card>()
-        //    {
-        //        new(CardRank.Four, CardSuit.Hearts),
-        //        new(CardRank.Six, CardSuit.Diamonds),
-        //        new(CardRank.King, CardSuit.Spades) { FaceUp = true },
-        //        new(CardRank.Queen, CardSuit.Hearts) { FaceUp = true },
-        //        new(CardRank.Jack, CardSuit.Clubs) { FaceUp = true },
-        //    };
+            _mockDeckUnwrapper.Setup(d => d.Flipped).Returns(new Stack<Card>());
 
-        //    //Act
-        //    _testGame.MovePile(testTargetPile, testPile, startingIndex, _parentOfPiles);
+            _mockPiles.ForEach(p => p.Setup(c => c.Cards).Returns(new List<Card>()));
 
-        //    //Assert
-        //    //1. That the cards were added to the collection, and
-        //    Assert.IsTrue(testTargetPile.First().Rank == CardRank.King, "the collection was not properly added to the target collection");
-        //    Assert.IsTrue(testTargetPile.Count == 3, "the FaceUp == false cards were added to the collection");
-        //    //2. that the cards were removed from their source pile.
-        //    Assert.IsFalse(testTargetPile.Any(testPile.Contains), "the collection was not removed from its source");
-        //}
+            //Act
+            var result = _testGame.GameOver();
 
-        //[TestMethod]
-        //public void MovePile_CanMove_ToAFoundation_BasedOnEndingIndex()
-        //{
-        //    //NOTE!: this test could be better constructed to look at the actual contents of each list to ensure that the rules were properly addressed.
+            //Assert
+            //1. that GameOver() is false because the Deck has one or more elements.
+            Assert.IsFalse(result);
+        }
 
-        //    //Arrange
-        //    var testTargetFoundation = new List<Card>();
+        [TestMethod]
+        public void GameOver_PlayerCanWin_InvalidFlipped()
+        {
+            //Arrange
+            _mockDeckUnwrapper.Setup(d => d.Cards).Returns(new List<Card>());
 
-        //    var endingIndex = 2;
+            var card = new Stack<Card>();
+            card.Push(new Card(CardRank.Three, CardSuit.Spades));
 
-        //    var testPile = new List<Card>()
-        //    {
-        //        new(CardRank.Four, CardSuit.Hearts),
-        //        new(CardRank.Six, CardSuit.Diamonds),
-        //        new(CardRank.Three, CardSuit.Spades) { FaceUp = true },
-        //        new(CardRank.Two, CardSuit.Hearts) { FaceUp = true },
-        //        new(CardRank.Ace, CardSuit.Clubs) { FaceUp = true },
-        //    };
+            _mockDeckUnwrapper.Setup(d => d.Flipped).Returns(new Stack<Card>(card));
 
-        //    //Act
-        //    _testGame.MovePile(testTargetFoundation, testPile, endingIndex, _parentOfFoundations);
+            _mockPiles.ForEach(p => p.Setup(c => c.Cards).Returns(new List<Card>()));
 
-        //    //Assert
-        //    //1. That the cards were added to the collection, and
-        //    Assert.IsTrue(testTargetFoundation.First().Rank == CardRank.Ace, "the collection was not properly added to the target collection");
-        //    Assert.IsTrue(testTargetFoundation.Count == 3, "the FaceUp == false cards were added to the collection");
-        //    //2. that the cards were removed from their source pile.
-        //    Assert.IsFalse(testTargetFoundation.Any(testPile.Contains), "the collection was not removed from its source");
-        //}
+            //Act
+            var result = _testGame.GameOver();
 
-        //[TestMethod]
-        //[ExpectedException(typeof(ArgumentException))]
-        //public void MovePile_ThrowsAnException_IfTheSelectedCardsContainAFaceDownCard()
-        //{
-        //    //Arrange
-        //    var testTargetPile = new List<Card>();
+            //Assert
+            //1. that GameOver() is false because testFlipped has one or more elements.
+            Assert.IsFalse(result);
+        }
 
-        //    var startingIndex = 0;
+        [TestMethod]
+        public void GameOver_PlayerCanWin_ValidCollections()
+        {
+            //Arrange
+            _mockDeckUnwrapper.Setup(d => d.Cards).Returns(new List<Card>());
 
-        //    var testPile = new List<Card>()
-        //    {
-        //        new(CardRank.Four, CardSuit.Hearts),
-        //        new(CardRank.Six, CardSuit.Diamonds),
-        //        new(CardRank.King, CardSuit.Spades) { FaceUp = true },
-        //        new(CardRank.Queen, CardSuit.Hearts) { FaceUp = true },
-        //        new(CardRank.Jack, CardSuit.Clubs) { FaceUp = true },
-        //    };
+            _mockDeckUnwrapper.Setup(d => d.Flipped).Returns(new Stack<Card>());
 
-        //    //Act
-        //    _testGame.MovePile(testTargetPile, testPile, startingIndex, _parentOfPiles);
+            _mockPiles.ForEach(p => p.Setup(c => c.Cards).Returns(new List<Card>()));
 
-        //    //Assert
-        //    //1. that MovePile() will throw an exception if the startingIndex or endingIndex selects a FaceUp == false card as part of its selection.
-        //}
-        //#endregion
+            //Act
+            var result = _testGame.GameOver();
 
-        //#region GameOver()
-        //[TestMethod]
-        //public void GameOver_PlayerCanWin_InvalidPiles()
-        //{
-        //    //Arrange
-        //    var testDeck = new List<Card>();
-
-        //    var testFlipped = new Stack<Card>();
-
-        //    List<Card>[] testPiles = [[], [], [], [], [], [], []];
-        //    testPiles[0].Add(new Card(CardRank.Ace, CardSuit.Hearts));
-
-        //    //Act
-        //    var result = _testGame.GameOver(testPiles, testDeck, testFlipped);
-
-        //    //Assert
-        //    //1. that GameOver() is false because one of the Piles has one or more elements.
-        //    Assert.IsFalse(result);
-        //}
-
-        //[TestMethod]
-        //public void GameOver_PlayerCanWin_InvalidDeck()
-        //{
-        //    //Arrange
-        //    var testDeck = new List<Card>()
-        //    {
-        //        new Card(CardRank.Eight, CardSuit.Diamonds)
-        //    };
-        //    var testFlipped = new Stack<Card>();
-
-        //    //Act
-        //    var result = _testGame.GameOver(_parentOfPiles, testDeck, testFlipped);
-
-        //    //Assert
-        //    //1. that GameOver() is false because testDeck has one or more elements.
-        //    Assert.IsFalse(result);
-        //}
-
-        //[TestMethod]
-        //public void GameOver_PlayerCanWin_InvalidFlipped()
-        //{
-        //    //Arrange
-        //    var testDeck = new List<Card>();
-
-        //    var testFlipped = new Stack<Card>();
-        //    testFlipped.Push(new Card(CardRank.Seven, CardSuit.Spades));
-
-        //    //Act
-        //    var result = _testGame.GameOver(_parentOfPiles, testDeck, testFlipped);
-
-        //    //Assert
-        //    //1. that GameOver() is false because testFlipped has one or more elements.
-        //    Assert.IsFalse(result);
-        //}
-
-        //[TestMethod]
-        //public void GameOver_PlayerCanWin_ValidCollections()
-        //{
-        //    //Arrange
-        //    var testDeck = new List<Card>();
-        //    var testFlipped = new Stack<Card>();
-
-        //    //Act
-        //    var result = _testGame.GameOver(_parentOfPiles, testDeck, testFlipped);
-
-        //    //Assert
-        //    //1. that GameOver() is true if the Piles, Deck, and Flipped are empty.
-        //    Assert.IsTrue(result);
-        //}
-
-        //[TestMethod]
-        //public void GameOver_PlayerCanGiveUp()
-        //{
-        //    //Arrange
-        //    var testFlipped = new Stack<Card>();
-
-        //    var giveUpSelected = true;
-
-        //    //Act
-        //    var result = _testGame.GameOver(_parentOfPiles, _testGame.Deck.Cards, testFlipped, giveUpSelected);
-
-        //    //Assert
-        //    //1. that the result is true because giveUp is true;
-        //    Assert.IsTrue(result);
-
-        //}
-
-        //[TestMethod]
-        //public void GameOver_PlayerCanGiveUp_OptionalVarDefaultsToFalse()
-        //{
-        //    //Arrange
-        //    var testFlipped = new Stack<Card>();
-
-        //    //Act
-        //    var result = _testGame.GameOver(_parentOfPiles, _testGame.Deck.Cards, testFlipped);
-
-        //    //Assert
-        //    //1. that the result is false, because if it were true, that means the optional giveUp var is set to true.
-        //    Assert.IsFalse(result);
-        //}
-        //#endregion
+            //Assert
+            //1. that GameOver() is true if the Piles, Deck, _and_ Flipped are empty.
+            Assert.IsTrue(result);
+        }
+        #endregion
     }
 }

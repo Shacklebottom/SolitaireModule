@@ -34,42 +34,13 @@ namespace SolitaireDomain.Objects
             }
         }
 
-        public void FlipPileCard(int pileIndex)
+        public bool GameOver()
         {
-            Piles[pileIndex].Cards.Last().FaceUp = true;
-        }
-
-        public void MovePile(ICardCollection moveTo, ICardCollection moveFrom, int index)
-        {
-            if (moveFrom.Cards.Skip(index).Any(c => c.FaceUp == false))
-            {
-                throw new ArgumentException("Selected index includes invalid elements.");
-            }
-            if (moveTo.ValidatePlay(moveFrom.Cards[index]))
-            {
-                var selectedCards = moveFrom.Cards.Skip(index).ToList();
-                foreach (var card in selectedCards)
-                {
-                    moveTo.Cards.Add(card);
-                    moveFrom.Cards.Remove(card);
-                }
-            }
-        }
-
-        public bool GameOver(IEnumerable<Card>[] piles, IEnumerable<Card> deck, IEnumerable<Card> flipped, bool giveUp = false)
-        {
-            if (!giveUp)
-            {
-                if (piles.All(p => !p.Any()) && !deck.Any() && !flipped.Any())
-                {
-                    return true;
-                }
-                return false;
-            }
-            else
+            if (Piles.All(p => p.Cards.Count == 0) && Deck.Cards.Count == 0 && Deck.Flipped.Count == 0)
             {
                 return true;
             }
+            return false;
         }
     }
 }
