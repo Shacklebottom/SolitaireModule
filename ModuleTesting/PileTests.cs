@@ -259,7 +259,7 @@ namespace ModuleTesting
         }
 
         [TestMethod]
-        public void ValidatePlay_ShouldFlipFaceDownCardAfterPlaying_AKingFromAPile()
+        public void ValidatePlay_ShouldFlipFaceDownCardAfterPlaying_ValidKingFromAPile()
         {
             //Arrange
             var sourcePile = new Pile();
@@ -279,7 +279,7 @@ namespace ModuleTesting
         }
 
         [TestMethod]
-        public void ValidatePlay_ShouldFlipFaceDownCardAfterPlaying_ACardFromAPile()
+        public void ValidatePlay_ShouldFlipFaceDownCardAfterPlaying_ValidCardFromAPile()
         {
             //Arrange
             var sourcePile = new Pile();
@@ -470,6 +470,92 @@ namespace ModuleTesting
             //Assert
             //1. that this valid move is actually invalid because the invalidTargetPile card is FaceUp == false.
             Assert.IsFalse(result, "an invalid move was said to be valid");
+        }
+        #endregion
+
+        #region ValidateMove() ==MOVE TESTS==
+        [TestMethod]
+        public void ValidateMove_CanMoveAValidKing()
+        {
+            //Arrange
+
+
+            //Act
+
+
+            //Assert
+
+
+        }
+
+        [TestMethod]
+        public void ValidateMove_CanMoveAValidCard()
+        {
+            //Arrange
+
+
+            //Act
+
+
+            //Assert
+
+
+        }
+
+        [TestMethod]
+        public void ValidateMove_ShouldRemoveCardsFromTheSourcePile_ValidKing()
+        {
+            //Arrange
+
+
+            //Act
+
+
+            //Assert
+
+
+        }
+
+        [TestMethod]
+        public void ValidateMove_ShouldRemoveTheValidCardsFromTheSourcePile_ValidCard()
+        {
+            //Arrange
+
+
+            //Act
+
+
+            //Assert
+
+
+        }
+
+        [TestMethod]
+        public void ValidateMove_ShouldFlipFaceDownCardAfterMove_ValidKingFromAPile()
+        {
+            //Arrange
+
+
+            //Act
+
+
+            //Assert
+
+
+        }
+
+        [TestMethod]
+        public void ValidateMove_ShouldFlipFaceDownCardAfterMoving_ValidCardFromAPile()
+        {
+            //Arrange
+
+
+            //Act
+
+
+            //Assert
+
+
         }
         #endregion
 
