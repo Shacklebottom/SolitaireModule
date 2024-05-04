@@ -3,6 +3,7 @@ using static SolitaireDomain.Enums.EnumCardSuit;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SolitaireDomain.Objects;
 using SolitaireDomain.Comparers;
+using System.Linq;
 
 namespace ModuleTesting
 {
@@ -448,7 +449,7 @@ namespace ModuleTesting
         {
             //Arrange
             var validCard = new Card(CardRank.Seven, CardSuit.Diamonds) { FaceUp = true };
-            
+
             var invalidTargetPile = new Pile();
 
             invalidTargetPile.Cards = new List<Card>
@@ -475,58 +476,119 @@ namespace ModuleTesting
 
         #region ValidateMove() ==MOVE TESTS==
         [TestMethod]
-        public void ValidateMove_CanMoveAValidKing()
+        public void ValidateMove_CanMoveAValidKingCollection()
         {
             //Arrange
+            var validCard = new Card(CardRank.King, CardSuit.Spades) { FaceUp = true };
 
+            var sourcePile = new Pile();
+
+            sourcePile.Cards = new List<Card>
+            {
+                validCard,
+                new Card(CardRank.Queen, CardSuit.Diamonds) { FaceUp = true },
+            };
+
+            var cards = new List<Card>(sourcePile.Cards);
 
             //Act
-
+            _emptyPile.ValidateMove(sourcePile, 0);
 
             //Assert
-
-
+            //1. that ValidateMove will move a valid King and all cards proceeding it to a valid pile.
+            Assert.IsTrue(cards.SequenceEqual(_emptyPile.Cards, new CardEqualityComparer()));
         }
 
         [TestMethod]
-        public void ValidateMove_CanMoveAValidCard()
+        public void ValidateMove_CanMoveAValidCardCollection()
         {
             //Arrange
+            var startingIndex = 1;
 
+            var validCard = new Card(CardRank.Two, CardSuit.Spades) { FaceUp = true };
+
+            var sourcePile = new Pile();
+
+            sourcePile.Cards = new List<Card>
+            {
+                new Card(CardRank.Jack, CardSuit.Spades),
+                validCard,
+                new Card(CardRank.Ace, CardSuit.Hearts) { FaceUp = true },
+            };
+
+            var targetPile = new Pile();
+
+            targetPile.Cards = new List<Card>
+            {
+                new Card(CardRank.Three, CardSuit.Hearts) { FaceUp = true }
+            };
+
+            var cards = new List<Card>(sourcePile.Cards.Skip(startingIndex));
 
             //Act
-
+            targetPile.ValidateMove(sourcePile, startingIndex);
 
             //Assert
-
-
+            //1. that ValidateMove will move a valid card and all cards proceeding it to a valid pile.
+            foreach (var card in cards)
+            {
+                Assert.IsTrue(targetPile.Cards.Contains(card));
+            }
         }
 
         [TestMethod]
         public void ValidateMove_ShouldRemoveCardsFromTheSourcePile_ValidKing()
         {
             //Arrange
+            var validCard = new Card(CardRank.King, CardSuit.Spades) { FaceUp = true };
 
+            var sourcePile = new Pile();
+
+            sourcePile.Cards = new List<Card>
+            {
+                validCard,
+                new Card(CardRank.Queen, CardSuit.Diamonds) { FaceUp = true },
+            };
 
             //Act
-
+            _emptyPile.ValidateMove(sourcePile, 0);
 
             //Assert
-
-
+            Assert.IsFalse(sourcePile.Cards.SequenceEqual(_emptyPile.Cards, new CardEqualityComparer()));
         }
 
         [TestMethod]
         public void ValidateMove_ShouldRemoveTheValidCardsFromTheSourcePile_ValidCard()
         {
             //Arrange
+            var startingIndex = 1;
 
+            var validCard = new Card(CardRank.Two, CardSuit.Spades) { FaceUp = true };
+
+            var sourcePile = new Pile();
+
+            sourcePile.Cards = new List<Card>
+            {
+                new Card(CardRank.Jack, CardSuit.Spades),
+                validCard,
+                new Card(CardRank.Ace, CardSuit.Hearts) { FaceUp = true },
+            };
+
+            var targetPile = new Pile();
+
+            targetPile.Cards = new List<Card>
+            {
+                new Card(CardRank.Three, CardSuit.Hearts) { FaceUp = true }
+            };
 
             //Act
-
+            targetPile.ValidateMove(sourcePile, startingIndex);
 
             //Assert
-
+            foreach (var card in targetPile.Cards)
+            {
+                Assert.IsFalse(sourcePile.Cards.Contains(card));
+            }
 
         }
 
@@ -534,13 +596,22 @@ namespace ModuleTesting
         public void ValidateMove_ShouldFlipFaceDownCardAfterMove_ValidKingFromAPile()
         {
             //Arrange
+            var startingIndex = 1;
 
+            var sourcePile = new Pile();
+
+            sourcePile.Cards = new List<Card>
+            {
+                new Card(CardRank.Seven, CardSuit.Diamonds),
+                new Card(CardRank.King, CardSuit.Spades) { FaceUp = true }
+            };
 
             //Act
-
+            _emptyPile.ValidateMove(sourcePile, startingIndex);
 
             //Assert
-
+            //1. that the last card in the collection is FaceUp == true.
+            Assert.IsTrue(sourcePile.Cards.Last().FaceUp == true);
 
         }
 
@@ -548,14 +619,30 @@ namespace ModuleTesting
         public void ValidateMove_ShouldFlipFaceDownCardAfterMoving_ValidCardFromAPile()
         {
             //Arrange
+            var startingIndex = 1;
 
+            var sourcePile = new Pile();
+
+            sourcePile.Cards = new List<Card>
+            {
+               new Card(CardRank.Three, CardSuit.Diamonds),
+               new Card(CardRank.Five, CardSuit.Diamonds) { FaceUp = true },
+               new Card(CardRank.Four, CardSuit.Spades) { FaceUp = true }
+            };
+
+            var targetPile = new Pile();
+
+            targetPile.Cards = new List<Card>
+            {
+                new Card(CardRank.Six, CardSuit.Clubs) { FaceUp = true },
+            };
 
             //Act
-
+            targetPile.ValidateMove(sourcePile, startingIndex);
 
             //Assert
-
-
+            //1. that the last card in the collection is FaceUp == true.
+            Assert.IsTrue(sourcePile.Cards.Last().FaceUp == true);
         }
         #endregion
 

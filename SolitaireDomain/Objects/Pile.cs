@@ -23,11 +23,14 @@ namespace SolitaireDomain.Objects
                     {
                         sourcePile.Cards.Remove(card);
 
-                        if (sourcePile.Cards.Last().FaceUp == false)
+                        if (sourcePile.Cards.Count > 0)
                         {
-                            Card lastCard = sourcePile.Cards.Last();
+                            if (sourcePile.Cards.Last().FaceUp == false)
+                            {
+                                Card lastCard = sourcePile.Cards.Last();
 
-                            lastCard.FaceUp = true;
+                                lastCard.FaceUp = true;
+                            } 
                         }
                     }
 
@@ -51,11 +54,14 @@ namespace SolitaireDomain.Objects
                     {
                         sourcePile.Cards.Remove(card);
 
-                        if (sourcePile.Cards.Last().FaceUp == false)
+                        if (sourcePile.Cards.Count > 0)
                         {
-                            Card lastCard = sourcePile.Cards.Last();
+                            if (sourcePile.Cards.Last().FaceUp == false)
+                            {
+                                Card lastCard = sourcePile.Cards.Last();
 
-                            lastCard.FaceUp = true;
+                                lastCard.FaceUp = true;
+                            } 
                         }
                     }
 
@@ -77,6 +83,25 @@ namespace SolitaireDomain.Objects
             {
                 if (sourceCollection.Cards[startingIndex].Rank == CardRank.King)
                 {
+                    var targetSet = sourceCollection.Cards.Skip(startingIndex).ToList();
+
+                    foreach (var card in targetSet)
+                    {
+                        Cards.Add(card);
+
+                        sourceCollection.Cards.Remove(card);
+                    }
+
+                    if (sourceCollection.Cards.Count > 0)
+                    {
+                        if (sourceCollection.Cards.Last().FaceUp == false)
+                        {
+                            Card lastCard = sourceCollection.Cards.Last();
+
+                            lastCard.FaceUp = true;
+                        } 
+                    }
+
                     return true;
                 }
             }
@@ -88,6 +113,25 @@ namespace SolitaireDomain.Objects
             {
                 if (Cards.Last().Rank == sourceCollection.Cards[startingIndex].Rank + 1)
                 {
+                    var targetSet = sourceCollection.Cards.Skip(startingIndex).ToList();
+
+                    foreach (var card in targetSet)
+                    {
+                        Cards.Add(card);
+
+                        sourceCollection.Cards.Remove(card);
+                    }
+
+                    if (sourceCollection.Cards.Count > 0)
+                    {
+                        if (sourceCollection.Cards.Last().FaceUp == false)
+                        {
+                            Card lastCard = sourceCollection.Cards.Last();
+
+                            lastCard.FaceUp = true;
+                        } 
+                    }
+
                     return true;
                 }
             }
