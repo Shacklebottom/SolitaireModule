@@ -3,7 +3,6 @@ using static SolitaireDomain.Enums.EnumCardSuit;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SolitaireDomain.Objects;
 using SolitaireDomain.Comparers;
-using SolitaireDomain.Interfaces;
 
 namespace ModuleTesting
 {
@@ -41,7 +40,7 @@ namespace ModuleTesting
 
         #region ValidatePlay() ==VALIDATION TESTS==
         [TestMethod]
-        public void ValidatePlay_IsDescendingRankAndAlternatingColor_InvalidRank()
+        public void ValidatePlay_ValidIsDescendingRankAndAlternatingColor_InvalidRank()
         {
             //Arrange
             var invalidCard = new Card(CardRank.Two, CardSuit.Diamonds);
@@ -54,7 +53,7 @@ namespace ModuleTesting
         }
 
         [TestMethod]
-        public void ValidatePlay_IsDescendingRankAndAlternatingColor_InvalidColor()
+        public void ValidatePlay_ValidIsDescendingRankAndAlternatingColor_InvalidColor()
         {
             //Arrange
             var invalidCard = new Card(CardRank.Ace, CardSuit.Spades);
@@ -67,7 +66,7 @@ namespace ModuleTesting
         }
 
         [TestMethod]
-        public void ValidatePlay_IsDescendingRankAndAlternatingColor_ValidCard()
+        public void ValidatePlay_ValidIsDescendingRankAndAlternatingColor_ValidCard()
         {
             //Arrange
             var validCard = new Card(CardRank.Ace, CardSuit.Diamonds);
@@ -283,6 +282,12 @@ namespace ModuleTesting
             //1. that the last card in the collection is FaceUp == true after a play has been made
             Assert.IsTrue(sourcePile.Cards.Last().FaceUp == true);
         }
+        #endregion
+
+        #region ValidateMove() ==VALIDATION TESTS==
+
+
+
         #endregion
 
         #region SetupCardCollection() Tests

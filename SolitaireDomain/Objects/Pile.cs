@@ -54,7 +54,7 @@ namespace SolitaireDomain.Objects
                             lastCard.FaceUp = true;
                         }
                     }
-
+                    
                     sourceDeck?.Flipped.Pop();
 
                     return true;
