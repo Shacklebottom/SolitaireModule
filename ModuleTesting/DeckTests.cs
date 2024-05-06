@@ -1,5 +1,4 @@
-﻿using static SolitaireDomain.Enums.EnumCardRank;
-using static SolitaireDomain.Enums.EnumCardSuit;
+﻿using static SolitaireDomain.Enums.EnumCardSuit;
 using SolitaireDomain.Objects;
 using SolitaireDomain.Comparers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

@@ -1,10 +1,10 @@
 ﻿using static SolitaireDomain.Enums.EnumCardRank;
 using static SolitaireDomain.Enums.EnumCardSuit;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
 using SolitaireDomain.Interfaces;
 using SolitaireDomain.Extensions;
 using SolitaireDomain.Objects;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 
 namespace ModuleTesting
 {

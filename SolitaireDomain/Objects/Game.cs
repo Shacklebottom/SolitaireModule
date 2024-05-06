@@ -1,7 +1,4 @@
-﻿using static SolitaireDomain.Enums.EnumCardSuit;
-using static SolitaireDomain.Enums.EnumCardRank;
-using static SolitaireDomain.Enums.EnumCardColor;
-using SolitaireDomain.Interfaces;
+﻿using SolitaireDomain.Interfaces;
 
 namespace SolitaireDomain.Objects
 {

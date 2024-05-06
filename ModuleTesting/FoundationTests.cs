@@ -1,6 +1,5 @@
 ﻿using static SolitaireDomain.Enums.EnumCardRank;
 using static SolitaireDomain.Enums.EnumCardSuit;
-using static SolitaireDomain.Enums.EnumCardColor;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SolitaireDomain.Objects;
 

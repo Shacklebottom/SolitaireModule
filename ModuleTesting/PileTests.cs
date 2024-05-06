@@ -1,9 +1,8 @@
 ﻿using static SolitaireDomain.Enums.EnumCardRank;
 using static SolitaireDomain.Enums.EnumCardSuit;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SolitaireDomain.Objects;
 using SolitaireDomain.Comparers;
-using System.Linq;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ModuleTesting
 {
@@ -707,7 +706,6 @@ namespace ModuleTesting
             //Assert
             Assert.ThrowsException<ArgumentOutOfRangeException>(() => targetPile.ValidateMove(sourcePile, startingIndex));
         }
-
         #endregion
 
         #region SetupCardCollection() Tests
