@@ -38,6 +38,8 @@ namespace SolitaireDomain.Objects
         {
             if (Piles.All(p => p.Cards.Count == 0) && Deck.Cards.Count == 0 && Deck.Flipped.Count == 0)
             {
+                Player.Score += 1;
+
                 return true;
             }
             return false;

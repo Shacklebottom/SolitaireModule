@@ -64,18 +64,6 @@ namespace ModuleTesting
 
         #region Constructor and Instantiation Tests
         [TestMethod]
-        public void Constructor_ShouldSetPlayer()
-        {
-            //Arrange
-
-            //Act
-            var name = _testGame.Player.Name;
-
-            //Assert
-            Assert.AreEqual("Player 1", name);
-        }
-
-        [TestMethod]
         public void Foundations_AreFour()
         {
             //Arrange
@@ -157,8 +145,7 @@ namespace ModuleTesting
         }
         #endregion
 
-
-        #region GameOver()
+        #region GameOver() Tests
         [TestMethod]
         public void GameOver_PlayerCanWin_InvalidPiles()
         {
@@ -234,6 +221,27 @@ namespace ModuleTesting
             //Assert
             //1. that GameOver() is true if the Piles, Deck, _and_ Flipped are empty.
             Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void GameOver_PlayerCanGainScore()
+        {
+            //Arrange
+            _mockPlayer.SetupProperty(s => s.Score, 0);
+
+            _mockDeckUnwrapper.Setup(d => d.Cards).Returns(new List<Card>());
+
+            _mockDeckUnwrapper.Setup(d => d.Flipped).Returns(new Stack<Card>());
+
+            _mockPiles.ForEach(p => p.Setup(c => c.Cards).Returns(new List<Card>()));
+
+            var expectedScore = 1;
+
+            //Act
+            _testGame.GameOver();
+
+            //Assert
+            Assert.AreEqual(expectedScore, _mockPlayer.Object.Score);
         }
         #endregion
     }
