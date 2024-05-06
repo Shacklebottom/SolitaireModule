@@ -644,6 +644,70 @@ namespace ModuleTesting
             //1. that the last card in the collection is FaceUp == true.
             Assert.IsTrue(sourcePile.Cards.Last().FaceUp == true);
         }
+
+        [TestMethod]
+        public void ValidateMove_ShouldThrowAnOutOfRangeException_NegativeIndex()
+        {
+            //Arrange
+            var startingIndex = -1;
+
+            var sourcePile = new Pile();
+
+            var targetPile = new Pile();
+
+            //Act
+
+            //Assert
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => targetPile.ValidateMove(sourcePile, startingIndex));
+
+        }
+
+        [TestMethod]
+        public void ValidateMove_ShouldThrowAnOutOfRangeException_CollectionCount()
+        {
+            //Arrange
+            var sourcePile = new Pile();
+
+            sourcePile.Cards = new List<Card>
+            {
+               new Card(CardRank.Three, CardSuit.Diamonds),
+               new Card(CardRank.Five, CardSuit.Diamonds) { FaceUp = true },
+               new Card(CardRank.Four, CardSuit.Spades) { FaceUp = true }
+            };
+
+            var targetPile = new Pile();
+
+            var startingIndex = sourcePile.Cards.Count;
+
+            //Act
+
+            //Assert
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => targetPile.ValidateMove(sourcePile, startingIndex));
+        }
+
+        [TestMethod]
+        public void ValidateMove_ShouldThrowAnOutOfRangeException_CollectionCountPlusOne()
+        {
+            //Arrange
+            var sourcePile = new Pile();
+
+            sourcePile.Cards = new List<Card>
+            {
+               new Card(CardRank.Three, CardSuit.Diamonds),
+               new Card(CardRank.Five, CardSuit.Diamonds) { FaceUp = true },
+               new Card(CardRank.Four, CardSuit.Spades) { FaceUp = true }
+            };
+
+            var targetPile = new Pile();
+
+            var startingIndex = sourcePile.Cards.Count + 1;
+
+            //Act
+
+            //Assert
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => targetPile.ValidateMove(sourcePile, startingIndex));
+        }
+
         #endregion
 
         #region SetupCardCollection() Tests
