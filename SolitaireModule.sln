@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SolitaireDomain", "Solitair
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModuleTesting", "ModuleTesting\ModuleTesting.csproj", "{BD2FB388-3346-442F-8BB0-885AC834BFE0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTestUI", "ConsoleTestUI\ConsoleTestUI.csproj", "{84CE3EF7-440E-4E2D-85FE-58A55CAC5D30}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{BD2FB388-3346-442F-8BB0-885AC834BFE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD2FB388-3346-442F-8BB0-885AC834BFE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD2FB388-3346-442F-8BB0-885AC834BFE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84CE3EF7-440E-4E2D-85FE-58A55CAC5D30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84CE3EF7-440E-4E2D-85FE-58A55CAC5D30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84CE3EF7-440E-4E2D-85FE-58A55CAC5D30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84CE3EF7-440E-4E2D-85FE-58A55CAC5D30}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
